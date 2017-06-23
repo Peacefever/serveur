@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>A Web Page</title>
+    <link rel="stylesheet" href="Style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+    <script type="text/javascript"> // Sending message to server
+      $(function() {
+        $("#decision").on('submit',function(event) {
+          var Message = {
+              prixLimo: $('#Prix').val(),
+              prodLimo: $('#Production').val(),
+          }
+          $.ajax('https://webservice-deploy.herokuapp.com/create',{
+              type: "POST",
+              contentType: 'application/json',
+              data: JSON.stringify(Message)
+            });
+          event.preventDefault();
+        });
+      });
+    </script>
+
+    <script type="text/javascript">
+      $(function(){
+        $("#information").on('submit',function(event){         
+          $.ajax('https://webservice-deploy.herokuapp.com/helloworld').done(function(data){
+            alert(data);
+          })
+        event.preventDefault();
+        })
+      });
+    </script>
+  </head>
+
+  <body>
+    <fieldset>
+      <legend>Nouvelles données</legend> <!-- Titre du fieldset -->
+      <form id="decision">
+        <label for="production">Production limonades </label>
+            <input type="text" name="Production" id="Production" />
+            <br><label for="prix">Prix limonades </label>
+            <input type="text" name="Prix" id="Prix" />
+            <br><button id="add">Envoyer au serveur</button>
+      </form>
+  </fieldset>
+  <fieldset>
+    <legend>Données actuelles</legend> <!-- Titre du fieldset --> 
+    <form id="information">
+      <label for="Pseudo">Pseudo :</label>
+          <input type="text" name="Pseudo" id="Pseudo" />
+          <br><label for="Jour">Jour :</label>
+          <input type="text" name="Jour" id="Jour" />
+          <br><button id="refresh">Rafraichir</button>
+    </form>
+  </fieldset>
+</body>
+</html>
