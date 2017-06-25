@@ -79,6 +79,7 @@ def sales():
 def actionsPlayer(playerName):
     #global json_table
     #return json.dumps(json_table[value])
+    print tutu
     return "OK:POST_" + playerName
 
 # Requête R2 -  Map
