@@ -39,17 +39,17 @@
         			}
 				alert($("#username").val())
 				alert(data)
-       				$.ajax("/players", {
+                                $.ajax("players", {
                                         type: "POST",
                                         data: JSON.stringify(data),
                                         contentType: "application/json",
-        			}).fail(function(error){
-          				alert("ERROR : " + error)         
-        			}).done(function(response){
-					var data = JSON.parse(response)
-					alert("win : " + lil.name) 
-          				//document.location.href="/static/game.html"
-        			})
+                                }).fail(function(response) {
+                                        alert("Erreur")
+                                }).done(function(response) {
+                                        var data = JSON.parse(response)
+                                        $("#response").text(data.sale)
+                                })
+
       			})
     		</script>
 
