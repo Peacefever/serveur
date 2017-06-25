@@ -37,6 +37,8 @@
         			let data = {
           				"name": $("#username").val()
         			}
+				alert($("#username").val())
+				alert(data)
        				$.ajax("/players",{
           				type: "POST",
           				data: JSON.stringify(data),
