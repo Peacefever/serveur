@@ -1,168 +1,50 @@
+  GNU nano 2.5.3                                          File: static/game.html                                                                                          
+
 <!DOCTYPE html>
-
 <html>
-
   <head>
-
     <meta charset="utf-8"/>
-
     <title>Interface Game Page</title>
-
     <link rel="stylesheet" href="main.css" />
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-
-
-
-
     <script type="text/javascript">
-
-      $(function(){
-
-        $("#information").on('submit',function(event){         
-
-          $.ajax('http://192.168.1.36:5000/helloworld').done(function(data){
-
-            alert(data);
-
-          })
-
-        event.preventDefault();
-
-        })
-
-      });
-
+        $( document ).ready(function(){
+                var cook = document.cookie;
+                var data = JSON.parse(cook);
+                $("#name").val(data.name);
+                $("#ventes").val(data.infoPlayer.argent[1].ventes);
+        });
     </script>
-
   </head>
-
-
-
   <body>
-
     <fieldset>
-
       <legend><strong>Nouvelles données</strong></legend> <!-- Titre du fieldset -->
             <label for="text">Production limonades </label>
-
             <input type="text" name="production" id="production" />
-
             <br><label for="name">Prix limonades </label>
-
             <input type="text" name="prix" id="prix" />
-
             <br><br><button value="Decision" id="sendStock">Envoyer au serveur</button>
   </fieldset>
-
-    <script>
-      
-      $("#sendStock").click(function(e){
-        e.preventDefault()
-        let data = {
-          "Price": $("#production").val()
-        }
-        $.ajax("/actions",{
-          type: "POST",
-          data: JSON.stringify(data),
-          contentType: "application/json",
-        }).fail(function(lol){
-          alert("ERROR : " + lol)         
-        }).done(function(lil){
-          alert("Win : "+ lil)
-        })
-      })
-    </script>
-    
   <fieldset>
-
-    <legend><strong>Données joueur</strong></legend> <!-- Titre du fieldset --> 
-
+    <legend><strong>Données joueur</strong></legend> <!-- Titre du fieldset -->
     <form id="information">
-
           <label for="Pseudo">Pseudo :</label>
-
-          <input type="text" name="pseudo" id="pseudo" value="{{ username }}" readonly/>
-
-          <br><label for="Stock">Stock :</label>
-
-          <input type="text" name="stock" id="stock" readonly/>
-
+          <input type="text" id="name" readonly/>
+          <br><label for="Ventes">Vente(s) :</label>
+          <input type="text" name="ventes" id="ventes" readonly/>
           <br><label for="Limo">Prix limonades :</label>
-
           <input type="text" name="limo" id="limo" value="{{ prix }}" readonly/>
-
     </form>
-
   </fieldset>
-
   <fieldset>
-
-    <legend><strong>Données environnement</strong></legend> <!-- Titre du fieldset --> 
-
+    <legend><strong>Données environnement</strong></legend> <!-- Titre du fieldset -->
     <form id="information">
-
           <br><label for="Meteo">Météo :</label>
-
           <input type="text" name="meteo" id="meteo" readonly/>
-
           <br><label for="Jour">Jour :</label>
-
           <input type="text" name="jour" id="jour" readonly/>
-
           <br><button id="refresh">Rafraichir</button>
-
     </form>
-
   </fieldset>
-
-<script type="text/javascript"> // Sending message to server
-
-      $(function() {
-
-        $("body").on('click','#sendStock',function(event) {
-      console.log('click');
-
-          event.preventDefault();
-
-          var Message = {
-
-              prixLimo: $('#prix').val(),
-
-              prodLimo: $('#production').val(),
-
-          }
-
-console.log(Message);
-
-
-          $.ajax({
-      url : 'http://192.168.1.36:5000/create',
-             //player
-
-              type: "POST",
-
-              contentType: 'application/json',
-              data: JSON.stringify(Message),
-        dataType : "json"
-
-              //data: JSON.stringify({"pseudo" : "alexandre"})
-
-            }).done(function(result){
-                console.log(result);
-        //result = JSON.parse(result);
-        $('#stock').val(result.prodLimo);
-        $('#limo').val(result.prixLimo);
-            });
-
-        
-
-        });
-
-      });
-
-    </script>
-
 </body>
-
 </html>
