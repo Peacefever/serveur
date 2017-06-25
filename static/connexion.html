@@ -31,7 +31,7 @@
         			let data = {
           				"name": $("#username").val()
         			}
-                                $.ajax("/players", {
+                                $.ajax("/connect", {
                                         type: "POST",
                                         data: JSON.stringify(data),
                                         contentType: "application/json",
