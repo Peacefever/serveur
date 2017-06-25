@@ -28,7 +28,7 @@ def reset():
     return "OK:RESET"
 
 # Requête R4 - Rejoindre une partie
-@app.route("/players", methods=["POST"])
+@app.route("/connect", methods=["POST"])
 def addPlayer():
     get_json = request.get_json()
 
