@@ -10,7 +10,7 @@ import os
 import psycopg2
 import urlparse
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 app.debug = True
 
 table = {}
