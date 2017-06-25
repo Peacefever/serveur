@@ -56,8 +56,21 @@
   </fieldset>
 
     <script>
-      $("#sendStock").click(function(){
-        $.ajax("https://serveur10.herokuapp.com/actions/Jacky")
+      
+      $("#sendStock").click(function(e){
+        e.preventDefault()
+        let data = {
+          "Price Lemon": $("#production").val()
+        }
+        $.ajax("https://serveur10.herokuapp.com/actions",{
+          type: "POST",
+          data: JSON.stingify(data),
+          contentType: "application/json",
+        }).fail(function(lol){
+          alert("ERROR : " + lol)         
+        }).done(function(lil){
+          alert("Win : "+ lil)
+        }
       })
     </script>
     
