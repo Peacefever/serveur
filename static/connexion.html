@@ -43,8 +43,9 @@
           				contentType: "application/json",
         			}).fail(function(error){
           				alert("ERROR : " + error)         
-        			}).done(function(lil){
-					alert("win : " + lil) 
+        			}).done(function(response){
+					var data = JSON.parse(response)
+					alert("win : " + lil.name) 
           				//document.location.href="/static/game.html"
         			})
       			})
