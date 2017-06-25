@@ -1,19 +1,11 @@
 <!DOCTYPE html>
-
 <html>
-
 	<head>
-
 		<meta charset="utf-8"/>
-
 		<title>Connexion Page</title>
-
         <link rel="stylesheet" href="main.css" />
-
 	</head>
-
 	<body>		
-
 		<fieldset>
 			<legend><strong>Page de connexion</strong></legend>
 			
@@ -25,7 +17,6 @@
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 		<script>
-     
      			 $("#connexion").click(function(e){
         			e.preventDefault()
         			let data = {
@@ -36,72 +27,17 @@
                                         data: JSON.stringify(data),
                                         contentType: "application/json",
                                 }).fail(function(response) {
-                                        alert("Erreur")
+                                        alert("Erreur " + response)
                                 }).done(function(response) {
+					var res = JSON.parse(response)
 					alert("Done")
 					alert("USER : " + $("#username").val())
 					alert("DATA : " + data.name)
-					var res = JSON.parse(response)
 					alert("Response : " + res.name)
 					//var data = JSON.parse(response)
                                         //$("#response").text(data.sale)
                                 })
       			})
     		</script>
-
-		
-
-
-
-		    <script type="text/javascript">
-
-
-/*
-
-	    $(function(){
-
-	 		$("#connexion").on('submit',function(event){	       
-
-	 			var Message = {
-
-	 				prixLimo: 15,
-
-	 				prodLimo: 10
-
-	 			}
-
-	 			//var Pseudo = $("#name").val()
-
-
-
-				$.ajax({
-
-					url : '/choice',
-
-					type : 'GET',
-
-					contentType: 'application/json',
-
-					data : Message,
-
-					success : function(success){
-
-						alert("Connexion réussi")
-
-					}
-
-				})
-
-			event.preventDefault();
-
-			})
-
-	    });
-
-*/
-
-  	</script>
-
 	</body>
-
 </html>
