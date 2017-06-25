@@ -76,11 +76,11 @@ def sales():
 
 # Requête R6 - Instructions du joueur
 @app.route("/actions", methods=["POST"]) #/action/<playername>
-def actionsPlayer(playerName):
+def actionsPlayer():#playerName):
     #global json_table
     #return json.dumps(json_table[value])
-    test = request.get_json()
-    return json.dumps(test),200,{"Content-Type": "application/json"}
+    data = request.get_json()
+    return json.dumps(data), 200, { "Content-Type": "application/json" }
 
 # Requête R2 -  Map
 @app.route("/map", methods=["GET"])
