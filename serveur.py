@@ -75,12 +75,12 @@ def sales():
     return "OK:POST_SALES"
 
 # Requête R6 - Instructions du joueur
-@app.route("/actions/<playerName>", methods=["POST"])
+@app.route("/actions", methods=["POST"]) #/action/<playername>
 def actionsPlayer(playerName):
     #global json_table
     #return json.dumps(json_table[value])
-    print tutu
-    return "OK:POST_" + playerName
+    test = request.get_json()
+    return jeson.dumps(test),200,{"Content-Type":application/json}
 
 # Requête R2 -  Map
 @app.route("/map", methods=["GET"])
