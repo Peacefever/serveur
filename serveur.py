@@ -13,8 +13,6 @@ import urlparse
 app = Flask(__name__, static_url_path='')
 app.debug = True
 
-table = {}
-
 # Fonction de réponse
 def jsonResponse(data, status=200):
   return json.dumps(data), status, {'Content-Type': 'application/json'}
@@ -30,22 +28,14 @@ def reset():
 # Requête R4 - Rejoindre une partie
 @app.route("/connect", methods=["POST"])
 def addPlayer():
-    get_json = request.get_json()
+@app.route("/players", methods=["POST"])
+def addPlayer():
+    data = request.get_json()
+    if 'name' in data:
+        table = "{\"name\": \""+data['name']+"\",\"infoPlayer\": {\"location\": [{\"$
+    print table
+    return json.dumps(table), 200, { "Content-Type": "application/json" }
 
-    if 'name' in get_json:
-        table['name'] = get_json['name']
-    else:
-        table['name'] = "Jacky"
-
-    table['location'] = {}
-    table['location']['latitude'] = random.randrange(10)
-    table['location']['longitude'] = random.randrange(10)
-    table['info'] = {}
-    table['info']['cash'] = 1.0
-    table['info']['sales'] = 0
-    table['info']['profit'] = 0.0
-
-    return jsonResponse(table)
 
 # Requête R4 - Quitter une partie
 @app.route("/players/<playerName>", methods=["DELETE"])
