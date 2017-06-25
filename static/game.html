@@ -60,11 +60,11 @@
       $("#sendStock").click(function(e){
         e.preventDefault()
         let data = {
-          "Price Lemon": $("#production").val()
+          "Price": $("#production").val()
         }
-        $.ajax("https://serveur10.herokuapp.com/actions",{
+        $.ajax("/actions",{
           type: "POST",
-          data: JSON.stingify(data),
+          data: JSON.stringify(data),
           contentType: "application/json",
         }).fail(function(lol){
           alert("ERROR : " + lol)         
