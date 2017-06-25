@@ -1,45 +1,42 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8"/>
-		<title>Connexion Page</title>
+        <head>
+                <meta charset="utf-8"/>
+                <title>Connexion Page</title>
         <link rel="stylesheet" href="main.css" />
-	</head>
-	<body>		
-		<fieldset>
-			<legend><strong>Page de connexion</strong></legend>
-			
-			<label>Utilisateur : <input type='text' id="username"></label>
-			<label>Reponse : <input type="text" id="response" readonly></label>
-
-			<br><button type="button" id="connexion" value="Connexion">Connexion</button>
-		</fieldset>
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-		<script>
-     			 $("#connexion").click(function(e){
-        			e.preventDefault()
-        			let data = {
-          				"name": $("#username").val()
-        			}
-                                $.ajax("/connect", {
+        </head>
+        <body>
+                <fieldset>
+                        <legend><strong>Page de connexion</strong></legend>
+                        <label>Utilisateur : <input type='text' id="username"></label>
+                        <label>Reponse : <input type="text" id="response" readonly></label>
+                        <br><button type="button" id="connexion" value="Connexion">Connexion</button>
+                </fieldset>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+                <script>
+                         $("#connexion").click(function(e){
+                                e.preventDefault()
+                                let data = {
+                                        "name": $("#username").val()
+                                }
+                                $.ajax({
+                                        url: "/players",
                                         type: "POST",
+                                        dataType :"json",
                                         data: JSON.stringify(data),
-                                        contentType: "application/json",
-                                }).fail(function(response) {
-                                        alert("Erreur " + response)
-                                }).done(function(response) {
-					var res = JSON.parse(response)
-					alert("Done")
-					alert("USER : " + $("#username").val())
-					alert("DATA : " + data.name)
-					var json = '{"result":true,"count":1}'
-    					var obj = JSON.parse(json)
-					alert(obj.result)
-					//var data = JSON.parse(response)
-                                        //$("#response").text(data.sale)
-                                })
-      			})
-    		</script>
-	</body>
+                                        contentType: "application/json; charset=utf-8",
+                                        success: function(response){
+                                                alert("Done " + response);
+                                                var dat = JSON.parse(response);
+                                                alert(dat.name);
+                                                document.cookie = response;
+                                                window.location.href = "/game.html";
+                                        },
+                                        failure: function(error){
+                                                alert(error);
+                                        }
+                                });
+                        })
+                </script>
+        </body>
 </html>
