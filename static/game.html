@@ -44,9 +44,6 @@
     <fieldset>
 
       <legend><strong>Nouvelles données</strong></legend> <!-- Titre du fieldset -->
-
-      <form id="decision">
-
             <label for="text">Production limonades </label>
 
             <input type="text" name="production" id="production" />
@@ -56,11 +53,14 @@
             <input type="text" name="prix" id="prix" />
 
             <br><br><button value="Decision" id="sendStock">Envoyer au serveur</button>
-
-      </form>
-
   </fieldset>
 
+    <script>
+      $("#sendStock").click(function(){
+        alert($("#production").val())
+      })
+    </script>
+    
   <fieldset>
 
     <legend><strong>Données joueur</strong></legend> <!-- Titre du fieldset --> 
