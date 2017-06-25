@@ -12,7 +12,7 @@ import urlparse
 
 app = Flask(__name__, static_url_path='')
 app.debug = True
-
+database = Db()
 # Fonction de réponse
 def jsonResponse(data, status=200):
   return json.dumps(data), status, {'Content-Type': 'application/json'}
@@ -30,10 +30,9 @@ def reset():
 def addPlayer():
     data = request.get_json()
     if 'name' in data:
-        table = "{\"name\": \""+data['name']+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
+        table = "{\"name\": \""+db.rowcount()+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
     print table
     return json.dumps(table), 200, { "Content-Type": "application/json" }
-
 
 # Requête R4 - Quitter une partie
 @app.route("/players/<playerName>", methods=["DELETE"])
