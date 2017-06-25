@@ -80,7 +80,7 @@ def actionsPlayer(playerName):
     #global json_table
     #return json.dumps(json_table[value])
     test = request.get_json()
-    return json.dumps(test),200,{"Content-Type":application/json}
+    return json.dumps(test),200,{"Content-Type": "application/json"}
 
 # Requête R2 -  Map
 @app.route("/map", methods=["GET"])
