@@ -20,7 +20,7 @@ def jsonResponse(data, status=200):
   return json.dumps(data), status, {'Content-Type': 'application/json'}
 @app.route("/")
 def connexion():
-  return app.send_static_file('connexion.html')
+  return app.send_static_file('game.html')
 # Requête R8 - Reset
 @app.route("/reset", methods=["GET"])
 def reset():
