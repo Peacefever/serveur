@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Javascript demo</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript">
+	    $(function(){
+	 		$("#connexion").on('submit',function(event){	       
+	 			var Message = {
+	 				prixLimo: 15,
+	 				prodLimo: 10
+	 			}
+	 			//var Pseudo = $("#name").val()
+
+				$.ajax({
+					url : 'https://webservice-deploy.herokuapp.com/choice',
+					type : 'GET',
+					contentType: 'application/json',
+					data : Message,
+					success : function(success){
+						alert("Connexion réussi")
+					}
+				})
+			event.preventDefault();
+			})
+	    });
+  	</script>
+	</head>
+	<body>		
+		<fieldset>
+			<legend>Page de connexion</legend>
+			<form id="connexion" method="POST">
+				<label for="name">Name:</label>
+				<input type="text" id="name">
+				<br><label for="To">Response :</label>
+				<input type="text" id="response">
+				<br><br><a href="file:///C:/Users/Alexandre/Desktop/Projet%20int%C3%A9gration/game.html" target="_blank"><input type="button" value="Connexion"></a>
+			</form>
+		</fieldset>
+	</body>
+</html>
