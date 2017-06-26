@@ -49,28 +49,9 @@
     </form>
   </fieldset></div>
               <script>
-                           $("#sendStock").click(function(e){
+                        $("#sendStock").click(function(e){
                                 e.preventDefault()
-                                var Message = {
-                                        prixLimo: $("#production").val()
-                                        prodLimo: $("#prix").val()
-                                }
-                                $.ajax({
-                                        url: "/players",
-                                        type: "POST",
-                                        dataType :"json",
-                                        data: JSON.stringify(data),
-                                        contentType: "application/json; charset=utf-8",
-                                        success: function(response){
-                                                console.log(result);
-                                                $('#ventes').val(result.prodLimo);
-                                                $('#limo').val(result.prixLimo);
-                                                alert("Win");
-                                        },
-                                        failure: function(error){
-                                                alert(error);
-                                        }
-                                });
+                                alert("test")
                         })
         </script>
 </body>
