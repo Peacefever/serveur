@@ -12,7 +12,6 @@ import urlparse
 
 app = Flask(__name__, static_url_path='')
 app.debug = True
-db = Db()
 # Fonction de réponse
 def jsonResponse(data, status=200):
   return json.dumps(data), status, {'Content-Type': 'application/json'}
