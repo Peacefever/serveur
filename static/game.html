@@ -11,7 +11,7 @@
                       var data = JSON.parse(cook);
                       $("#name").val(data.name);
                       $("#ventes").val(data.infoPlayer.argent[1].ventes);
-                      $("#cash").val(data.infoPlayer.argent[2].dispo);
+                      $("#cash").val(data.infoPlayer.argent[1].dispo);
                 });
         $("#sendStock").click(function(e){
                 e.preventDefault()
@@ -26,9 +26,10 @@
                         data: JSON.stringify(data),
                         contentType: "application/json; charset=utf-8",
                         success: function(response){
-                                console.log(result);
-                                $('#ventes').val(result.prodLimo);
-                                $('#limo').val(result.prixLimo);
+                                //console.log(result);
+                                var data = JSON.parse(response)
+                                $('#ventes').val(data.ventes);
+                                //$('#limo').val(result.prixLimo);
                                 alert("Win");
                         },
                         failure: function(error){
