@@ -47,11 +47,13 @@ def deletePlayer(playerName):
 # Requête R1/R7 - Metrology
 @app.route("/metrology", methods=["GET", "POST"])
 def metrology():
-    global json_table
-    if request.method == "GET":
-        return "OK:GET_METROLOGY"
-    elif request.method == "POST":
-        return "OK:POST_METROLOGY"
+        data = request.get_json()
+        return json.dumps(data), 200, { "Content-Type": "application/json" }
+   # global json_table
+    #if request.method == "GET":
+     #   return "OK:GET_METROLOGY"
+    #elif request.method == "POST":
+     #   return "OK:POST_METROLOGY"
 
     #return json.dumps(json_table), 200, {'Content-Type': 'application/json'}
 
@@ -88,11 +90,7 @@ def mapPlayer(playerName):
 @app.route("/ingredients", methods=["GET"])
 def ingredients():
     return "GET:OK_INGREDIENTS"
-@app.route("/Timer", methods=["POST"])
-def time():
-        data = request.get_json()
-        #return json.dumps(data), 200, { "Content-Type": "application/json" }
-        return "ok"
+ 
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",debug=True)
