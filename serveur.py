@@ -745,47 +745,6 @@ def join_game():
 	'''
 
 
-''' to test '''
-#curl -X POST -H "Content-Type: application/json" -d '{["action": {"kind": "drinks", "prepare":{"Limonade":2}, "price":{"Limonade":15}}]}' http://127.0.0.1:5000/action/toto
-#Pour le moment la simulation n'est pas géré (simulated)
-@app.route('/actions/<playerName>', methods = ['POST'])
-def save_actions(playerName):
-	'''
-	Cette route permet d'enregistrer le souhait de l'utilisateur
-	dans la base de données.
-	'''
-	#Réception de la donnée du client
-	datas = request.get_json()
-
-	#Vérification de la validité de la donnée
-	if (isValide(datas) == False):
-		return to_make_response('Bad Request', 400)
-
-	if not ('actions' in datas):
-		return to_make_response('Bad Request', 400)
-
-	#On traite la donnée
-	for anAction in datas['actions']:
-		if (anAction['kind'] == 'recipe'):
-			print('On gère un achat de une nouvelle recette')
-		if (anAction['kind'] == 'ad'):
-			print('On gère un achat de publicité')
-		if (anAction['kind'] == 'drinks'):
-			print('gestion de la production de une recette quil a deja')
-			playerActionDrinks(anAction, playerName)
-	return "hello"
-
-
-
-@app.route('/')
-def essaie():
-	db = Db()
-	essaie = db.select("SELECT * FROM Player")
-	print(essaie[0]['action_buynewrecipe'])
-	db.close()
-	return to_make_response(essaie)
-
-
 
 if __name__ == '__main__':
 	app.run()
