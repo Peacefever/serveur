@@ -32,8 +32,8 @@ def test():
 def addPlayer():
     data = request.get_json()
     if 'name' in data:
-        table = "{\"name\": \""+data['name']+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
-        #table = "{\"name\": \""+test+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
+        #table = "{\"name\": \""+data['name']+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
+        table = "{\"name\": \"nom\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
     return json.dumps(table), 200, { "Content-Type": "application/json" }
 
 # Requête R4 - Quitter une partie
