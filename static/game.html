@@ -4,16 +4,7 @@
     <meta charset="utf-8"/>
     <title>Interface Game Page</title>
     <link rel="stylesheet" href="ficher.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script type="text/javascript">
-        $( document ).ready(function(){
-                var cook = document.cookie;
-                var data = JSON.parse(cook);
-                $("#name").val(data.name);
-                $("#ventes").val(data.infoPlayer.argent[1].ventes);
-                $("#cash").val(data.infoPlayer.argent[1].dispo);
-        });
-    </script>
+    
   </head>
   <body style="background-image: url(http://img.fac.pmdstatic.net/fit/http.3A.2F.2Fwww.2Efemmeactuelle.2Efr.2Fvar.2Ffemmeactuelle.2Fstorage.2Fimages.2Fcuisine.2Frecettes.2Fboisson.2Flimonade-au-citron-vert-09024.2F14043909-1-fre-FR.2Flimonade-au-citron-vert.2Ejpg/1200x600/crop-from/center/limonade-au-citron-vert.jpeg); background-size: 100%;">
     <div style="background:url('https://pub.be/wp-content/uploads/2016/02/LIMO-citron.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; max-width: 600px; Opacity: 1;">
@@ -49,30 +40,37 @@
     </form>
   </fieldset></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-              <script>
-                        $("#sendStock").click(function(e){
-                                e.preventDefault()
-                                var Message = {
-                                        prixLimo: $("#production").val()
-                                        prodLimo: $("#prix").val()
-                                }
-                                $.ajax({
-                                        url: "/players",
-                                        type: "POST",
-                                        dataType :"json",
-                                        data: JSON.stringify(data),
-                                        contentType: "application/json; charset=utf-8",
-                                        success: function(response){
-                                                console.log(result);
-                                                $('#ventes').val(result.prodLimo);
-                                                $('#limo').val(result.prixLimo);
-                                                alert("Win");
-                                        },
-                                        failure: function(error){
-                                                alert(error);
-                                        }
-                                });
-                        })
+        <script>
+                 $( document ).ready(function(){
+                      var cook = document.cookie;
+                      var data = JSON.parse(cook);
+                      $("#name").val(data.name);
+                      $("#ventes").val(data.infoPlayer.argent[1].ventes);
+                      $("#cash").val(data.infoPlayer.argent[1].dispo);
+                });
+                $("#sendStock").click(function(e){
+                    e.preventDefault()
+                    var Message = {
+                            prixLimo: $("#production").val()
+                            prodLimo: $("#prix").val()
+                }
+                $.ajax({
+                        url: "/players",
+                        type: "POST",
+                        dataType :"json",
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        success: function(response){
+                                console.log(result);
+                                $('#ventes').val(result.prodLimo);
+                                $('#limo').val(result.prixLimo);
+                                alert("Win");
+                        },
+                        failure: function(error){
+                                alert(error);
+                        }
+                        });
+                })
         </script>
 </body>
 </html>
