@@ -88,54 +88,5 @@
     </form>
 
   </fieldset></div>
-
-<script type="text/javascript"> // Sending message to server
-
-      $(function() {
-
-        $("body").on('click','#sendStock',function(event) {
-      console.log('click');
-
-          event.preventDefault();
-
-          var Message = {
-
-              prixLimo: $('#prix').val(),
-
-              prodLimo: $('#production').val(),
-
-          }
-
-console.log(Message);
-
-
-          $.ajax({
-      url : 'http://172.30.1.119:5000/create',
-             //player
-
-              type: "POST",
-
-              contentType: 'application/json',
-              data: JSON.stringify(Message),
-        dataType : "json"
-
-              //data: JSON.stringify({"pseudo" : "alexandre"})
-
-            }).done(function(result){
-                console.log(result);
-        //result = JSON.parse(result);
-        $('#stock').val(result.prodLimo);
-        $('#limo').val(result.prixLimo);
-            });
-
-        
-
-        });
-
-      });
-
-    </script>
-
 </body>
-
 </html>
