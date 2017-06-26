@@ -91,7 +91,8 @@ def ingredients():
 @app.route("/Timer", methods=["POST"])
 def time():
         data = request.get_json()
-        return json.dumps(data), 200, { "Content-Type": "application/json" }
+        #return json.dumps(data), 200, { "Content-Type": "application/json" }
+        return "ok"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",debug=True)
