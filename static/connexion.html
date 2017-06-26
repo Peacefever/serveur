@@ -17,6 +17,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 		    <script>
 			    function loadDoc() {
+				    var xhttp = new XMLHttpRequest();
  				 xhttp.open("POST", "\players", true);
   				xhttp.send("name": $("#username").val());
                         /* $("#connexion").click(function(e){
