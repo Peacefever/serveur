@@ -24,13 +24,15 @@ def connexion():
 def reset():
     #return json.dumps(json_table[len(json_table)-1])
     return "OK:RESET"
-
+@app.route("/test")
+def test():
+  test = db.select("SELECT * FROM Monster WHERE Aquatique=1")
+  return test
 # Requête R4 - Rejoindre une partie
 @app.route("/players", methods=["POST"])
 def addPlayer():
     data = request.get_json()
     if 'name' in data:
-        test = db.select("SELECT * FROM Monster WHERE Aquatique=1")
         table = "{\"name\": \""+data['name']+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
         #table = "{\"name\": \""+test+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
     print table
