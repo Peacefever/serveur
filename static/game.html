@@ -6,28 +6,46 @@
     <link rel="stylesheet" href="ficher.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script type="text/javascript">
-        $( document ).ready(function(){
-                let data = {
-                    "name": "Nom"
-                }
-                alert("1");
-                $.ajax({
-                        url: "/players",
-                        type: "POST",
-                        dataType :"json",
-                        data: JSON.stringify(data),
-                        contentType: "application/json; charset=utf-8",
-                        success: function(response){
-                                var data = JSON.parse(response);
-                                $("#ventes").val(data.infoPlayer.argent[1].ventes);
-                                alert("Win");
-                        },
-                        failure: function(error){
-                                alert(error);
-                        }
-                        });
-                })
+      $(function() {
+
+        $("body").on('click','#sendStock',function(event) {
+      console.log('click');
+
+          event.preventDefault();
+
+          var Message = {
+
+              prixLimo: $('#prix').val(),
+
+              prodLimo: $('#production').val(),
+
+          }
+
+console.log(Message);
+
+
+          $.ajax({
+      url : '/players',
+             //player
+
+              type: "POST",
+
+              contentType: 'application/json',
+              data: JSON.stringify(Message),
+        dataType : "json"
+
+              //data: JSON.stringify({"pseudo" : "alexandre"})
+
+            }).done(function(result){
+                //console.log(result);
+        //result = JSON.parse(result);
+        $('#ventes').val(result.prodLimo);
+        $('#limo').val(result.prixLimo);
+            });
+
         });
+
+      });
     </script>
     
   </head>
