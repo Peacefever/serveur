@@ -6,7 +6,7 @@ from random import *
 import json
 from mserver import *
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 app.debug = True
 CORS(app)
 
@@ -15,6 +15,9 @@ timestamp = 0
 default_cash_game = 20.0
 default_rayon_player = 1.0
 
+@app.route("/")
+def connexion():
+  return app.send_static_file('connexion.html')
 
 @app.route('/debug/db/reset', methods=['GET'])
 def reset_db():
