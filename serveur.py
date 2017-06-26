@@ -88,6 +88,10 @@ def mapPlayer(playerName):
 @app.route("/ingredients", methods=["GET"])
 def ingredients():
     return "GET:OK_INGREDIENTS"
+@app.route("/Timer", methods=["POST"])
+def time():
+        data = request.get_json()
+        return json.dumps(data), 200, { "Content-Type": "application/json" }
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",debug=True)
