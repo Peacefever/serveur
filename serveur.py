@@ -35,7 +35,7 @@ def addPlayer():
         table = "{\"name\": \"nom\",\"location\":[{\"latitude\": 25.0}, {\"longitude\":50.0}],\"info\":[{\"cash\":1.0},{\"sales\": 0.0},{\"profit\": 0.0},{\"drinksOffered\": [{\"name\":\"vodka\"},{\"price\":14.99},{\"hasAlcohol\":1},{\"isCold\":1}]}]}"
         #table = "{\"name\": \""+data['name']+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
         #table = "{\"name\": \"nom\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
-    return json.dumps(data), 200, { "Content-Type": "application/json" }
+    return json.dumps(table), 200, { "Content-Type": "application/json" }
 
 # Requête R4 - Quitter une partie
 @app.route("/players/<playerName>", methods=["DELETE"])
