@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>TEST</title>
+
+    <link rel="stylesheet" href="main.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+</head>
+
+
+
+<body>
+
+    <fieldset>
+
+        <legend><strong>Nouveau test</strong></legend> <!-- Titre du fieldset -->
+
+        <form id="decision">
+            <br><br><button value="Decision" id="sendStock">Envoyer test au serveur</button>
+        </form>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+
+
+        <script>
+            $("#sendStock").click(function (e) {
+                e.preventDefault()
+                let data = {
+                    "kind": "ad",
+                    "id_add":15
+                }
+                $.ajax({
+                    url: "172.30.1.197:5000/Timer",
+                    type: "POST",
+                    dataType: "json",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert("Bienvenue ");
+                    },
+                    failure: function (error) {
+                        alert(error);
+                    }
+                });
+            })
+        </script>
+
+    </fieldset>
+
+</body>
+
+</html>
