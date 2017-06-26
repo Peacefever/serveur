@@ -24,20 +24,11 @@
 
 				<input type="text" name="username" id="username">
 
-				<br><br><button onclick="myFunctionAlert()" type="submit" value="Connexion">Connexion</button>
+				<br><br><button onclick="myFunctionAlert()" type="button" id = "connexion" value="Connexion">Connexion</button>
 
 			<!--/form-->
 
 		</fieldset></center></div>
-
-
-
-<script>
-function myFunctionAlert() {
-	var pseudo = document.getElementById("username").value;
-    alert("Bienvenue " + pseudo + " !");
-}
-</script>
 
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
@@ -69,7 +60,7 @@ function myFunctionAlert() {
                                         data: JSON.stringify(data),
                                         contentType: "application/json; charset=utf-8",
                                         success: function(response){
-                                                alert("Done " + response);
+                                                alert("Bienvenue " + data.name);
                                                 var dat = JSON.parse(response);
                                                 alert(dat.name);
                                                 document.cookie = response;
