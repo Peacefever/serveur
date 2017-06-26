@@ -7,11 +7,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script type="text/javascript">
         $( document ).ready(function(){
-                      var cook = document.cookie;
-                      var data = JSON.parse(cook);
-                      $("#name").val(data.name);
-                      $("#ventes").val(data.infoPlayer.argent[1].ventes);
-                      $("#cash").val(data.infoPlayer.argent[0].dispo);
+                      //var cook = document.cookie;
+                      //var data = JSON.parse(cook);
+                      //$("#name").val(data.name);
                 });
         $("#sendStock").click(function(e){
                 e.preventDefault()
@@ -28,7 +26,8 @@
                         success: function(response){
                                 //console.log(result);
                                 var data = JSON.parse(response)
-                                $('#ventes').val(data.ventes);
+                                $("#ventes").val(data.infoPlayer.argent[1].ventes);
+                                $("#cash").val(data.infoPlayer.argent[0].dispo);
                                 //$('#limo').val(result.prixLimo);
                                 alert("Win");
                         },
