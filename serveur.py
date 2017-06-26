@@ -67,7 +67,7 @@ def sales():
     return "OK:POST_SALES"
 
 # Requête R6 - Instructions du joueur
-@app.route("/actions", methods=["POST"]) #/action/<playername>
+@app.route("/actions/<playername>", methods=["POST"])
 def actionsPlayer():#playerName):
     #global json_table
     #return json.dumps(json_table[value])
