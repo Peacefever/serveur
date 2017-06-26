@@ -31,10 +31,10 @@ def test():
 @app.route("/players", methods=["POST"])
 def addPlayer():
     data = request.get_json()
-    if 'name' in data:
+    #if 'name' in data:
         #table = "{\"name\": \""+data['name']+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
-        table = "{\"name\": \"nom\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
-    return json.dumps(table), 200, { "Content-Type": "application/json" }
+        #table = "{\"name\": \"nom\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
+    return json.dumps(data), 200, { "Content-Type": "application/json" }
 
 # Requête R4 - Quitter une partie
 @app.route("/players/<playerName>", methods=["DELETE"])
