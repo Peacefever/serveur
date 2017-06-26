@@ -26,7 +26,7 @@ def reset():
     return "OK:RESET"
 @app.route("/test")
 def test():
-  test = db.select("SELECT * FROM Monster WHERE Aquatique=1")
+  test = db.select("""SELECT * FROM Test""")
   return test
 # Requête R4 - Rejoindre une partie
 @app.route("/players", methods=["POST"])
