@@ -25,7 +25,7 @@ def reset_db():
 	Cette route permet de réinitialiser de la base de données
 	'''
 	db = Db()
-	db.executeFile("databasefinale.sql")
+	db.executeFile("database_reset.sql")
 	db.close()
 	return "Done."
 
