@@ -26,9 +26,9 @@
               //data: JSON.stringify({"pseudo" : "alexandre"})
             }).done(function(result){
                 //console.log(result);
-        //result = JSON.parse(result);
-        $('#ventes').val(result.prodLimo);
-        $('#limo').val(result.prixLimo);
+                dt = JSON.parse(result);
+                $('#ventes').val(result.infoPlayer.argent[1].ventes);
+                $('#limo').val(result.name);
             });
         });
 
