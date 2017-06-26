@@ -9,40 +9,27 @@
       
       $(function() {
         $("body").on('click','#sendStock',function(event) {
-      console.log('click');
-alert("test");
+      //console.log('click');
           event.preventDefault();
-
-          var Message = {
-
+          let Message = {
               prixLimo: $('#prix').val(),
-
-              prodLimo: $('#production').val(),
-
+              prodLimo: $('#production').val()
           }
-
-console.log(Message);
-
-
+      //console.log(Message);
           $.ajax({
-      url : '/players',
+              url : '/players',
              //player
-
               type: "POST",
-
               contentType: 'application/json',
               data: JSON.stringify(Message),
-        dataType : "json"
-
+              dataType : "json"
               //data: JSON.stringify({"pseudo" : "alexandre"})
-
             }).done(function(result){
                 //console.log(result);
         //result = JSON.parse(result);
         $('#ventes').val(result.prodLimo);
         $('#limo').val(result.prixLimo);
             });
-
         });
 
       });
