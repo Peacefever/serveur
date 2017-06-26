@@ -61,8 +61,6 @@
                                         contentType: "application/json; charset=utf-8",
                                         success: function(response){
                                                 alert("Bienvenue " + data.name);
-                                                var dat = JSON.parse(response);
-                                                alert(dat.name);
                                                 document.cookie = response;
                                                 window.location.href = "/game.html";
                                         },
