@@ -7,7 +7,7 @@ class Db:
   def __init__(self):
     """Initiate a connection to the default postgres database."""
     urlparse.uses_netloc.append("postgres")
-    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    url = urlparse.urlparse(os.environ["HEROKU_POSTGRESQL_MAROON_URL"])
 
     self.conn = psycopg2.connect(
         database=url.path[1:],
