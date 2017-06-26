@@ -1,40 +1,20 @@
 <!DOCTYPE html>
-
 <html>
-
 	<head>
-
 		<meta charset="utf-8"/>
-
 		<title>Connexion Page</title>
-
 		<link rel="stylesheet" href="ficher.css" />
-
 	</head>
-
 	<body>		
-
 		<div style="padding:3px; border:5px outset #303030; background-color:#303030; position:absolute; left: 50%; top: 50%; width: 280px; height: 140px; margin-left: -150px; margin-top: -100px;"><center><fieldset>
-
 			<legend><strong>Page de connexion</strong></legend>
-
 			<!--<form id="connexion" action="/players" method="POST"-->
-
 				<label for="name">Pseudo :</label>
-
 				<input type="text" name="username" id="username">
-
 				<br><br><button onclick="myFunctionAlert()" type="button" id = "connexion" value="Connexion">Connexion</button>
-
 			<!--/form-->
-
 		</fieldset></center></div>
-
-
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-
-
-
 		    <script>
                          $("#connexion").click(function(e){
                                 e.preventDefault()
@@ -48,7 +28,6 @@
                                         data: JSON.stringify(data),
                                         contentType: "application/json; charset=utf-8",
                                         success: function(response){
-                                                alert("Bienvenue " + data.name);
                                                 document.cookie = response;
                                                 window.location.href = "/game.html";
                                         },
@@ -58,7 +37,5 @@
                                 });
                         })
                 </script>
-
 	</body>
-
 </html>
