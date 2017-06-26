@@ -30,7 +30,7 @@ def reset():
 def addPlayer():
     data = request.get_json()
     if 'name' in data:
-        test = db.select("SELECT * FROM Monster WHERE Aquatique=1")
+        #test = db.select("SELECT * FROM Monster WHERE Aquatique=1")
         table = "{\"name\": \""+data['name']+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
         #table = "{\"name\": \""+db.rowcount+"\",\"infoPlayer\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0}, {\"profit\": 0.0}]}}"
     print table
