@@ -7,6 +7,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script type="text/javascript">
         $( document ).ready(function(){
+                let data = {
+                    "name": "Nom"
+                }
                 $.ajax({
                         url: "/players",
                         type: "POST",
@@ -14,7 +17,7 @@
                         data: JSON.stringify(data),
                         contentType: "application/json; charset=utf-8",
                         success: function(response){
-                                var data = JSON.parse(response)
+                                var data = JSON.parse(response);
                                 $("#ventes").val(data.infoPlayer.argent[1].ventes);
                                 alert("Win");
                         },
