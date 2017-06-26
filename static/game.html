@@ -7,19 +7,7 @@
     <meta charset="utf-8"/>
 
     <title>Interface Game Page</title>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='ficher.css') }}">
-
- <script type="text/javascript">
-        $( document ).ready(function(){
-                var cook = document.cookie;
-                var data = JSON.parse(cook);
-                $("#pseudo").val(data.name);
-                $("#stock").val(data.infoPlayer.argent[1].ventes);
-        });
-    </script>
 
   </head>
 
@@ -87,6 +75,15 @@
 
     </form>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>   
+ <script type="text/javascript">
+        $( document ).ready(function(){
+                var cook = document.cookie;
+                var data = JSON.parse(cook);
+                $("#pseudo").val(data.name);
+                $("#stock").val(data.infoPlayer.argent[1].ventes);
+        });
+    </script>
   </fieldset></div>
 </body>
 </html>
