@@ -11,13 +11,13 @@
                       var data = JSON.parse(cook);
                       $("#name").val(data.name);
                       $("#ventes").val(data.infoPlayer.argent[1].ventes);
-                      $("#cash").val(data.infoPlayer.argent[1].dispo);
+                      $("#cash").val(data.infoPlayer.argent[2].dispo);
                 });
-                $("#sendStock").click(function(e){
-                    e.preventDefault()
-                    var Message = {
-                            prixLimo: $("#production").val()
-                            prodLimo: $("#prix").val()
+        $("#sendStock").click(function(e){
+                e.preventDefault()
+                var Message = {
+                        prixLimo: $("#production").val()
+                        prodLimo: $("#prix").val()
                 }
                 $.ajax({
                         url: "/players",
