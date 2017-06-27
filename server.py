@@ -597,7 +597,7 @@ def join_game():
 
 			#Récupération de l'ensemble des ventes du joueur pour le jour courant
 		all_sales_player = db.select("SELECT quantity_sales FROM Sales WHERE (day_sales = %d AND \
-			id_player=%d)" %(current_day, player[0]['name_player']))
+			id_player=%d)" %(current_day, player[0]['id_player']))
 
 		if (len(all_sales_player) == 0):
 			return to_make_response('Internal Server Error', 502)
