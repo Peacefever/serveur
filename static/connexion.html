@@ -18,8 +18,8 @@
 		    <script>
                         $("#connexion").click(function(e){
                                 e.preventDefault();
-                                var data = {"name": "toto"};
-                               	$.post("/players",data,function(data, status){
+                                let data = {"name": "toto"};
+                               	$.post("/players",JSON.stringify(data),function(data, status){
                     			alert("Data: " + data + "\nStatus: " + status);
                			});
                         })
