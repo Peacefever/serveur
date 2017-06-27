@@ -519,8 +519,8 @@ def create_account():
 							   })
 
 		#Si la création ne s'est pas correctement passé
-		if len(new_player_id) != 1:
-			return to_make_response('Internal Server Error', 500)
+		#if len(new_player_id) != 1:
+		#	return to_make_response('Internal Server Error', 500)
 
 		return to_make_response(new_player_id, 201)
 
@@ -535,14 +535,13 @@ def create_account():
 		return to_make_response('Pseudo not available. Choose another Pseudo', 401)
 
 	#Le pseudo n'est pas dans la base de données. Donc on le crée
-	new_player_id = db.select("INSERT INTO Player (name_player, isConnected_player) \
-							   VALUES (%(name)s, %(connected)s) RETURNING id_player", {
+	new_player_id = db.select("INSERT INTO player (name_player, isconnected_player) VALUES (%(name)s, %(connected)s) RETURNING id_player", {
 							   "name": datas['pseudo'], 
 							   "connected": False
 							   })
 
-	if (len(new_player_id) != 1):
-		return to_make_response('Internal Server Error', 500)
+	#if (len(new_player_id) != 1):
+	#	return to_make_response('Internal Server Error', 501)
 	db.close()
 
 	return to_make_response(new_player_id, 201)
