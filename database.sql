@@ -64,7 +64,6 @@ CREATE TABLE Player(
 	action_prodrecipe		Boolean
 );
 
-#day courant
 CREATE TABLE Weather(
 	id_weather				SERIAL PRIMARY KEY,
 	now_weather				Varchar(25),
