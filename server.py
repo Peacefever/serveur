@@ -675,10 +675,10 @@ def join_game():
 			#On recupere le jour courant
 	current_day = get_lastGameDay()
 	unblock_creation = db.select("INSERT INTO Unblock(day_unblock, quantity_unblock, id_player, id_recipe)\
-		VALUES (%(day)s, %(quantity)s, %(player_id)s, %(recipe_id)s)", {
+		VALUES (%(day)s, %(quantity)s, %(id_player)s, %(recipe_id)s)", {
 		"day": current_day,
 		"quantity": 1,
-		"player_id":player[0]['id_player'],
+		"id_player":player[0]['id_player'],
 		"recipe_id":recipe_creation[0]['id_recipe']
 		})
 
