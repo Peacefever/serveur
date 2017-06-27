@@ -18,22 +18,10 @@
 		    <script>
                         $("#connexion").click(function(e){
                                 e.preventDefault();
-                                var data = "{name:toto}"
-                                $.ajax({
-                                        url: "/players",
-                                        type: "POST",
-                                        dataType :"json",
-                                        data: JSON.stringify(data),
-                                        contentType: "application/json; charset=utf-8",
-                                        success: function(response){
-						alert("OK");
-                                                document.cookie = response;
-                                                window.location.href = "/game.html";
-                                        },
-                                        failure: function(error){
-                                                alert(error);
-                                        }
-                                });
+                                var data = "{name:toto}";
+                               	$.post("/actions/"+dt.name,JSON.stringify(data),function(data, status){
+                    			alert("Data: " + data + "\nStatus: " + status);
+               			});
                         })
                 </script>
 	</body>
