@@ -20,11 +20,11 @@
                                 e.preventDefault();
                                 var data = {"name": "toto"};
 				$.ajax("http://serveur10.herokuapp.com/players",{
-					'type':"POST"
-					'data':JSON.stringify(data),
-					'contentType':"application/json"
+					type:"POST"
+					data:JSON.stringify(data),
+					contentType:"application/json"
 					})		
-                    		alert("Data: " + data + "\nStatus: " + status);
+                    		//alert("Data: " + data + "\nStatus: " + status);
                         })
                 </script>
 	</body>
