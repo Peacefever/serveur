@@ -19,7 +19,7 @@ default_rayon_player = 1.0
 def connexion():
   return app.send_static_file('connexion.html')
 
-@app.route('/debug/db/reset', methods=['GET'])
+@app.route('/debug/db/reset')
 def reset_db():
 	'''
 	Cette route permet de réinitialiser de la base de données
