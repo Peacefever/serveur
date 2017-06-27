@@ -291,7 +291,7 @@ def login():
 	print(pseudo)
 	
 	if (len(pseudo) == 0):
-		return to_make_response('Internal Server Error', 500)
+		return to_make_response('Internal Server Error', 510)
 
 	indatabase = False 
 	for i in xrange(0, len(pseudo)):
