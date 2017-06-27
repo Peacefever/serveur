@@ -562,10 +562,10 @@ def join_game():
 		return to_make_response('Bad Request', 400)
 
 	if not ('name' in datas):
-		return to_make_response('Bad Request', 400)
+		return to_make_response('Bad Request', 401)
 
 	if ((datas['name'] == '') or (datas['name'].isspace()==True)):
-		return to_make_resp('Bad request', 400)
+		return to_make_resp('Bad request', 402)
 
 	#La données est conforme pour être traitée. Donc on la traite.
 	#Récupération des informations du joueur
