@@ -18,9 +18,7 @@
 		    <script>
                         $("#connexion").click(function(e){
                                 e.preventDefault();
-                                let data = {
-                                        "name": $("#username").val()
-                                }
+                                let data = "{name:"+$("#username").val()+"}"
                                 $.ajax({
                                         url: "/players",
                                         type: "POST",
