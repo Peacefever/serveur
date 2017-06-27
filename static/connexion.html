@@ -20,7 +20,7 @@
                          $("#connexion").click(function(e){
 				 alert("USER : "+$("#username").val());
                                 e.preventDefault()
-                                var data = "{name: "+$("#username").val()+"}"
+                                var data = "{\"name\": \""+$("#username").val()+"\"}"
                                 
                                 $.ajax({
                                         url: "/players",
