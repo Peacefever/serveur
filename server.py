@@ -622,7 +622,7 @@ def join_game():
 			#Mise en forme de la réponse pour la clé drinksOffered
 		drinksOffered = []
 		for adrink in all_recipe:
-			drinks.append({
+			drinksOffered.append({
 				"name":adrink['name_recipe'],
 				"buying_price":adrink['price_buying_recipe'],
 				"cost_production":adrink['cost_prod_recipe'],
