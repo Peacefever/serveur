@@ -574,8 +574,8 @@ def join_game():
 		})
 
 	#Si la récupération de la donnée s'est mal passé
-	#if (len(player) != 1):
-	#	return to_make_response('Internal Server Error', 500)
+	if (len(player) != 1):
+		return to_make_response('Internal Server Error', 560)
 
 	#Si la récupération de donnée s'est correctement passée
 	#On vérifie si que le joueur soit dans la partie pour la première fois où bien s'il y est déjà.
