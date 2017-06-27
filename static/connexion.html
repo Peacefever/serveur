@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Connexion Page</title>
-    <link rel="stylesheet" href="ficher.css" />
-</head>
-<body>
-    <div style="padding:3px; border:5px outset #303030; background-color:#303030; position:absolute; left: 50%; top: 50%; width: 280px; height: 140px; margin-left: -150px; margin-top: -100px;">
-        <center>
-            <fieldset>
-                <legend><strong>Page de connexion</strong></legend>
-                <!--<form id="connexion" action="/players" method="POST"-->
-                <label for="name">Pseudo :</label>
-                <input type="text" name="username" id="username">
-                <br><br><button type="button" id="connexion" value="Connexion">Connexion</button>
-                <br><button type="button" id="account" value="Creer un compte">Creer un compte</button>
-                <!--/form-->
-            </fieldset>
-        </center>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Connexion Page</title>
+		<link rel="stylesheet" href="fiche.css" />
+	</head>
+	<body>		
+		<div style="padding:3px; border:5px outset #303030; background-color:#303030; position:absolute; left: 50%; top: 50%; width: 280px; height: 140px; margin-left: -150px; margin-top: -100px;"><center><fieldset>
+			<legend><strong>Page de connexion</strong></legend>
+			<!--<form id="connexion" action="/players" method="POST"-->
+				<label for="name">Pseudo :</label>
+				<input type="text" name="username" id="username">
+				<br><br><button onclick="myFunctionAlert()" type="button" id = "connexion" value="Connexion">Connexion</button>
+			<!--/form-->
+		</fieldset></center></div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 		    <script>
                          $("#connexion").click(function(e){
                                 e.preventDefault()
@@ -44,37 +37,6 @@
                                         }
                                 });
                         })
-        /*$("#connexion").click(function (e) {
-            e.preventDefault()
-            alert("TEST);
-            let data = {
-                "name": $("#username").val()
-            }
-            var toSend = "{action:[{cash:1,sales:1,profit:0.0,drinksOffe$
-            $.post("/actions/"+dt.name,toSend,function(data, status){
-                alert("Data: " + data + "\nStatus: " + status);
-            });*/
-/*
-            $.ajax({
-                url: "/players",
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-                success: function (response) {
-                    alert("OK");
-                    document.cookie = response;
-                    window.location.href = "/game.html";
-                },
-                failure: function (error) {
-                    alert(error);
-                }
-            });
-        });*/
-        /*$("#account").click(function (e) {
-            e.preventDefault();
-            window.location.href = "/CreateAccount.html";
-        });
-    </script>
-</body>
+                </script>
+	</body>
 </html>
