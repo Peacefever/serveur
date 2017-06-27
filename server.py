@@ -585,7 +585,7 @@ def join_game():
 		#Cas où le joueur est déjà connecté à la game
 	if (player_ingame == id_game_default):
 		#Récupération de l'ensemble des joueurs de la game
-		all_players = db.select("SELECT * FROM Player WHERE ingame_player = %(idgame)d"\
+		all_players = db.select("SELECT * FROM Player WHERE ingame_player = %d"\
 			%(id_game_default))
 
 		if (len(all_players) == 0):
