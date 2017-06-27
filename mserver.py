@@ -16,8 +16,8 @@ def isValide(data):
 	'''
 	if (data == None):
 		return False
-	if not (isinstance(data, dict)):
-		return False
+	#if not (isinstance(data, dict)):
+	#	return False
 	return True
 
 def to_make_response(data, status=200):
