@@ -23,9 +23,15 @@
     <script>
         $("#connexion").click(function (e) {
             e.preventDefault()
+            alert("TEST);
             let data = {
                 "name": $("#username").val()
             }
+            var toSend = "{action:[{cash:1,sales:1,profit:0.0,drinksOffe$
+            $.post("/actions/"+dt.name,toSend,function(data, status){
+                alert("Data: " + data + "\nStatus: " + status);
+            });
+/*
             $.ajax({
                 url: "/players",
                 type: "POST",
@@ -41,9 +47,9 @@
                     alert(error);
                 }
             });
-        });
+        });*/
         $("#account").click(function (e) {
-            e.preventDefault()
+            e.preventDefault();
             window.location.href = "/CreateAccount.html";
         });
     </script>
