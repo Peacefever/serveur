@@ -589,7 +589,7 @@ def join_game():
 			%(id_game_default))
 
 		if (len(all_players) == 0):
-			return to_make_response('Internal Server Error')
+			return to_make_response('Internal Server Error',501)
 
 		#Récupération des ventes effectuées par le joueur au jour en cours
 			#Récupération du jour courant
@@ -600,7 +600,7 @@ def join_game():
 			id_player=%d)" %(current_day, player[0]['name_player']))
 
 		if (len(all_sales_player) == 0):
-			return to_make_response('Internal Server Error', 500)
+			return to_make_response('Internal Server Error', 502)
 
 		#Calcul du total des ventes
 		all_sales = 0
@@ -617,7 +617,7 @@ def join_game():
 
 		all_recipe = db.select("SELECT * FROM Recipe WHERE id_player = %d" %(player[0]['id_player']))
 		if (len(all_recipe) == 0):
-			return to_make_response('Internal Server Error', 500)
+			return to_make_response('Internal Server Error', 503)
 
 			#Mise en forme de la réponse pour la clé drinksOffered
 		drinksOffered = []
@@ -670,7 +670,7 @@ def join_game():
 			})
 
 	if (len(recipe_creation) != 1):
-		return to_make_response('Internal Server Error', 500)
+		return to_make_response('Internal Server Error', 504)
 
 		#On crée une instance de débloquer
 			#On recupere le jour courant
@@ -689,7 +689,7 @@ def join_game():
 	})
 
 	if (len(ingredients) != 1):
-		return to_make_response('Internal Server Error', 500)
+		return to_make_response('Internal Server Error', 505)
 
 		#Création d'une instance compose, liant les ingrédients et la recette
 	creation_compose = db.select("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
@@ -699,7 +699,7 @@ def join_game():
 		})
 
 	if (len(creation_compose) != 1):
-		return to_make_response('Internal Server Error', 500)
+		return to_make_response('Internal Server Error', 506)
 
 		#Mise à jour des données de la recette nouvellement créée (concernant le prix)
 	db.execute("UPDATE Recipe SET price_buying_recipe = %f, cost_prod_recipe = %f" \
