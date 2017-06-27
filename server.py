@@ -556,8 +556,7 @@ def join_game():
 	#Récupération de la donnée
 	datas = request.get_json()
 	#print datas
-	return json.dumps(datas), 200, { "Content-Type": "application/json" }
-'''
+
 	#Test de la donnée pour voir si on peut la traiter ou non
 	if (isValide(datas) == False):
 		return to_make_response('Bad Request', 400)
@@ -737,7 +736,7 @@ def join_game():
 		}
 	}
 	return to_make_response(resp)
-	'''
+
 	'''
 	algo:
 	le joueur se connecte a une partie.
