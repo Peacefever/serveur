@@ -549,203 +549,193 @@ def create_account():
 '''to test'''
 @app.route('/players', methods=['POST'])
 def join_game():
-	'''
-	Cette route permet à un joueur connecté de rejoindre
-	une parie.
-	'''
-	#Récupération de la donnée
-	datas = request.get_json()
-	#print datas
+    '''
+    Cette route permet à un joueur connecté de rejoindre
+    une parie.
+    '''
+    #Récupération de la donnée
+    datas = request.get_json()
 
-	#Test de la donnée pour voir si on peut la traiter ou non
-	if (isValide(datas) == False):
-		return to_make_response('Bad Request', 400)
+    #Test de la donnée pour voir si on peut la traiter ou non
+    if (isValide(datas) == False):
+        return to_make_response('Bad Request', 400)
 
-	if not ('name' in datas):
-		return to_make_response('Bad Request', 401)
+    if not ('name' in datas):
+        return to_make_response('Bad Request', 400)
 
-	if ((datas['name'] == '') or (datas['name'].isspace()==True)):
-		return to_make_resp('Bad request', 402)
+    if ((datas['name'] == '') or (datas['name'].isspace()==True)):
+        return to_make_resp('Bad request', 400)
 
-	#La données est conforme pour être traitée. Donc on la traite.
-	#Récupération des informations du joueur
-	db = Db()
-	player = db.select("SELECT * FROM player WHERE name_player = %(pseudo)s", {
-		"pseudo":datas['name']
-		})
+    #La données est conforme pour être traitée. Donc on la traite.
+    #Récupération des informations du joueur
+    db = Db()
+    player = db.select("SELECT * FROM Player WHERE name_player = %(pseudo)s", {
+        "pseudo":datas['name']
+        })
 
-	#Si la récupération de la donnée s'est mal passé
-	if (len(player) != 1):
-		return to_make_response('Internal Server Error', 560)
+    #Si la récupération de la donnée s'est mal passé
+    if (len(player) != 1):
+        return to_make_response('Internal Server Error', 500)
 
-	#Si la récupération de donnée s'est correctement passée
-	#On vérifie si que le joueur soit dans la partie pour la première fois où bien s'il y est déjà.
-	player_ingame = player[0]['ingame_player']
+    #Si la récupération de donnée s'est correctement passée
+    #On vérifie si que le joueur soit dans la partie pour la première fois où bien s'il y est déjà.
+    player_ingame = player[0]['ingame_player']
 
-		#Cas où le joueur est déjà connecté à la game
-	if (player_ingame == id_game_default):
-		#Récupération de l'ensemble des joueurs de la game
-		all_players = db.select("SELECT * FROM Player WHERE ingame_player = %d"\
-			%(id_game_default))
+        #Cas où le joueur est déjà connecté à la game
+    if (player_ingame == id_game_default):
+        #Récupération de l'ensemble des joueurs de la game
+        all_players = db.select("SELECT * FROM Player WHERE ingame_player = %d"\
+            %(id_game_default))
 
-		if (len(all_players) == 0):
-			return to_make_response('Internal Server Error',501)
+        if (len(all_players) == 0):
+            return to_make_response('Internal Server Error')
 
-		#Récupération des ventes effectuées par le joueur au jour en cours
-			#Récupération du jour courant
-		current_day = get_lastGameDay()
+        #Récupération des ventes effectuées par le joueur au jour en cours
+            #Récupération du jour courant
+        current_day = get_lastGameDay()
 
-			#Récupération de l'ensemble des ventes du joueur pour le jour courant
-		all_sales_player = db.select("SELECT quantity_sales FROM Sales WHERE (day_sales = %d AND \
-			id_player=%d)" %(current_day, player[0]['id_player']))
+            #Récupération de l'ensemble des ventes du joueur pour le jour courant
+        all_sales_player = db.select("SELECT quantity_sales FROM Sales WHERE (day_sales = %d AND \
+            id_player=%d)" %(current_day, player[0]['id_player']))
 
-		if (len(all_sales_player) == 0):
-			return to_make_response('Internal Server Error', 502)
+        if (len(all_sales_player) == 0):
+            return to_make_response('Internal Server Error', 500)
 
-		#Calcul du total des ventes
-		all_sales = 0
-		for asold in all_sales_player:
-			all_sales = all_sales + asold['quantity_sales']
+        #Calcul du total des ventes
+        all_sales = 0
+        for asold in all_sales_player:
+            all_sales = all_sales + asold['quantity_sales']
 
-		#Mise en place de la réponse du drinksOffered (supposition que tout ce que possède le joueur
-		#est porposé à la vente.
-			#Récupération de l'ensemble des recettes vendues au jour en cours par le joueur
-		#all_recipe_sold = db.select("SELECT name_recipe, price_buying_recipe, cost_prod_recipe, \
-		#	isCold_recipe, hasAlcohol_recipe FROM Sales FULL JOIN Recipe ON sales.id_recipe = recipe.id_recipe\
-		#	WHERE (id_player = %d AND day_sales = %d)" %(player[0]['id_player'], current_day))
-		#print(all_recipe_sold)*/
+        #Mise en place de la réponse du drinksOffered (supposition que tout ce que possède le joueur
+        #est porposé à la vente.
+            #Récupération de l'ensemble des recettes vendues au jour en cours par le joueur
+        #all_recipe_sold = db.select("SELECT name_recipe, price_buying_recipe, cost_prod_recipe, \
+        #    isCold_recipe, hasAlcohol_recipe FROM Sales FULL JOIN Recipe ON sales.id_recipe = recipe.id_recipe\
+        #    WHERE (id_player = %d AND day_sales = %d)" %(player[0]['id_player'], current_day))
+        #print(all_recipe_sold)*/
 
-		all_recipe = db.select("SELECT * FROM Recipe WHERE id_player = %d" %(player[0]['id_player']))
-		if (len(all_recipe) == 0):
-			return to_make_response('Internal Server Error', 503)
+        all_recipe = db.select("SELECT * FROM Recipe WHERE id_player = %d" %(player[0]['id_player']))
+        if (len(all_recipe) == 0):
+            return to_make_response('Internal Server Error', 500)
 
-			#Mise en forme de la réponse pour la clé drinksOffered
-		drinksOffered = []
-		for adrink in all_recipe:
-			drinksOffered.append({
-				"name":adrink['name_recipe'],
-				"buying_price":adrink['price_buying_recipe'],
-				"cost_production":adrink['cost_prod_recipe'],
-				"hasAlcohol":adrink['hasalcohol_recipe'],
-				"isCold":adrink['iscold_recipe']
-				})
+            #Mise en forme de la réponse pour la clé drinksOffered
+        drinksOffered = []
+        for adrink in all_recipe:
+            drinksOffered.append({
+                "name":adrink['name_recipe'],
+                "buying_price":adrink['price_buying_recipe'],
+                "cost_production":adrink['cost_prod_recipe'],
+                "hasAlcohol":adrink['hasalcohol_recipe'],
+                "isCold":adrink['iscold_recipe']
+                })
 
-		#Mise en forme de la réponse
-		resp = {
-			"name": player[0]['name'],
-			"location": {
-				"latitude": player[0]['lat_player'],
-				"longitude":player[0]['lon_player']
-			},
-			"info":{
-				"cash": player[0]['cash_player'],
-				"sales":all_sales,
-				"profit": get_profit(all_players, player[0]['name_player']),
-				"drinksOffered": drinksOffered
-			}
-		}
+        #Mise en forme de la réponse
+        resp = {
+            "name": player[0]['name_player'],
+            "location": {
+                "latitude": player[0]['lat_player'],
+                "longitude":player[0]['lon_player']
+            },
+            "info":{
+                "cash": player[0]['cash_player'],
+                "sales":all_sales,
+                "profit": get_profit(all_players, player[0]['name_player']),
+                "drinksOffered": drinksOffered
+            }
+        }
 
-		#On renvoie donc les données correspondantes
-		return to_make_response(resp)
+        #On renvoie donc les données correspondantes
+        return to_make_response(resp)
 
-	#Cas où le joueur n'est pas déjà connecté à la game.
-		#On génère les coordonnées du joueur
-	coordonate_player = generate_location(-100.0, 100.1)
+    #Cas où le joueur n'est pas déjà connecté à la game.
+        #On génère les coordonnées du joueur
+    coordonate_player = generate_location(-100.0, 100.1)
 
-		#On met à jour les champs du joueur
-	db.execute("UPDATE Player SET lon_player = %f, lat_player = %f, cash_player = %f, \
-		rayon_player = %f, ingame_player = %d" %(coordonate_player['longitude'], coordonate_player['latitude'], \
-			default_cash_game, default_rayon_player, id_game_default))
-
-
-		#On crée une instance de la recette (ou bien on récupère l'instance par défaut a voir)
-	recipe_creation =db.select("INSERT INTO Recipe(name_recipe, price_buying_recipe, cost_prod_recipe\
-		isCold_recipe, hasAlcohol_recipe, isUnblocked_recipe, id_player VALUES (%(name)s, %(buying_price)s\
-			%(cost_production)s, %(iscold)s, %(hasalcohol)s, %(unblocked)s, %(id)s RETURNING id_recipe", {
-			"name": "Limonade Citron",
-			"iscold":True,
-			"hasalcohol":False,
-			"unblocked":True,
-			"id":player[0]['id_player']
-			})
-
-	if (len(recipe_creation) != 1):
-		return to_make_response('Internal Server Error', 504)
-
-		#On crée une instance de débloquer
-			#On recupere le jour courant
-	current_day = get_lastGameDay()
-	unblock_creation = db.select("INSERT INTO Unblock(day_unblock, quantity_unblock, id_player, id_recipe)\
-		VALUES (%(day)s, %(quantity)s, %(id_player)s, %(recipe_id)s)", {
-		"day": current_day,
-		"quantity": 1,
-		"id_player":player[0]['id_player'],
-		"recipe_id":recipe_creation[0]['id_recipe']
-		})
-
-		#On récupère les ingrédients nécéssaires à la recette: citron
-	ingredients = db.select("SELECT * FROM Ingredient WHERE (name_ingredient = %(name)s", {
-	"name": "Citron"
-	})
-
-	if (len(ingredients) != 1):
-		return to_make_response('Internal Server Error', 505)
-
-		#Création d'une instance compose, liant les ingrédients et la recette
-	creation_compose = db.select("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
-		(%(ingredient_id)s, %(recipe_id)s)", {
-		"ingredient_id": ingredients[0]['id_ingredient'],
-		"recipe_id": recipe_creation[0]['id_recipe']
-		})
-
-	if (len(creation_compose) != 1):
-		return to_make_response('Internal Server Error', 506)
-
-		#Mise à jour des données de la recette nouvellement créée (concernant le prix)
-	db.execute("UPDATE Recipe SET price_buying_recipe = %f, cost_prod_recipe = %f" \
-		%((float(ingredients[0]['price_ingredient'])* 2.0), (float(ingredients[0]['price_ingredient']))))
-
-		#Récupération de l'ensemble des boissons du joueurs
-	all_recipe = db.select("SELECT * FROM Recipe WHERE id_player = %d" %(player[0]['id_player']))
-
-	db.close()
-
-		#Mise en place de la réponse pour la clé drinksOffered
-	drinksOffered = []
-	for adrink in all_recipe:
-		drinks.append({
-			"name":adrink['name_recipe'],
-			"buying_price":adrink['price_buying_recipe'],
-			"cost_production":adrink['cost_prod_recipe'],
-			"hasAlcohol":adrink['hasalcohol_recipe'],
-			"isCold":adrink['iscold_recipe']
-			})
-
-		#Mise en place de la réponse
-	resp = {
-		"name":player[0]['name_player'],
-		"location":{
-			"latitude": player[0]['lat_player'],
-			"longitude":player[0]['lon_player']
-		},
-		"infos":{
-			"cash":player[0]['cash'],
-			"sales":0,
-			"profit":0.0,
-			"drinksOffered": drinksOfferedS
-		}
-	}
-	return to_make_response(resp)
-
-	'''
-	algo:
-	le joueur se connecte a une partie.
-	Ok.
-	Si le joueur est deja dans la partie alors on lance certaines données.
-	Si c'est la premiere fois que le joueur se connecte à la partie alors on renvoie d'autres données.
-	'''
+        #On met à jour les champs du joueur
+    db.execute("UPDATE Player SET lon_player = %f, lat_player = %f, cash_player = %f, \
+        rayon_player = %f, ingame_player = %d" %(coordonate_player['longitude'], coordonate_player['latitude'], \
+            default_cash_game, default_rayon_player, id_game_default))
 
 
+        #On crée une instance de la recette (ou bien on récupère l'instance par défaut a voir)
+    recipe_creation =db.select("INSERT INTO Recipe(name_recipe, price_buying_recipe, cost_prod_recipe\
+        isCold_recipe, hasAlcohol_recipe, isUnblocked_recipe, id_player VALUES (%(name)s, %(buying_price)s\
+            %(cost_production)s, %(iscold)s, %(hasalcohol)s, %(unblocked)s, %(id)s RETURNING id_recipe", {
+            "name": "Limonade Citron",
+            "iscold":True,
+            "hasalcohol":False,
+            "unblocked":True,
+            "id":player[0]['id_player']
+            })
+
+    if (len(recipe_creation) != 1):
+        return to_make_response('Internal Server Error', 500)
+
+        #On crée une instance de débloquer
+            #On recupere le jour courant
+    current_day = get_lastGameDay()
+    unblock_creation = db.select("INSERT INTO Unblock(day_unblock, quantity_unblock, id_player, id_recipe)\
+        VALUES (%(day)s, %(quantity)s, %(player_id)s, %(recipe_id)s)", {
+        "day": current_day,
+        "quantity": 1,
+        "player_id":player[0]['id_player'],
+        "recipe_id":recipe_creation[0]['id_recipe']
+        })
+
+        #On récupère les ingrédients nécéssaires à la recette: citron
+    ingredients = db.select("SELECT * FROM Ingredient WHERE (name_ingredient = %(name)s", {
+    "name": "Citron"
+    })
+
+    if (len(ingredients) != 1):
+        return to_make_response('Internal Server Error', 500)
+
+        #Création d'une instance compose, liant les ingrédients et la recette
+    creation_compose = db.select("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
+        (%(ingredient_id)s, %(recipe_id)s)", {
+        "ingredient_id": ingredients[0]['id_ingredient'],
+        "recipe_id": recipe_creation[0]['id_recipe']
+        })
+
+    if (len(creation_compose) != 1):
+        return to_make_response('Internal Server Error', 500)
+
+        #Mise à jour des données de la recette nouvellement créée (concernant le prix)
+    db.execute("UPDATE Recipe SET price_buying_recipe = %f, cost_prod_recipe = %f" \
+        %((float(ingredients[0]['price_ingredient'])* 2.0), (float(ingredients[0]['price_ingredient']))))
+
+        #Récupération de l'ensemble des boissons du joueurs
+    all_recipe = db.select("SELECT * FROM Recipe WHERE id_player = %d" %(player[0]['id_player']))
+
+    db.close()
+
+        #Mise en place de la réponse pour la clé drinksOffered
+    drinksOffered = []
+    for adrink in all_recipe:
+        drinks.append({
+            "name":adrink['name_recipe'],
+            "buying_price":adrink['price_buying_recipe'],
+            "cost_production":adrink['cost_prod_recipe'],
+            "hasAlcohol":adrink['hasalcohol_recipe'],
+            "isCold":adrink['iscold_recipe']
+            })
+
+        #Mise en place de la réponse
+    resp = {
+        "name":player[0]['name_player'],
+        "location":{
+            "latitude": player[0]['lat_player'],
+            "longitude":player[0]['lon_player']
+        },
+        "infos":{
+            "cash":player[0]['cash'],
+            "sales":0,
+            "profit":0.0,
+            "drinksOffered": drinksOfferedS
+        }
+    }
+
+    return to_make_response(resp)
 ''' to test '''
 #Il manque juste à gérer l'action "Débloquer Recette" (newRecipe) pour avoir le jeu complet.
 #curl -X POST -H "Content-Type: application/json" -d '{["action": {"kind": "drinks", "prepare":{"Limonade":2}, "price":{"Limonade":15}}]}' http://127.0.0.1:5000/action/toto
