@@ -604,7 +604,7 @@ def join_game():
 
 		#Calcul du total des ventes
 		all_sales = 0
-		for asold in sales:
+		for asold in all_sales_player:
 			all_sales = all_sales + asold['quantity_sales']
 
 		#Mise en place de la réponse du drinksOffered (supposition que tout ce que possède le joueur
