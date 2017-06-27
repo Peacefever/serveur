@@ -337,7 +337,7 @@ def metro_get_infos(): #A voir si l'heure affiché est heure ou bien heure:min:s
 		
 		#Echec récupération id dernière ligne de la table Weather
 	if (len(w_id_max) != 1):
-		return to_make_response('Internal Server Error', 500)
+		return to_make_response('Internal Server Error', 511)
 
 		#Récupération de la dernière ligne de la table Weather
 	w_last_infos = db.select("SELECT now_weather, tomorrow_weather FROM Weather \
@@ -345,7 +345,7 @@ def metro_get_infos(): #A voir si l'heure affiché est heure ou bien heure:min:s
 
 		#Erreur récupération dernière ligne de la table Weather
 	if (len(w_last_infos) == 0):
-		return to_make_response('Internal Server Error', 500)
+		return to_make_response('Internal Server Error', 512)
 	db.close()
 	
 	#Mise en place de la réponse au client
@@ -381,7 +381,7 @@ def all_ingredients():
 	number_ingredients = db.select("SELECT COUNT(*) FROM Ingredient")
 
 	if (len(number_ingredients) != 1):
-		return to_make_response('Internal Server Error', 500)
+		return to_make_response('Internal Server Error', 584)
 
 	#S'il n'y a aucun élément dans la base
 	if (number_ingredients[0]['count'] == 0):
@@ -434,7 +434,7 @@ def metro_save_infos():
 	db.close()
 
 	if (len(number_elements) != 1):
-		return to_make_response('Internal Server Error', 500)
+		return to_make_response('Internal Server Error', 537)
 
 	#S'il n'y a aucun éléments en base de données
 	#Cela signifie que c'est le premier jour
@@ -450,7 +450,7 @@ def metro_save_infos():
 
 		#Si l'instance de la table n'est pas créée
 		if (len(w_creation) != 1):
-			return to_make_response('Internal Server Error', 500)
+			return to_make_response('Internal Server Error', 553)
 
 	#S'il y a des éléments en base de données
 		#On ne crée plus d'instance tant que un jour complet n'est pas passé.
@@ -473,7 +473,7 @@ def metro_save_infos():
 		db.close()
 
 		if (len(w_creation) == 0):
-			return to_make_response('Internal Server Error', 500)
+			return to_make_response('Internal Server Error', 576)
 
 		return to_make_response('', 201)
 
@@ -847,7 +847,7 @@ def collect_sales():
 		})
 
 		if (len(playerID) != 1):
-			return to_make_response('Internal Server Error', 500)
+			return to_make_response('Internal Server Error', 550)
 
 		#Récupération de l'id de la recette vendue
 		recipeID = db.select("SELECT id_recipe FROM Recipe WHERE (name_recipe = %(name)s)", {
@@ -855,7 +855,7 @@ def collect_sales():
 			})
 
 		if (len(recipeID) != 1):
-			return to_make_response('Internal Server Error', 500)
+			return to_make_response('Internal Server Error', 558)
 
 		#Requete A TESTER À PART EN PRIORITÉ
 		#Vérification que l'instance de la table Sales que l'on va créer n'est pas déjà présente en base
@@ -867,7 +867,7 @@ def collect_sales():
 		})
 
 		if (presentInDB != 1):
-			return to_make_response('Internal Server Error', 500)
+			return to_make_response('Internal Server Error', 570)
 
 
 		#Cas où il n'y a aucune ligne vente pour ce jour, cet id_recipe et cet id_joueur
@@ -891,7 +891,7 @@ def collect_sales():
 		})
 
 		if (len(soldToModify) != 1):
-			return to_make_response('Internal Server Error', 500)
+			return to_make_response('Internal Server Error', 594)
 
 			#Update de la ligne en question
 		db.execute("UPDATE Sales SET (quantity_sales = %(quantity)s, day_sales =%(day)s, \
