@@ -570,7 +570,7 @@ def join_game():
 	#La données est conforme pour être traitée. Donc on la traite.
 	#Récupération des informations du joueur
 	db = Db()
-	player = db.select("SELECT * FROM Player WHERE name_player = %(pseudo)s", {
+	player = db.select("SELECT * FROM player WHERE name_player = '%(pseudo)s'", {
 		"pseudo":datas['name']
 		})
 
