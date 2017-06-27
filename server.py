@@ -127,7 +127,7 @@ def get_map():
 			"cash": player['cash_player'],
 			"sales":all_sales,
 			"profit": get_profit(players, player['name_player']),
-			"drinkOffered": drinkOffredValue
+			"drinksOffered": drinkOffredValue
 		}
 
 	#Mise en forme de la réponse pour la clé drinksByPlayer
