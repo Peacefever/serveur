@@ -555,7 +555,7 @@ def join_game():
 	'''
 	#Récupération de la donnée
 	datas = request.get_json()
-	print datas
+	#print datas
 	return json.dumps(datas), 200, { "Content-Type": "application/json" }
 '''
 	#Test de la donnée pour voir si on peut la traiter ou non
