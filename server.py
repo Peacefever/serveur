@@ -875,7 +875,7 @@ def collect_sales():
 		if (presentInDB[0]['count'] == 0):
 			#Alors on crée une nouvelle instance de Sales, qui sera représentée en base par une ligne
 			sold_creation = db.select("INSERT INTO sales (quantity_sales, day_sales, id_player, id_recipe)\
-				VALUES (%(quantity)s, %(day)s, %(p_id)s, %(r_id)s)", {
+				VALUES %(quantity)s, %(day)s, %(p_id)s, %(r_id)s", {
 				"quantity":dictObject['quantity'],
 				"day": currentDay,
 				"p_id":playerID,
