@@ -81,9 +81,9 @@ def save_actions(playerName):
         #Détermination du cout total des actions
     costs = 0.0
     for anAntion in datas['actions']:
-        if (anAction['kind'] == 'drinks'): #Action de production
+        if (data['kind'] == 'drinks'): #Action de production
             costs = costs + calculate_cost_prod(anAction, playerName)
-        if (anAction['kind'] == 'ad'):
+        if (data['kind'] == 'ad'):
             cost += cost + calculate_cost_ad(anAction, playerName)
 
         #On récupère les données du joueurs
@@ -102,9 +102,9 @@ def save_actions(playerName):
     #Le joueur a assez d'argent. Alors...
         #...On remplie la base de données
     for anAction in datas['actions']:
-        if (anAction['kind'] == 'drinks'):
+        if (data['kind'] == 'drinks'):
             filldb_playeractionsdrinks(anAction, playerName)
-        if (anAction['kind'] == 'ad'):
+        if (data['kind'] == 'ad'):
             filldb_playeractionsAdd(anAction, playerName)
 
         #...On met à jour le cash disponible du joueur
