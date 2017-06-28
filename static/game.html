@@ -43,10 +43,12 @@ function getCookie(cname) {
                     //alert("MAP: " + data + "\nStatus: " + status);
 			console.log(data);
 			var infos = data.playerInfo[pseudo];
+			console.log(infos);
 			var drinks = infos.drinksOffered;
-			
+			console.log(drinks);
 			for(var drink in drinks){
-				$("drinkOffered").append('<option value="'+drink.price+'">'+drink.name+" ("+drink.price+"€)"+'</option>');
+				console.log(drink);
+				$("#drinkOffered").append('<option value="'+drink.price+'">'+drink.name+" ("+drink.price+"€)"+'</option>');
 			}
 		    
                });
