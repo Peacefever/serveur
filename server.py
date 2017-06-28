@@ -488,32 +488,17 @@ def join_game():
 			"id_game": default_game,
 			"name":data['name']
 		})
-		resp = {"name": "toto",
-		"info": {
-			"location": [{
-				"latitude": 25
-				}, {
-				"longitude": 50
-			}],
-		"argent": [{
-			"dispo": 1.0
-			}, {
-			"ventes": 0.0
-			}, {
-			"profit": 0.0
-			}]
-			}
-		}
-		'''resp = {
-		'name': data['name'],
-		"location": {
-				"latitude": player[0]['lat_player'],
-				"longitude": player[0]['lon_player']
-		},
-		"infos" :get_player_infos(player[0]['id_player'], default_game, "prod")
-		}'''
-		db.close()
-		return json.dumps(resp), 200, {"Content-Type : applications/json"}
+		resp = {
+  		'name': data['name'],
+  		"location": {
+  				"latitude": player[0]['lat_player'],
+  				"longitude": player[0]['lon_player']
+  		},
+  		"infos" :get_player_infos(player[0]['id_player'], default_game, "prod")
+ 		}
+ 		}
+  		db.close()
+  		return to_make_response(resp)
 		
 	#print("je suiio la ")
 	join = join_new_player(data['name'], default_game)
