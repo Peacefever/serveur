@@ -350,12 +350,14 @@ def collect_sales():
 
 		#Cas où il y a déjà une ligne, on la récupère et on effectue dessus une mise à jour
 			#Récupération de la ligne
-		soldToModify = db.select("SELECT * FROM Sales WHERE (day_sales = %(day)s AND id_player = %(p_id)s\
-			AND id_recipe = %(r_id)s)", {
-		"day":currentDay,
-		"p_id":playerID[0]['id_player'],
-		"r_id":recipeID[0]['id_recipe']
-		})
+		sold_creation = db.select("INSERT INTO sales (quantity_sales, day_sale)\
+				VALUES (%(quantity)s, %(day)s",{ #%(p_id)s, #%(r_id)s)", {
+				"quantity":dictObject['quantity'],
+				"day": currentDay,
+				#"p_id":playerID[0]['id_player'],
+				#"r_id":recipeID[0]['id_recipe']
+				})
+
 
 		if (len(soldToModify) != 1):
 			print('4')
