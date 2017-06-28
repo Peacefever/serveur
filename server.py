@@ -332,9 +332,9 @@ def collect_sales():
 		presentInDB = db.select("SELECT * FROM sales WHERE day_sales = %(crt)s AND id_player = %(p_id)s AND id_recipe = %(r_id)s",{ ("crt" = currentDay, "p_id"=playerID[0]['id_player'], "r_id"=recipeID[0]['id_recipe'])}))
 		print(presentInDB)
 
-		if (len(presentInDB) != 1):
-			print("3")
-			return internal_server_error()
+		#if (len(presentInDB) != 1):
+		#	print("3")
+		#	return internal_server_error()
 
 
 		#Cas où il n'y a aucune ligne vente pour ce jour, cet id_recipe et cet id_joueur
@@ -361,7 +361,9 @@ def collect_sales():
 			"quantity": dictObject['quantity'],
 			"day": currentDay,
 			"p_id": playerID,
-			"r_id": recipeID,
+			"r_id": recipeID,                                                        VALUES (%(now)s, %(tomorrow)s, %(day)s) RETURNING id_weather", {
+217
+
 			"old":soldToModify[0]['day_sales'],
 			"old_p":soldToModify[0]['id_player'],
 			"old_r":soldToModify[0]['id_recipe']
