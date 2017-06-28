@@ -513,8 +513,8 @@ def join_game():
 		"infos" :get_player_infos(player[0]['id_player'], default_game, "prod")
 		}'''
 		db.close()
-		return to_make_response(resp)
-
+		return json.dumps(resp), 200, {"Content-Type : applications/json"}
+		
 	#print("je suiio la ")
 	join = join_new_player(data['name'], default_game)
 	#db.close()
