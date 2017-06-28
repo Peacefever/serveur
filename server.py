@@ -419,6 +419,8 @@ def join_game():
 	print("je suiio la ")
 	join = join_new_player(data['name'], default_game)
 	print(join)
+	return to_make_response(join)
+
 '''
 	print(is_present_pseudo_indb(data['name']))
 	#La donnée peut être traitée
