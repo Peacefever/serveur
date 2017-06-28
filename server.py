@@ -398,7 +398,7 @@ def collect_sales():
 		presentInDB = db.select("SELECT * FROM Sales WHERE (day_sales = %d AND \
 			id_player = %d AND id_recipe = %d)" %(currentDay, playerID[0]['id_player'], recipeID[0]['id_recipe']))
 
-		print(presentInDB)
+		#print(presentInDB)
 
 		#if (len(presentInDB) != 1):
 		#	print("3")
@@ -444,7 +444,7 @@ def collect_sales():
 			"old_r":soldToModify[0]['id_recipe']
 		})
 		'''
-		print(db.select("SELECT * FROM Sales"))
+		#print(db.select("SELECT * FROM Sales"))
 	db.close()
 	return to_make_response('', 201)
 
