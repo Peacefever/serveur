@@ -153,8 +153,6 @@
       event.preventDefault();
               var Message = {
                     prodLimo: $('#nbreprod').val(),
-                    pannoPub: $('#nbrepub').val(),
-                    prixVente: $('#prix').val(),
       }
       $.ajax({
         url: "/actions/<playerName>", // Route actions
@@ -166,8 +164,6 @@
           var dat = JSON.parse(response); // Réponse au format json
           alert("Valeurs envoyées !");
           $('#quantite').val(dat.prodLimo);
-          $('#quantite').val(dat.pannoPub);
-          $('#quantite').val(dat.prixVente);
           },
         });
       });
