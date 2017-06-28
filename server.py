@@ -367,11 +367,11 @@ def collect_sales():
 	#La donnée est conforme a ce que nous attendions, on la traite. (concerne la table Sales)
 	#Le but est de créer une instance de Sales par boisson et par jour pour un joueur donné
 	db = Db()
-	print("debug")
-	print(db.select("SELECT * FROM Sales"))
-	print("FIN")
+	#print("debug")
+	#print(db.select("SELECT * FROM Sales"))
+	#print("FIN")
 
-	print(datas['sales'])
+	#print(datas['sales'])
 	for dictObject in datas['sales']:
 		#Récupération de l'id du joueur
 		playerID = db.select("SELECT id_player FROM Player WHERE (name_player = %(name)s)", {
