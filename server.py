@@ -284,8 +284,8 @@ def collect_sales():
 	Cette route permet de sauvegarder le nombre de ventes
 	de chaque boissons pour un joeuur donné
 	'''
-	#datas = request.get_json()
-	datas = {"sales":[{"player":"toto", "item":"Limonade", "quantity":2}]}
+	datas = request.get_json()
+	#datas = {"sales":[{"player":"toto", "item":"Limonade", "quantity":2}]}
 
 	if (isValidData(datas) == False):
 		return bad_request()
@@ -321,9 +321,9 @@ def collect_sales():
 
 		print(recipeID)
 
-		if (len(recipeID) != 1):
-			print("2")
-			return internal_server_error()
+		#if (len(recipeID) != 1):
+			#print("2")
+			#return internal_server_error()
 
 		#Requete A TESTER À PART EN PRIORITÉ
 		#Vérification que l'instance de la table Sales que l'on va créer n'est pas déjà présente en base
@@ -332,9 +332,9 @@ def collect_sales():
 
 		print(presentInDB)
 
-		if (len(presentInDB) != 1):
-			print("3")
-			return internal_server_error()
+		#if (len(presentInDB) != 1):
+		#	print("3")
+		#	return internal_server_error()
 
 
 		#Cas où il n'y a aucune ligne vente pour ce jour, cet id_recipe et cet id_joueur
