@@ -147,65 +147,11 @@
                                                                                                                             <!-- Début JavaScript --> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
-<script type="text/javascript"> // Sending message to server
-// faire le décompte des actions joueur avec le refresh avec une alert
-/////////////////////////////////////// R4 - Rejoindre une partie / Quitter une partie ////////////////////////////////////////
-
-
-/////////////////////////////////////// R5 - Vue du jeu pour un joueur ////////////////////////////////////////
-          $('#send').click(function(event){
-      event.preventDefault();
-              var toSend = {
-                    Cash: $('#monnaie').val(),
-                    Sales: $('#quantite').val(),
-                    Profit: $('#profit').val(),
-      }
-      $.ajax({
-        url: "/map/<playerName>", // Route actions
-        type: "POST", // Envoyer
-        dataType :"json", // Format json
-        data: JSON.stringify(toSend),
-        contentType: "application/json; charset=utf-8",
-        success: function(response){ // Succès
-          var dat = JSON.parse(response); // Réponse au format json
-          $('#monnaie').val(dat.Cash);
-          alert(dat.Cash);
-        },
-        failure: function(error){
-          alert(error)
-        }
-          });
-    });
-
-</script>
-
-<script type="text/javascript">
-          var dt;
-          $( document ).ready(function(){
-               alert("Ready !");
-               var cook = document.cookie;
-               dt = JSON.parse(cook);
-               $.get("/map/"+dt.name, function(data, status){
-                    var dat = JSON.parse(data);
-                    document.cookie = dat;
-                    alert("MAP: " + data + "\nStatus: " + status);
-               });
-          $("#send").click(function(event){
-               event.preventDefault();
-               var cook = document.cookie;
-               var dat = JSON.parse(cook);
-               var toSend = "{action:[{cash:1,sales:1,profit:0.0,drinksOffered:{name:name,price:0.0,hasAlcohol:1,isCold:1}}],simulated:1}"
-               $.post("/actions/"+dt.name,toSend,function(data, status){
-                    alert("Data: " + data + "\nStatus: " + status);
-               });
-          });
-</script>
-
 <script type="text/javascript">
 /////////////////////////////////////// R6 - Actions pour le lendemain ////////////////////////////////////////
           $('#send').click(function(event){
       event.preventDefault();
-              var toSend = {
+              var Message = {
                     prodLimo: $('#nbreprod').val(),
                     pannoPub: $('#nbrepub').val(),
                     prixVente: $('#prix').val(),
@@ -214,63 +160,17 @@
         url: "/actions/<playerName>", // Route actions
         type: "POST", // Envoyer
         dataType :"json", // Format json
-        data: JSON.stringify(toSend),
+        data: JSON.stringify(Message),
         contentType: "application/json; charset=utf-8",
         success: function(response){ // Succès
           var dat = JSON.parse(response); // Réponse au format json
-          //alert(dat.prodLimo);
-          $('#quantite').val(dat.prodLimo); // Dans l'input quantite on demande la valeur de prodLimo
-          alert(dat.pannoPub);
-          alert(dat.prix);
-          //document.cookie = response;
-        },
-        failure: function(error){
-          alert(error)
-        }
-          });
-    });
-</script>
-
-<script type="text/javascript">
-/////////////////////////////////////// R7 - Date et météo ////////////////////////////////////////
-               $('#sendmeteo').click(function(event){
-      event.preventDefault();
-      }
-      $.ajax({
-        url: "/metrology",
-        type: "GET",
-        dataType :"json",
-        success: function(response){
-          var meteo = JSON.parse(response); // Récupération du résultat
-          alert(response);
-
-          //alert(meteo.);
-        },
-        failure: function(error){
-          alert(error);
-        }
-});
-</script>
-
-<script type="text/javascript">
-/////////////////////////////////////// R8 - Réinitialiser une partie ////////////////////////////////////////
-      $.ajax({
-        url: "/reset",
-        type: "GET",
-        dataType :"json",
-        success: function(response){
-          var reset = JSON.parse(response); // Récupération du résultat
-          alert(response);
-        },
-        failure: function(error){
-          alert(error);
-        }
-});
-</script>
-
-<script type="text/javascript">
-/////////////////////////////////////// R9 - Obtenir la liste des ingrédients ////////////////////////////////////////
-
+          alert("Valeurs envoyées !");
+          $('#quantite').val(dat.prodLimo);
+          $('#quantite').val(dat.pannoPub);
+          $('#quantite').val(dat.prixVente);
+          },
+        });
+      });
 </script>
 
                                                                                                                            <!-- Fin JavaScript --> 
