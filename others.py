@@ -296,7 +296,7 @@ def join_new_player(playername, gameid):
 	#Vérification
 	player = db.select("SELECT * FROM Player WHERE id_player = %d" %(player_creation[0]['id_player']))
 	if (len(player) != 1):
-		return "Error -500"
+		return "Error -501"
 	print(player)
 
 	#Fin
@@ -308,7 +308,7 @@ def join_new_player(playername, gameid):
 		default_recipe = db.select("SELECT * FROM Recipe WHERE id_player = %d" %(player_creation[0]['id_player']))
 
 		if (default_recipe):
-			return "Error -500"
+			return "Error -502"
 
 		#La recette a bien été récupérée
 		#On crée une instance de débloquer
@@ -327,7 +327,7 @@ def join_new_player(playername, gameid):
 	ingredients = db.select("SELECT * FROM Ingredient WHERE id_ingredient = 1" )
 
 	if (len(ingredients) == 0):
-		return "Error -500"
+		return "Error -503"
 
 	print(ingredients)
 
@@ -341,7 +341,7 @@ def join_new_player(playername, gameid):
 	print(creation_compose)
 
 	if (len(creation_compose) == 0):
-		return "Error -500"
+		return "Error -504"
 
 	print("je suis arrivé jusqu'a ici bordel de merde")
 	#drinksOffered = get_drinksOffered(player_creation[0]['player_id'], "prod")
