@@ -71,6 +71,25 @@ function getCookie(cname) {
 			}*/
 			
 		});
+		
+		// envoyer au serveur
+		$('body').on('click','#send', function (){
+			
+			var message = {
+			};
+		  $.ajax({
+			url: "/actions/"+pseudo, // Route actions
+			type: "POST", // Envoyer
+			dataType :"json", // Format json
+			data: JSON.stringify(message),
+			contentType: "application/json; charset=utf-8",
+			success: function(response){ // Succes
+			  var dat = response; // Reponse au format json
+			  alert("Valeurs envoyées !");
+				//a faire
+			 }
+		  });	
+		});
 	});
           /*var dt;
           $( document ).ready(function(){
