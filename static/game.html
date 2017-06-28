@@ -37,6 +37,11 @@ function getCookie(cname) {
 		console.log(pseudo);
 		$("#name").val(pseudo);
 		
+		$.get("/map/"+pseudo, function(data, status){
+                    var dat = data;
+                    //document.ookiecookie = dat;
+                    alert("MAP: " + data + "\nStatus: " + status);
+               });
 	});
           /*var dt;
           $( document ).ready(function(){
