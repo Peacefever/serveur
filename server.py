@@ -414,11 +414,13 @@ def join_game():
 		},
 		"infos" :get_player_infos(player[0]['id_player'], default_game, "prod")
 		}
+		db.close()
 		return to_make_response(resp)
 
 	print("je suiio la ")
 	join = join_new_player(data['name'], default_game)
 	print(join)
+	db.close()
 	return to_make_response(join)
 
 '''
