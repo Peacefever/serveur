@@ -339,12 +339,12 @@ def collect_sales():
 
 		#Cas où il n'y a aucune ligne vente pour ce jour, cet id_recipe et cet id_joueur
 			#Alors on crée une nouvelle instance de Sales, qui sera représentée en base par une ligne
-		sold_creation = db.select("INSERT INTO Sales (quantity_sales, day_sales)\#id_player, id_recipe)\
-				VALUES (%(quantity)s, %(day)s)",{ #%(p_id)s, #%(r_id)s)", {
+		sold_creation = db.select("INSERT INTO sales (quantity_sales, day_sale, id_player, id_recipe)\
+				VALUES (%(quantity)s, %(day)s, %(p_id)s, %(r_id)",{ #%(p_id)s, #%(r_id)s)", {
 				"quantity":dictObject['quantity'],
 				"day": currentDay,
-				#"p_id":playerID[0]['id_player'],
-				#"r_id":recipeID[0]['id_recipe']
+				"p_id":playerID[0]['id_player'],
+				"r_id":recipeID[0]['id_recipe']
 				})
 
 		#Cas où il y a déjà une ligne, on la récupère et on effectue dessus une mise à jour
