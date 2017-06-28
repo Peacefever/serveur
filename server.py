@@ -327,9 +327,9 @@ def collect_sales():
 
 		#Requete A TESTER À PART EN PRIORITÉ
 		#Vérification que l'instance de la table Sales que l'on va créer n'est pas déjà présente en base
-		presentInDB = db.select("SELECT * FROM Sales WHERE (day_sales = %d AND \
-			id_player = %d AND id_recipe = %d)" %(currentDay, playerID[0]['id_player'], recipeID[0]['id_recipe']))
-
+		#presentInDB = db.select("SELECT * FROM Sales WHERE (day_sales = %d AND \
+		#	id_player = %d AND id_recipe = %d)" %(currentDay, playerID[0]['id_player'], recipeID[0]['id_recipe']))
+		presentInDB = db.select("SELECT * FROM sales WHERE day_sales = %(crt)s AND id_player = %(p_id)s AND id_recipe = %(r_id)s",{ ("crt" = currentDay, "p_id"=playerID[0]['id_player'], "r_id"=recipeID[0]['id_recipe'])})
 		print(presentInDB)
 
 		if (len(presentInDB) != 1):
