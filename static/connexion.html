@@ -3,28 +3,31 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>Connexion Page</title>
-		<link rel="stylesheet" href="fiche.css" />
 	</head>
-	<body>		
-		<div style="padding:3px; border:5px outset #303030; background-color:#303030; position:absolute; left: 50%; top: 50%; width: 280px; height: 140px; margin-left: -150px; margin-top: -100px;"><center><fieldset>
-			<legend><strong>Page de connexion</strong></legend>
+	<body bgcolor=black>		
+
+		<div style="background:url('https://cannibalpizza.files.wordpress.com/2015/08/lemonade.png') no-repeat; background-color:#000000; position:absolute; left: 25%; top: 29%; width: 1000px; height: 1000px; margin-left: -150px; margin-top: -100px;"></div>
+
+        <div style="padding:3px; border:5px outset #F7FF3C; background-color:#F7FF3C; position:absolute; left: 50%; top: 50%; width: 280px; height: 140px; margin-left: -150px; margin-top: -100px;"><center><fieldset>
+			<legend><strong><FONT color="black">Page de connexion</strong></legend>
 			<!--<form id="connexion" action="/players" method="POST"-->
-				<label for="name">Pseudo :</label>
+				<label for="name"><FONT color="black">Pseudo :</label>
 				<input type="text" name="username" id="username">
-				<br><br><button type="button" id = "connexion" value="connexion">Connexion</button>
+				<br><br><button type="button" id = "connexion" value="connexion">Rejoindre une partie</button>
 			<!--/form-->
 		</fieldset></center></div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
 		    <script>
-			   
                          $("#connexion").click(function(e){
-				 alert("USER : "+$("#username").val());
+                                alert("USER : "+$("#username").val());
                                 e.preventDefault()
                                 let data = {
-						"name": "toto"
-					    }
+                                        "name": $("#username").val()
+                                        "name": "toto"
+                                }
                                 alert("DATA : "+ data);
-				alert("DATA : "+ JSON.stringify(data));
+                                alert("DATA : "+ JSON.stringify(data));
                                 $.ajax({
                                         url: "/players",
                                         type: "POST",
@@ -32,7 +35,7 @@
                                         data: JSON.stringify(data),
                                         contentType: "application/json; charset=utf-8",
                                         success: function(response){
-						alert("OK");
+						                        alert("Compte creer");
                                                 document.cookie = response;
                                                 window.location.href = "/game.html";
                                         },
