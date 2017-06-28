@@ -270,7 +270,7 @@ def save_metro():
 		return to_make_response('', 201)
 	return ('', 201)
 
-@app.route('/players', methods = ['POST'])
+@app.route('/players', methods = ['POST']) #Requete ne fonctionnant pas une fois sur
 def join_game():
 	'''
 	Cette route permet au client de se connecter à
@@ -322,158 +322,10 @@ def join_game():
 		return internal_server_error()
 	return to_make_response(resp)
 
-''' Cette route est à tester '''
-@app.route('/actions/<playerName>', methods = ['POST'])
-def save_action_choices(playerName):
-	'''
-	Cette route permet d'enregistré en base de données les choix
-	d'un joueur durant la partie
-	'''
-	#Récupération du choix du joueur
-	data = request.get_json()
-
-	#Validation de la donnée pour traitement
-	if (isValidData(data) == False):
-		return bad_request()
-
-	if not ('actions' in data):
-		return bad_request()
-
-	if not (isinstance(data['action'], list)):
-		return bad_request()
-
-	if len(data['actions']) == 0:
-		return bad_request()
-
-	#Récupération de l'id du player à partir de son nom
-	db = Db()
-	player = db.select("SELECT * FROM Player WHERE name_player = %(name)s", {
-		"name": playerName
-		})
-	print(playerID)
-	db.close()
-
-	#Récupération du jour courant
-	currentday = get_current_day()
-
-	if (currentday == -1):
-		return {}
-
-	#Sauvegarde des données en base de données en fonction du kind.
-	#La sauvegarde des données se fera au jour j+1, pour que les choix du joueur
-	#soient appliqués le jour suivant la décision.
-
-		#On parcours l'ensemble du tableau d'action
-	for anAction in data['actions']:
-		if (anAction['kind'] == 'ad'):
-			save_kind_ad_action(anAction, player[0]['id_player'], (currentday + 1))
-		if (anAction['kind'] == 'drinks'):
-			save_kind_prod_action(anAction, player[0]['id_player'], (currentday + 1))
-		if (anAction['kind'] == 'recipe'):
-			save_kind_buy_recipe_action(anAction, player[0]['id_player'], (currentday + 1))
-
-	#Détermination du cout total des actions
-	tot_cost_actions = get_totalCosts(player[0]['id_player'], (currentday + 1))
-
-	#Récupération du cash total du joueur. Son cash est toujour au jour actuel
-	player_cash = player[0]['cash_player']
-
-	#Formattage de la réponse suivant le cash du joueur
-	#Le joueur n'a pas assez d'argent
-	if (player_cash < tot_cost_actions):
-		resp = {
-			"sufficientFunds":False,
-			"totalCost":tot_cost_actions
-		}
-		return to_make_response(resp)
-
-	#Le joueur a assez d'argent
-	diff = player_cash - tot_cost_actions
-
-	db = Db()
-		#On met à jour le cash du joueur en question dans la base de données
-	db.execute("UPDATE Player SET cash_player = %f WHERE id_player = %d" %(diff, player[0]['id_player']))
-
-	#Vérification de l'update
-	print(db.select("SELECT * FROM Player WHERE id_player = %d" %(player[0]['id_player'])))
-	db.close()
-
-	#Fromattage de la réponse au client de la réponse au client
-	resp = {
-		"sufficientFunds": True,
-		"totalCost":tot_cost_actions
-	}
-	return to_make_response(resp)
-
-
-''' Cette route est a tester ===> utilisée par le client JAVA '''
-@app.route('/sales',methods =['POST'])
-def save_sales():
-	'''
-	Cette route permet la sauvegarde en base de données des ventes
-	effectuées par le joueur par boisson (recette) et par jour
-	'''
-	data = request.get_json()
-
-	if (isValidData(data) == False):
-		return bad_request()
-
-	if not ('sales' in data):
-		return bad_request()
-
-	if not (isinstance(data['list'])):
-		return bad_request()
-
-	#La donnée est conforme, donc on la traite
-	#On enregistre les données transmises par le JAVA en fonction de la valeur des clés
-	#de chaque dictionnanire (dict) dans la liste [sales].
-	for asold in data['sales']:
-		#Récupération du nom du joueur, de l'item venu, de la quantité vendue
-		the_player = asold['player']
-		the_item = asold['player'] #C'est en fait une recette
-		the_quantity = asold['quantity']
-
-		#Récupération de l'id du serveur à partir de son nom
-		db = Db()
-		player = db.select("SELECT id_player FROM Player WHERE (name_player = %(name)s)",{
-			"name":theplayer
-			})
-
-		#Récupération de l'id de la recette
-		recipe_id = db.select("SELECT id_recipe FROM Recipe WHERE name_recipe = %(item)s",{
-			"item":the_item
-			})
-
-		#On suppose que le java nous donne l'ensemble des ventes à la fin de la journée.
-		#Ou même heure par heure (c'est le même fonctionnement)
-		#On crée une instance vente pour chaque produit, pour chaque jour, si celle-ci n'existe pas
-		exist = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND recipe_id = %(r_id)s" , {
-			"p_id":playerID,
-			"r_id":recipe_id[0]['id_recipe']
-			})
-
-		#L'instance n'existe donc pas
-		if (exist == None or len(exist) == 0):
-			#Donc on la crée
-			db.execute("INSERT INTO Sales(quantity_sales,day_sales, id_player, id_recipe)" %(the_quantity \
-				theplayer[0]['id_player'], recipe_id[0]['id_recipe']))
-
-			#Verfification de la création
-			exist2 = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND recipe_id = %(r_id)s" , {
-				"p_id":playerID,
-				"r_id":recipe_id[0]['id_recipe']
-				})
-
-		#Dans le cas où l'isntance existe, on l'update
-		db.execute("UPDATE Sales SET quantity_sales = %d, day_sales = %d WHERE (id_player = %d\
-		 AND id_recipe = %d)" %(player[0]['id_player'], recipe_id[0]["id_recipe"]))
-		db.close()
-
-	
 
 '''
 @app.route('/sales', methods =['POST'])
-@app.route('/actions/<playerName>', methods = ['POST'])
+@app.route('/actions/<playerName>', methods = ['GET'])
 '''
 
 if __name__ == '__main__':
