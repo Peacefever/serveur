@@ -42,6 +42,12 @@ function getCookie(cname) {
                     //document.ookiecookie = dat;
                     //alert("MAP: " + data + "\nStatus: " + status);
 			console.log(data);
+			var infos = data.playerInfos["'"+pseudo+"'"];
+			var drinks = infos.drinksOffered;
+			
+			for(var drink in drinks){
+				$("drinkOffered").append('<option value="'+drink.price+'">'+drink.name+" ("+drink.price+"€)"+'</option>');
+			}
 		    
                });
 	});
@@ -84,11 +90,8 @@ function getCookie(cname) {
 
 <!-- Menu déroulant --> 
 <div class="zone_boisson">Sélectionnez boisson
-     <select name="boisson" size="1">
+     <select name="boisson" size="1" id='drinkOffered'>
       <option>Toutes les boissons</option>
-      <option value="boisson1.html">Limonade</option>
-      <option value="boisson2.html">Thé glacé</option>
-      <option value="boisson3.html">Café</option>
      </select>
 </div>
 
