@@ -65,7 +65,7 @@
 <!-- CSS fin div cadre n°1 --> 
 
 <!-- CSS div cadre n°2 --> 
-   <div style="background:url('https://cdn.pixabay.com/photo/2013/07/13/12/12/cloud-159393_960_720.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
+   <div style="background:url('http://www.landi.ch/weather/Content/Wetter/43_real.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
 <fieldset>
       <legend><FONT color="#EFD807"><strong>Données environnement</strong></FONT></legend> <!-- Titre du fieldset --> 
       <br><label for="Meteoactu">Météo actuel</label>
@@ -177,6 +177,9 @@
           });
     });
 
+</script>
+
+<script type="text/javascript">
           var dt;
           $( document ).ready(function(){
                alert("Ready !");
@@ -196,7 +199,9 @@
                     alert("Data: " + data + "\nStatus: " + status);
                });
           });
+</script>
 
+<script type="text/javascript">
 /////////////////////////////////////// R6 - Actions pour le lendemain ////////////////////////////////////////
           $('#send').click(function(event){
       event.preventDefault();
@@ -224,7 +229,9 @@
         }
           });
     });
+</script>
 
+<script type="text/javascript">
 /////////////////////////////////////// R7 - Date et météo ////////////////////////////////////////
                $('#sendmeteo').click(function(event){
       event.preventDefault();
@@ -243,7 +250,9 @@
           alert(error);
         }
 });
+</script>
 
+<script type="text/javascript">
 /////////////////////////////////////// R8 - Réinitialiser une partie ////////////////////////////////////////
       $.ajax({
         url: "/reset",
@@ -257,9 +266,10 @@
           alert(error);
         }
 });
+</script>
 
+<script type="text/javascript">
 /////////////////////////////////////// R9 - Obtenir la liste des ingrédients ////////////////////////////////////////
-
 
 </script>
 
