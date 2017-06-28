@@ -176,12 +176,12 @@ $("#sendmeteo").click(function(event){
 	url: "https://serveur10.herokuapp.com/metrology", // Route metrology
 	type: "GET", // Envoyer
 	dataType :"json", // Format json
-	//success: function(response){ // Succès
+	success: function(response){ // Succès
 	    var dat = JSON.parse(response); // Reponse au format json
-            $("#meteoactu").val(dat['weather']['0']['weather'])
-            $("#meteoprev").val(dat['weather']['1']['weather'])
+            $("#meteoactu").val(dat['weather']['weather']['0'])
+            $("#meteoprev").val(dat['weather']['weather']['1'])
             $("#jour").val(dat['timestamp'])
-          //},
+          },
         });
       
       });
