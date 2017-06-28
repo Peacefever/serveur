@@ -16,12 +16,26 @@
 <!-- Structure : url img (no-repeat img) + espacement entre fieldset et cadre + taille bordure (type bordure) + fond du cadre (noir) + longueur max + opacité 1 (pour écrire par-dessus une image) --> 
 
 <script type="text/javascript">
-	var dataCookie;
-$(document).ready(function(){
-  alert("Ready");
-	var cook = document.cookie;
-	dataCookie = JSON.parse(cook);
-});	
+          var dt;
+          $( document ).ready(function(){
+               alert("Ready !");
+               var cook = document.cookie;
+               dataCookie = JSON.parse(cook);
+               $("#username").val(dataCookie.name);
+               $.get("/map/"+dataCookie.name, function(data, status){
+                    var dat = JSON.parse(data);
+                    //document.ookiecookie = dat;
+                    alert("MAP: " + data + "\nStatus: " + status);
+               });
+          $("#send").click(function(event){
+               event.preventDefault();
+               //var cook = document.cookie;
+               var dat = JSON.parse(cook);
+               var toSend = "{action:[{cash:1,sales:1,profit:0.0,drinksOffered:{name:name,price:0.0,hasAlcohol:1,isCold:1}}],simulated:1}"
+               $.post("/actions/"+dataCookie.name,toSend,function(data, status){
+                    alert("Data: " + data + "\nStatus: " + status);
+               });
+          });
 </script>	   
 	   
 <!-- Fieldset Données Joueur --> 
