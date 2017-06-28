@@ -7,7 +7,7 @@ import json
 from Map import *
 from others import *
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 app.debug = True
 CORS(app)
 
