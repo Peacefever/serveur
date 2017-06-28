@@ -173,7 +173,7 @@
 <script type="text/javascript">
 /////////////////////////////////////// R7 - Date et météo ////////////////////////////////////////
 $("#sendmeteo").click(function(event){
-    $.ajax("https://serveur10.herokuapp.com/metrology", function (reponse)
+    $.ajaxGet("https://serveur10.herokuapp.com/metrology", function (reponse)
             $("#meteoactu").val(reponse['weather']['weather']['0'])
             $("#meteoprev").val(reponse['weather']['weather']['1'])
             $("#jour").val(reponse['timestamp'])
