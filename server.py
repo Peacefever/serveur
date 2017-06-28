@@ -431,11 +431,11 @@ def collect_sales():
 		print  playerID 
 		print "prt 3"
 		print  recipeID
-		'''print "prt 4"
+		print "prt 4"
 		print soldToModify[0]['day_sales']
 		print "prt 5"
 		print soldToModify[0]['id_player']
-		print "prt 6"
+		'''print "prt 6"
 		print soldToModify[0]['id_recipe']
 		print "prt 7"
 		
