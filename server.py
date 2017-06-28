@@ -427,6 +427,7 @@ def collect_sales():
 		print dictObject['quantity']
 		print "prt 1"
 		print currentDay
+		'''
 		print "prt 2"
 		print  playerID 
 		print "prt 3"
