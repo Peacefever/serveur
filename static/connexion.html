@@ -24,10 +24,7 @@
                                 e.preventDefault()
                                 let data = {
                                         "name": $("#username").val(),
-                                        //"name": "toto"
                                 }
-                                alert("DATA : "+ data);
-                                alert("DATA : "+ JSON.stringify(data));
                                 $.ajax({
                                         url: "/players",
                                         type: "POST",
@@ -40,7 +37,7 @@
                                                 window.location.href = "/game.html";
                                         },
                                         failure: function(error){
-                                                alert(error);
+                                                alert("Compte inexistant");
                                         }
                                 });
                         })
