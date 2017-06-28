@@ -70,7 +70,7 @@ def save_actions(playerName):
     datas = request.get_json()
 
     #Vérification de la validité de la donnée
-    if (isValide(datas) == False):
+    if (isValideData(datas) == False):
         return to_make_response('Bad Request', 400)
 
     if not ('actions' in datas):
