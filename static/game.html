@@ -178,9 +178,9 @@ $("#sendmeteo").click(function(event){
 	dataType :"json", // Format json
 	success: function(response){ // Succès
 	    //var dat = JSON.parse(response.responseText); // Reponse au format json
-            $("#meteoactu").val(reponse['weather']['0']['weather'])
-            $("#meteoprev").val(reponse['weather']['1']['weather'])
-            $("#jour").val(reponse['timestamp'])
+            $("#meteoactu").val(response['weather']['0']['weather'])
+            $("#meteoprev").val(response['weather']['1']['weather'])
+            $("#jour").val(response['timestamp'])
           },
         });
       
