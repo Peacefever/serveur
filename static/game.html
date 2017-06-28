@@ -23,7 +23,7 @@
                var cook = document.cookie;
                dataCookie = JSON.parse(cook);
                $("#name").val(dataCookie.name);
-               $.get("/map/"+dataCookie.name, function(data, status){
+               /*$.get("/map/"+dataCookie.name, function(data, status){
                     var dat = JSON.parse(data);
                     //document.ookiecookie = dat;
                     alert("MAP: " + data + "\nStatus: " + status);
@@ -35,7 +35,7 @@
                var toSend = "{action:[{cash:1,sales:1,profit:0.0,drinksOffered:{name:name,price:0.0,hasAlcohol:1,isCold:1}}],simulated:1}"
                $.post("/actions/"+dataCookie.name,toSend,function(data, status){
                     alert("Data: " + data + "\nStatus: " + status);
-               });
+               });*/
           });
 </script>	   
 	   
