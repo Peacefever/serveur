@@ -72,8 +72,8 @@
       <input type="text" name="meteoactu" id="meteoactu" readonly/>
       <br><label for="Meteoactu">Météo prévisionnel</label>
       <input type="text" name="meteoprev" id="meteoprev" readonly/>
-      <br><label for="Jour">Jour</label>
-      <input type="text" name="jour" id="jour" readonly/>
+      <br><label for="Heure">Heure</label>
+      <input type="text" name="heure" id="heure" readonly/>
       <br><br><button value="sendmeteo" id="sendmeteo">Voir météo</button>
 </fieldset>
    </div>
@@ -170,7 +170,7 @@
 </script>
 
 <script type="text/javascript">
-/////////////////////////////////////// R7 - Date et meteo ////////////////////////////////////////
+/////////////////////////////////////// R7 - Date et meteo /metrology ////////////////////////////////////////
 $("#sendmeteo").click(function(event){
       $.ajax({
 	url: "https://serveur10.herokuapp.com/metrology", // Route metrology
@@ -180,7 +180,23 @@ $("#sendmeteo").click(function(event){
 	    //var dat = JSON.parse(response.responseText); // Reponse au format json
             $("#meteoactu").val(response['weather']['0']['weather'])
             $("#meteoprev").val(response['weather']['1']['weather'])
-            $("#jour").val(response['timestamp'])
+            $("#heure").val(response['timestamp'])
+          },
+        });
+      
+      });
+</script>
+	
+	<script type="text/javascript">
+/////////////////////////////////////// R5 - Vue du jeu pour un joueur /map/<playerName> ////////////////////////////////////////
+$("#rafresh").click(function(event){
+      $.ajax({
+  url: "https://serveur10.herokuapp.com/map/<playerName>", // Route map
+  type: "GET", // Envoyer
+  dataType :"json", // Format json
+  success: function(response){ // Succès
+      //var dat = JSON.parse(response.responseText); // Reponse au format json
+            $("#monnaie").val(response['playerInfo']['toto']['cash'])
           },
         });
       
