@@ -416,7 +416,7 @@ def join_game():
 		}
 		return to_make_response(resp)
 
-	else : join = join_new_player(data['name'], default_game)
+	 join = join_new_player(data['name'], default_game)
 		return to_make_response(join)
 
 '''
