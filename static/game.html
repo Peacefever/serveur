@@ -33,9 +33,6 @@ function getCookie(cname) {
     return "";
 }
 	
-function isFloat(n){
-    return Number(n) === n && n % 1 !== 0;
-}
 	$( document ).ready(function(){
 		var pseudo = getCookie('pseudo');
 		console.log(pseudo);
@@ -63,13 +60,9 @@ function isFloat(n){
                });
 		
 		$('body').on('input','#nbreprod', function (){
-			console.log($('#drinkOffered').val());
-			console.log(isFloat($('#drinkOffered').val()));
-			console.log($(this).val());
-			console.log(isFloat($(this).val()));
 				//if(isFloat($('#drinkOffered').val()) &&  isFloat($(this).val())){
 				//$('#errorSum').remove();
-				var sum =  $('#drinkOffered').val() + $(this).val();
+				var sum =  parseFloat($('#drinkOffered').val()) + parseFloat($(this).val());
 				$('#prix').val(sum);
 			/*}else{
 				$('#errorSum').remove();
