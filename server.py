@@ -399,14 +399,9 @@ def join_game():
 		return bad_request()
 
 	db = Db()
-	print(db.select("SELECT * FROM Player"))
 
 	#Verif que le player est dans la base ou non
 	in_db = is_present_pseudo_indb(data['name'])
-	print(in_db)
-	print("\n")
-	print(db.select("SELECT * FROM Player"))
-
 	if (in_db == True):
 		player = db.select("SELECT * FROM Player WHERE (ingame_player = %(id_game)s AND  name_player = %(name)s)", {
 			"id_game": default_game,
