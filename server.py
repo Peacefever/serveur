@@ -284,8 +284,8 @@ def collect_sales():
 	Cette route permet de sauvegarder le nombre de ventes
 	de chaque boissons pour un joeuur donné
 	'''
-	#datas = request.get_json()
-	datas = {"sales":[{"player":"toto", "item":"Limonade", "quantity":2}]}
+	datas = request.get_json()
+	#datas = {"sales":[{"player":"toto", "item":"Limonade", "quantity":2}]}
 
 	if (isValidData(datas) == False):
 		return bad_request()
