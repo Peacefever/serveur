@@ -47,15 +47,21 @@ function getCookie(cname) {
 			var drinks = infos.drinksOffered;
 			console.log(drinks);
 			
+			//remplir select boissons
 			$.each(drinks,function(index,value){
 				console.log(value);
 				$("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
 			});
-
-				
 			
+			//remplir money joueur
+			$('#monnaie').val(infos.cash);
 		    
                });
+		
+		$('body').on('input','#nbreprod', function (){
+			var sum =  $('drinkOffered').val() + $(this).val();
+			$('#prix').val(sum);
+		});
 	});
           /*var dt;
           $( document ).ready(function(){
