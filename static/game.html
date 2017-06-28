@@ -160,26 +160,32 @@
         dataType :"json", // Format json
         data: JSON.stringify(Message),
         contentType: "application/json; charset=utf-8",
-        success: function(response){ // Succès
-          var dat = JSON.parse(response); // Réponse au format json
+        success: function(response){ // Succes
+          var dat = JSON.parse(response); // Reponse au format json
           alert("Valeurs envoyées !");
           $('#quantite').val(dat.prodLimo);
           },
         });
       });
 </script>
-	
 
 <script type="text/javascript">
-/////////////////////////////////////// R7 - Date et météo ////////////////////////////////////////
+/////////////////////////////////////// R7 - Date et meteo ////////////////////////////////////////
 $("#sendmeteo").click(function(event){
-    $.ajaxGet("https://serveur10.herokuapp.com/metrology", function (reponse)
-            $("#meteoactu").val(reponse['weather']['weather']['0'])
-            $("#meteoprev").val(reponse['weather']['weather']['1'])
-            $("#jour").val(reponse['timestamp'])
-	});
+      $.ajax({
+	url: "https://serveur10.herokuapp.com/metrology", // Route metrology
+	type: "GET", // Envoyer
+	dataType :"json", // Format json
+	success: function(response){ // Succès
+	    var dat = JSON.parse(response); // Réponse au format json
+            $("#meteoactu").val(dat['weather']['weather']['0'])
+            $("#meteoprev").val(dat['weather']['weather']['1'])
+            $("#jour").val(dat['timestamp'])
+          },
+        });
+      
+      });
 </script>
-
                                                                                                                            <!-- Fin JavaScript --> 
 	</body>
 </html>
