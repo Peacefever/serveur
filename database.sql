@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS Weather CASCADE;
 DROP TABLE IF EXISTS Map CASCADE;
 DROP TABLE IF EXISTS Ingredient CASCADE;	/*a*/
 DROP TABLE IF EXISTS Compose CASCADE;		/*a*/
-DROP TABLE IF EXISTS Adspace CASCADE; 		/*a*/
+DROP TABLE IF EXISTS Addspace CASCADE; 		/*a*/
 
 CREATE TABLE Recipe(
 	id_recipe 				SERIAL PRIMARY KEY,
@@ -64,7 +64,7 @@ CREATE TABLE Player(
 	action_prodrecipe		Boolean
 );
 
-/*Day courant*/
+#day courant
 CREATE TABLE Weather(
 	id_weather				SERIAL PRIMARY KEY,
 	now_weather				Varchar(25),
@@ -95,14 +95,14 @@ CREATE TABLE Compose(
 );
 
 /*a*/
-CREATE TABLE Adspace(
-	id_adspace 			SERIAL PRIMARY KEY,
-	influence_adspace	Float,
-	lat_adspace			Float,
-	lon_adspace			Float,
-	day_adspace 		Int,
-	price_adspace		Float,
-	number_adspace		Int,	
+CREATE TABLE Addspace(
+	id_addspace 		SERIAL PRIMARY KEY,
+	influence_addspace	Float,
+	lat_addspace		Float,
+	lon_addspace		Float,
+	day_addspace 		Int,
+	price_addspace		Float,
+	number_addspace		Int,	
 	id_player 			Int
 );
 
@@ -118,7 +118,7 @@ ALTER TABLE Unblock ADD CONSTRAINT Fk_unblock_id_recipe FOREIGN KEY (id_recipe) 
 /*a*/
 ALTER TABLE Compose ADD CONSTRAINT FK_compose_id_recipe FOREIGN KEY (id_recipe) REFERENCES Recipe(id_recipe);
 ALTER TABLE Compose ADD CONSTRAINT FK_compose_id_ingredient FOREIGN KEY (id_ingredient) REFERENCES Ingredient(id_ingredient);
-ALTER TABLE Adspace ADD CONSTRAINT Fk_addspace_id_player FOREIGN KEY (id_player) REFERENCES Player (id_player);
+ALTER TABLE Addspace ADD CONSTRAINT Fk_addspace_id_player FOREIGN KEY (id_player) REFERENCES Player (id_player);
 
 /*a*/
 
@@ -148,19 +148,16 @@ INSERT INTO Compose (id_ingredient, id_recipe) VALUES
 
 INSERT INTO Unblock(day_unblock, quantity_unblock, id_player, id_recipe) VALUES
 	(1, 0, 1, 1),
-	(1, 0, 1, 2),
 	(1, 0, 2, 3);
 
 /*Sales production est le prix de vente choisi par l'utilisateur*/
 INSERT INTO Production(quantity_production, price_sale_production, day_production, id_recipe, id_player) VALUES
 	(2, 10.0, 1, 1, 1),
-	(2, 10.0, 1, 2, 1),
 	(4, 5.0, 1, 3, 2);
 
 /*Les ventes simulent le programme JAVA. C'est une table pour la fin de journée(recap)*/
 INSERT INTO Sales(quantity_sales, day_sales, id_player, id_recipe) VALUES 
 	(2, 1, 1, 1),
-	(3, 1, 1, 2),
 	(3, 1, 2, 3);
 
 INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
@@ -170,8 +167,7 @@ INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
 INSERT INTO Map (lat_map, lon_map, lat_span_map, lon_span_map) VALUES 
 	(-100.0, 200.0, 20.0, 40.0);
 
-INSERT INTO Adspace (influence_adspace, lat_adspace, lon_adspace, day_adspace, price_adspace, number_adspace, id_player) VALUES 
+INSERT INTO Addspace (influence_addspace, lat_addspace, lon_addspace, day_addspace, price_addspace, number_addspace, id_player) VALUES 
 	(2.3, 13.5, 14.6, 1, 25.0, 2 ,1),
 	(2.37, 45, 56, 1, 5.0, 2 ,1),
 	(6.5, 1.2, 16.5, 1, 36.0, 3, 2);
-
