@@ -22,6 +22,7 @@
                alert("Ready !");
                var cook = document.cookie;
                dataCookie = JSON.parse(cook);
+		  alert(dataCookie);
                $("#name").val(dataCookie.name);
                /*$.get("/map/"+dataCookie.name, function(data, status){
                     var dat = JSON.parse(data);
