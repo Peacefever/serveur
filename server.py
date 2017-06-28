@@ -438,7 +438,7 @@ def collect_sales():
 		print "prt 6"
 		print soldToModify[0]['id_recipe']
 		print "prt 7"
-		db.execute("UPDATE sales SET quantity_sales = %(quantity)s, day_sales =%(day)s, id_player = %(p_id)s \
+		'''db.execute("UPDATE sales SET quantity_sales = %(quantity)s, day_sales =%(day)s, id_player = %(p_id)s \
 		, id_recipe = %(r_id)s \
 		WHERE day_sales = %(old)s AND id_player = %(old_p)s AND id_recipe = %(old_r)s)",{
 			"quantity": dictObject['quantity'], 
@@ -449,7 +449,7 @@ def collect_sales():
 			"old_p":soldToModify[0]['id_player'],
 			"old_r":soldToModify[0]['id_recipe']
 		})
-		
+		'''
 		#print(db.select("SELECT * FROM Sales"))
 	#db.close()
 	return to_make_response('', 201)
