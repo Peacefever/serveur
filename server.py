@@ -361,9 +361,7 @@ def collect_sales():
 			"quantity": dictObject['quantity'],
 			"day": currentDay,
 			"p_id": playerID,
-			"r_id": recipeID,                                                        VALUES (%(now)s, %(tomorrow)s, %(day)s) RETURNING id_weather", {
-217
-
+			"r_id": recipeID,
 			"old":soldToModify[0]['day_sales'],
 			"old_p":soldToModify[0]['id_player'],
 			"old_r":soldToModify[0]['id_recipe']
