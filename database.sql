@@ -118,7 +118,7 @@ ALTER TABLE Unblock ADD CONSTRAINT Fk_unblock_id_recipe FOREIGN KEY (id_recipe) 
 /*a*/
 ALTER TABLE Compose ADD CONSTRAINT FK_compose_id_recipe FOREIGN KEY (id_recipe) REFERENCES Recipe(id_recipe);
 ALTER TABLE Compose ADD CONSTRAINT FK_compose_id_ingredient FOREIGN KEY (id_ingredient) REFERENCES Ingredient(id_ingredient);
-ALTER TABLE Adspace ADD CONSTRAINT Fk_addspace_id_player FOREIGN KEY (id_player) REFERENCES Player (id_player);
+ALTER TABLE Adspace ADD CONSTRAINT Fk_adspace_id_player FOREIGN KEY (id_player) REFERENCES Player (id_player);
 
 /*a*/
 
