@@ -60,6 +60,74 @@ def get_map():
 	}
 	return to_make_response(resp, 200)
 
+@app.route('/actions/<playerName>', methods = ['POST'])
+def save_actions(playerName):
+    '''
+    Cette route permet d'enregistrer le souhait de l'utilisateur
+    dans la base de données.
+    '''
+    #Réception de la donnée du client
+    datas = request.get_json()
+
+    #Vérification de la validité de la donnée
+    if (isValide(datas) == False):
+        return to_make_response('Bad Request', 400)
+
+    if not ('actions' in datas):
+        return to_make_response('Bad Request', 400)
+
+    #On calcul le cout global des actions.
+    #Si le cout global est < cash_player alors on enregistre, sinon on enregistre pas dans la BDD
+        #Détermination du cout total des actions
+    costs = 0.0
+    for anAntion in datas['actions']:
+        if (anAction['kind'] == 'drinks'): #Action de production
+            costs = costs + calculate_cost_prod(anAction, playerName)
+        if (anAction['kind'] == 'ad'):
+            cost += cost + calculate_cost_ad(anAction, playerName)
+
+        #On récupère les données du joueurs
+    player = db.select("SELECT * FROM Player WHERE name_player = %(name)s", {
+        "name":playerName
+        })
+
+    #Si le joueur n'a pas assez d'argent
+    if (float(player[0]['cash_player']) < costs):
+        resp = {
+            "sufficientFunds":False,
+            "totalCost":costs
+        }
+        return to_make_response(resp)
+
+    #Le joueur a assez d'argent. Alors...
+        #...On remplie la base de données
+    for anAction in datas['actions']:
+        if (anAction['kind'] == 'drinks'):
+            filldb_playeractionsdrinks(anAction, playerName)
+        if (anAction['kind'] == 'ad'):
+            filldb_playeractionsAdd(anAction, playerName)
+
+        #...On met à jour le cash disponible du joueur
+            #Récupération du cash du joueur
+    cash = float(player[0]['cash_player'])
+            #Calcul du cash qu'il aura lorsque toutes les actions sont comptablisé
+            #Aucune prise en compte des profits. En effet, les actions sur une journée n'ont pas été lancés.
+    playerCashAfterActions = cash - costs #Tj positif sinon il y a une erreur
+
+    print(playerCashAfterActions)
+
+    db.execute("UPDATE Player SET cash_player = %(newcash)d ", {
+        "newcash": playerCashAfterActions
+        })
+
+    #Mise en forme de la réponse
+    resp = {
+        "sufficientFunds": True,
+        "totalCost": costs
+    }
+
+    return to_make_response(resp)
+
 #Client html
 @app.route('/map/<playerName>', methods = ['GET'])
 def get_map_player(playerName):
