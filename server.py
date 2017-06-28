@@ -337,8 +337,6 @@ def collect_sales():
 			#Alors on crée une nouvelle instance de Sales, qui sera représentée en base par une ligne
 		sold_creation = db.select("INSERT INTO sales (quantity_sales, day_sales) VALUES (%(quantity)s, %(day)s)",{"quantity":dictObject['quantity'],"day": currentDay})
 					#"p_id":playerID[0]['id_player'],
-					
-
 		#Cas où il y a déjà une ligne, on la récupère et on effectue dessus une mise à jour
 			#Récupération de la ligne
 		soldToModify = db.select("SELECT * FROM Sales WHERE (day_sales = %(day)s AND id_player = %(p_id)s\
