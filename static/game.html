@@ -63,15 +63,19 @@ function isFloat(n){
                });
 		
 		$('body').on('input','#nbreprod', function (){
-			if(isFloat($('#drinkOffered').val()) &&  isFloat($(this).val())){
-				$('#errorSum').remove();
+			console.log($('#drinkOffered').val());
+			console.log(isFloat($('#drinkOffered').val()));
+			console.log($(this).val());
+			console.log(isFloat($(this).val()));
+				//if(isFloat($('#drinkOffered').val()) &&  isFloat($(this).val())){
+				//$('#errorSum').remove();
 				var sum =  $('#drinkOffered').val() + $(this).val();
 				$('#prix').val(sum);
-			}else{
+			/*}else{
 				$('#errorSum').remove();
 				var html = '<p id="errorSum">Attention</p>';
 				$('#prix').after(html);
-			}
+			}*/
 			
 		});
 	});
