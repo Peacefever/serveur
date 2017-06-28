@@ -7,7 +7,8 @@ from db import Db
 default_cash = 20.0
 default_rayon = 10.0
 default_recipe_id = 1
-
+default_influency_pub = 10.0
+default_price_pub = 20.0
 
 def to_make_response(data, status=200):
 	'''
@@ -263,9 +264,86 @@ def generate_location(minimum = -100, maximum = 100):
 	return location
 
 
+''' Toutes les routes qui suivent commencant par le mot save sont a tester '''
+def save_kind_ad_action(datas, playerID, day):
+	db = Db()
+	#On regarde si une instance de la table Adspace existe déjà pour le jour day
+	exist = db.select("SELECT COUNT(*) FROM Adspace WHERE (day_adspace = %d AND id_player = %d)"\
+		%(day, playerID))
 
+	#Pour le moment, le joueur ne peut pas placer ses panneaux, docn on génère leur localisation dans la map
+	ad_coor = generate_location()
 
+	if (exist != None):
+		#L'instance n'existe pas en base, donc on la crée
+		if (len(exist) == 0):
+			db.execute("INSERT INTO Adspace (influence_adspace, lat_adspace, lon_adspace, day_adspace, \
+				price_adspace, number_adspace, id_player) VALUES (%(influence)s, %(lat)s, %(lon)s, %(day)s,\
+			%(price)s, %(nb)s, %(p_id)s)", {
+			"influence": default_influency_pub,
+			"lat": ad_coor['latitude'],
+			"lon":ad_coor['longitude'],
+			"day":day,
+			"price":default_price_pub,
+			"nb": datas['nb'],          #Si possible il faut que le nb soit envoyé par le joueur
+			"p_id": playerID
+			})
 
+		#L'isntance existe en base, on l'update
+		if (len(exist) == 1):
+			db.execute("UPDATE Adspace SET number_adspace = %d" %(datas['nb']))
+	db.close()
+
+def save_kind_prod_action(datas, playerID, day):
+	db = Db()
+	exist = db.select("SELECT COUNT(*) FROM Production WHERE (day_production = %d AND id_player = %d)"\
+		%(day, playerID))
+
+	print("enregistrement du choix de production")
+	if (exist != None):
+		#Le joueur ne peut mettre à disposition des clients que ce qu'il vends.
+		#Le joueur ne peut produire que les recettes qui ont été débloquées.
+			#Récupération du nom de la recette préparée
+		therecipe = datas['prepare'].keys()[0]
+		theprod_quantity = datas['prepare'][therecipe]
+		theprice_selling = datas['price'][therecipe]
+
+		recipe = db.select("SELECT * FROM Recipe WHERE (name_recipe = %(name)s AND id_player = %(id)s)", {
+			"name":therecipe,
+			"id_player":playerID
+			})
+
+		#Si la decision n'existe pas en base de données
+		if (len(exist) == 0):
+			if (len(recipe) > 0 and recipe != None):
+				#Création de la table production
+				db.execute("INSERT INTO Production(quantity_production, \
+					price_sale_production, day_production, id_recipe, id_player VALUES (%(quantity)s, \
+						%(price)s, %(day)s, %(r_id)s, %(p_id)s)", {
+				"quantity": theprod_quantity,
+				"price": theprice_selling,
+				"day": day,
+				"r_id": recipe[0]['id_recipe'],
+				"p_id": playerID
+				})
+
+				#Vérification de création
+				print(db.select("SELECT * FROM Production WHERE (id_player = %d AND id_recipe = %d)"\
+					%(playerID, recipe[0]['id_recipe'])))
+
+		#La decision de prod existe en base. Donc on update l'instance en question
+		if (len(exist) == 1):
+			db.execute("UPDATE Production SET quantity_production = %d, price_sale_production = %f\
+				WHERE (id_recipe = %d AND id_player = %d)" %(theprod_quantity, theprice_selling,\
+					recipe[0]['id_recipe'], playerID))
+
+			#Vérification de l'update
+			print(db.select("SELECT * FROM Production WHERE (id_player = %d AND id_recipe = %d)"\
+				%(playerID, recipe[0]['id'])))
+	db.close()
+
+def save_kind_buy_recipe_action(datas, playerID, day):
+	print("a implémenter si le temps nous le permet")
 
 ################## ESSAIE ######################
 '''
