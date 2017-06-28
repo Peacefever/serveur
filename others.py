@@ -358,6 +358,32 @@ def join_new_player(playername, gameid):
 	return resp
 
 
+def get_player_infos(playerID, gameid, stringProdOrSellingPrice):
+    '''
+    Obtention des informations concernant un joueur
+    qui se trouve dans la partie
+    '''
+    #Récupération de l'id du joueur
+    db= Db()
+    player = db.select("SELECT * FROM Player WHERE (id_player = %d AND ingame_player = %d)"\
+        %(playerID, gameid))
+
+    print(playerID)
+    print(player)
+    print(len(player))
+
+    if (len(player) == 0):
+        return {}
+
+    playerInfos = {
+        "cash": player[0]['cash_player'],
+        "sales": get_numberTot_sold(playerID),
+        "profit": get_profits(playerID), 
+        "drinksOffered": get_drinksOffered(playerID, stringProdOrSellingPrice)
+    }
+    db.close()
+    return playerInfos
+
 
 
 
