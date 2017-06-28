@@ -70,7 +70,7 @@ def save_actions(playerName):
     datas = request.get_json()
 
     #Vérification de la validité de la donnée
-    if (isValidData(datas) == False):
+    if (isValide(datas) == False):
         return to_make_response('Bad Request', 400)
 
     if not ('actions' in datas):
@@ -423,7 +423,17 @@ def collect_sales():
 			return to_make_response('Internal Server Error', 500)
 
 			#Update de la ligne en question
-		db.execute("UPDATE sales SET (quantity_sales = %(quantity)s, day_sales =%(day)s, id_player = %(p_id)s, id_recipe = %(r_id)s WHERE day_sales = %(old)s AND id_player = %(old_p)s AND id_recipe = %(old_r)s)",{"quantity": dictObject['quantity'], "day": currentDay, "p_id": playerID, "r_id": recipeID,"old":soldToModify[0]['day_sales'],"old_p":soldToModify[0]['id_player'],"old_r":soldToModify[0]['id_recipe']})
+		db.execute("UPDATE sales SET quantity_sales = %(quantity)s, day_sales =%(day)s, id_player = %(p_id)s \
+		, id_recipe = %(r_id)s \
+		WHERE day_sales = %(old)s AND id_player = %(old_p)s AND id_recipe = %(old_r)s)",{
+			"quantity": dictObject['quantity'], 
+			"day": currentDay, 
+			"p_id": playerID, 
+			"r_id": recipeID,
+			"old":soldToModify[0]['day_sales'],
+			"old_p":soldToModify[0]['id_player'],
+			"old_r":soldToModify[0]['id_recipe']
+		})
 
 		print(db.select("SELECT * FROM Sales"))
 	db.close()
