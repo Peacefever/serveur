@@ -451,7 +451,7 @@ def collect_sales():
 		})
 		
 		#print(db.select("SELECT * FROM Sales"))
-	db.close()
+	#db.close()
 	return to_make_response('', 201)
 
 
