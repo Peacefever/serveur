@@ -16,8 +16,11 @@
 <!-- Structure : url img (no-repeat img) + espacement entre fieldset et cadre + taille bordure (type bordure) + fond du cadre (noir) + longueur max + opacité 1 (pour écrire par-dessus une image) --> 
 
 <script type="text/javascript">
+	var dataCookie;
 $(document).ready(function(){
   alert("Ready");
+	var cook = document.cookie;
+	dataCookie = JSON.parse(cook);
 });	
 </script>	   
 	   
@@ -161,7 +164,7 @@ $(document).ready(function(){
                     prodLimo: $('#nbreprod').val(),
       }
       $.ajax({
-        url: "/actions/<playerName>", // Route actions
+        url: "/actions/"+dataCookie.name, // Route actions
         type: "POST", // Envoyer
         dataType :"json", // Format json
         data: JSON.stringify(Message),
@@ -197,7 +200,7 @@ $("#sendmeteo").click(function(event){
 /////////////////////////////////////// R5 - Vue du jeu pour un joueur /map/<playerName> ////////////////////////////////////////
 $("#rafresh").click(function(event){
       $.ajax({
-  url: "https://serveur10.herokuapp.com/map/<playerName>", // Route map
+  url: "https://serveur10.herokuapp.com/map/"+dataCookie.name, // Route map
   type: "GET", // Envoyer
   dataType :"json", // Format json
   success: function(response){ // Succès
