@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 
 <html>
-     <head>
-         <meta charset="utf-8"/>
-         <title>Interface Game Page</title>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <link rel="stylesheet" type="text/css" href="fiche.css" />
-     </head>
+  	 <head>
+    	   <meta charset="utf-8"/>
+    		 <title>Interface Game Page</title>
+    		 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  	 </head>
 
 <!-- CSS image fond de page IHM --> 
-   <body style="background-image: url(http://img.fac.pmdstatic.net/fit/http.3A.2F.2Fwww.2Efemmeactuelle.2Efr.2Fvar.2Ffemmeactuelle.2Fstorage.2Fimages.2Fcuisine.2Frecettes.2Fboisson.2Flimonade-au-citron-vert-09024.2F14043909-1-fre-FR.2Flimonade-au-citron-vert.2Ejpg/1200x600/crop-from/center/limonade-au-citron-vert.jpeg); background-size: 120%;">
+   <body style="background-image: url(https://img1.goodfon.com/original/2560x1600/0/20/fruits-fresh-water-drops-2175.jpg); background-size: 100%;">
 <!-- Structure : url img + taille image de fond --> 
 
 <!-- CSS div cadre n°1 --> 
-   <div style="background:url('https://pub.be/wp-content/uploads/2016/02/LIMO-citron.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; max-width: 600px; Opacity: 1;">
+   <div style="background:url('https://pub.be/wp-content/uploads/2016/02/LIMO-citron.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
 <!-- Structure : url img (no-repeat img) + espacement entre fieldset et cadre + taille bordure (type bordure) + fond du cadre (noir) + longueur max + opacité 1 (pour écrire par-dessus une image) --> 
 
 <!-- Fieldset Données Joueur --> 
+<FONT color="white">
 <fieldset>
     <legend><FONT color="#EFD807"><strong>Données joueur</strong></FONT></legend>
       <br><label for="Name">Nom du joueur</label>
       <input type="text" name="name" id="name" readonly/>
       <br><label for="Boissonprod">Boisson à produire</label>
       <input type="text" name="boissonprod" id="boissonprod" readonly/>
-      <label> 
+      <label>
       <input type="text" name="cost" id="cost" readonly/> $
+      <br><label for="Monnaie">Monnaie joueur</label>
+      <input type="text" name="monnaie" id="monnaie" readonly/>
+      <label>
 
 <!-- Menu déroulant --> 
 <div class="zone_boisson">Sélectionnez boisson
      <select name="boisson" size="1">
       <option>Toutes les boissons</option>
-      <option value="boisson.html"></option>
+      <option value="boisson1.html">Limonade</option>
+      <option value="boisson2.html">Thé glacé</option>
+      <option value="boisson3.html">Café</option>
      </select>
 </div>
 
@@ -38,7 +43,7 @@
       <input type="text" name="nbreprod" id="nbreprod" />
       <br><label for="Nbrepub">Nombre panneau pub</label>
       <input type="text" name="nbrepub" id="nbrepub" />
-      <br><label for="Prix">Prix</label>
+      <br><label for="Prix">Prix de vente</label>
       <input type="text" name="prix" id="prix" />
       <br><br><button value="Decision" id="send">Envoyer</button>
 </fieldset>
@@ -60,42 +65,118 @@
 <!-- CSS fin div cadre n°1 --> 
 
 <!-- CSS div cadre n°2 --> 
-   <div style="background:url('http://www.landi.ch/weather/Content/Wetter/43_real.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; max-width: 600px; Opacity: 1;">
+   <div style="background:url('https://cdn.pixabay.com/photo/2013/07/13/12/12/cloud-159393_960_720.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
 <fieldset>
       <legend><FONT color="#EFD807"><strong>Données environnement</strong></FONT></legend> <!-- Titre du fieldset --> 
-      <br><label for="Meteo">Météo</label>
-      <input type="text" name="meteo" id="meteo" readonly/>
-      <br><br><label for="Jour">Jour</label>
+      <br><label for="Meteoactu">Météo actuel</label>
+      <input type="text" name="meteoactu" id="meteoactu" readonly/>
+      <br><label for="Meteoactu">Météo prévisionnel</label>
+      <input type="text" name="meteoprev" id="meteoprev" readonly/>
+      <br><label for="Jour">Jour</label>
       <input type="text" name="jour" id="jour" readonly/>
-      <br><br><button id="refresh">Rafraichir</button>
+      <br><br><button value="sendmeteo" id="sendmeteo">Voir météo</button>
 </fieldset>
    </div>
 
 <!-- CSS fin div cadre n°2 --> 
 
 <!-- CSS div cadre n°3 --> 
-  <div style="background:url('http://en.grand-marnier.com/assets/en/cocktails/cocktails_withgrandmojito.jpg') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; max-width: 600px; Opacity: 1;">
+  <div style="background:url('http://en.grand-marnier.com/assets/en/cocktails/cocktails_withgrandmojito.jpg') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
 <fieldset>
-      <legend><FONT color="#EFD807"><strong>Bilan</strong></FONT></legend> <!-- Titre du fieldset --> 
-      <br><br><label for="Profit">Profit</label>
+    	<legend><FONT color="#EFD807"><strong>Bilan</strong></FONT></legend> <!-- Titre du fieldset --> 
+      <br><label for="Profit">Profit</label>
       <input type="text" name="profit" id="profit" readonly/>
-      <br><br><label for="Couttotal">Coût total</label>
-      <input type="text" name="couttotal" id="couttotal" readonly/>
-      <br><br><label for="Nbreboissonvendues">Nombre boissons vendues</label>
+      <br><label for="Couttotal">Coût total</label>
+      <input type="hidden" name="couttotal" id="couttotal" readonly/>
+      <br><label for="Nbreboissonvendues">Nombre boissons vendues</label>
       <input type="text" name="nbreboissonvendues" id="nbreboissonvendues" readonly/>
+      <br><br><button value="sendbilan" id="sendbilan">Voir bilan</button>
 </fieldset>
    </div>
 <!-- CSS fin div cadre n°3 --> 
 
 <!-- CSS cadre div MAP --> 
-      <div style="padding:3px; border:8px ridge #F7FF3C; background-color:#000000; position:absolute; left: 57.8%; bottom: 17.5%; width: 690px; height: 510px; margin-left: -150px; margin-top: -100px; Opacity: 1;">
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+
+    <div id="map" style="padding:3px; border:8px ridge #F7FF3C; background-color:#000000; position:absolute; left: 54%; bottom: 0.1%; width: 42%; height: 69.5%; Opacity: 1;">
+
+    <script>
+      function initMap() {
+        var image = '../Downloads/Webp.net-resizeimage.png';
+        var bedarrides = {lat: 44.04, lng: 4.90};
+        var toulouse = {lat : 43.59, lng : 1.36};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: bedarrides
+        });
+        var marker = new google.maps.Marker({
+          position: bedarrides,
+          map: map,
+          icon: image
+        });
+        var marker = new google.maps.Marker({
+          position: toulouse,
+          map: map
+        });
+      }
+    </script>
+        <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLKuindhKESjd4vd-FdTXs3z7O17MNrE0&callback=initMap">
+    </script>
+  </div>
 <!-- CSS fin cadre div MAP --> 
 
+<!-- CSS div cadre n°5 --> 
+  <div style="padding:3px; border:8px ridge #F7FF3C; background-color:#000000; position:absolute; left: 54%; bottom: 73%; width: 42%; height: 22.5%; Opacity: 1;">
+<fieldset>
+      <legend><FONT color="#EFD807"><strong>Cordonnées</strong></FONT></legend> <!-- Titre du fieldset --> 
+      <br><label for="Stand">Stand</label>
+      <input type="text" name="standx" id="standx" readonly/> X <input type="text" name="standy" id="standy" readonly/> Y
+      <br><label for="Panneau">Panneau</label>
+      <input type="text" name="panneaux" id="panneaux" readonly/> X <input type="text" name="panneauy" id="panneauy" readonly/> Y
+      <br><br><button id="refresh">Rafraichir</button><button id="refresh">Quitter la partie</button>
+</fieldset>
+   </div>
+<!-- CSS fin div cadre n°5 -->
 
-<!-- Début JavaScript --> 
+                                                                                                                            <!-- Début JavaScript --> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
-     <script type="text/javascript"> // Sending message to server
+<script type="text/javascript"> // Sending message to server
+// faire le décompte des actions joueur avec le refresh avec une alert
+/////////////////////////////////////// R4 - Rejoindre une partie / Quitter une partie ////////////////////////////////////////
+
+
+/////////////////////////////////////// R5 - Vue du jeu pour un joueur ////////////////////////////////////////
+          $('#send').click(function(event){
+      event.preventDefault();
+              var toSend = {
+                    Cash: $('#monnaie').val(),
+                    Sales: $('#quantite').val(),
+                    Profit: $('#profit').val(),
+      }
+      $.ajax({
+        url: "/map/<playerName>", // Route actions
+        type: "POST", // Envoyer
+        dataType :"json", // Format json
+        data: JSON.stringify(toSend),
+        contentType: "application/json; charset=utf-8",
+        success: function(response){ // Succès
+          var dat = JSON.parse(response); // Réponse au format json
+          $('#monnaie').val(dat.Cash);
+          alert(dat.Cash);
+        },
+        failure: function(error){
+          alert(error)
+        }
+          });
+    });
+
           var dt;
           $( document ).ready(function(){
                alert("Ready !");
@@ -104,7 +185,7 @@
                $.get("/map/"+dt.name, function(data, status){
                     var dat = JSON.parse(data);
                     document.cookie = dat;
-                    alert("MAP": " + data + "\nStatus: " + status);
+                    alert("MAP: " + data + "\nStatus: " + status);
                });
           $("#send").click(function(event){
                event.preventDefault();
@@ -115,8 +196,73 @@
                     alert("Data: " + data + "\nStatus: " + status);
                });
           });
-     </script>
-<!-- Fin JavaScript --> 
 
-  </body>
+/////////////////////////////////////// R6 - Actions pour le lendemain ////////////////////////////////////////
+          $('#send').click(function(event){
+      event.preventDefault();
+              var toSend = {
+                    prodLimo: $('#nbreprod').val(),
+                    pannoPub: $('#nbrepub').val(),
+                    prixVente: $('#prix').val(),
+      }
+      $.ajax({
+        url: "/actions/<playerName>", // Route actions
+        type: "POST", // Envoyer
+        dataType :"json", // Format json
+        data: JSON.stringify(toSend),
+        contentType: "application/json; charset=utf-8",
+        success: function(response){ // Succès
+          var dat = JSON.parse(response); // Réponse au format json
+          //alert(dat.prodLimo);
+          $('#quantite').val(dat.prodLimo); // Dans l'input quantite on demande la valeur de prodLimo
+          alert(dat.pannoPub);
+          alert(dat.prix);
+          //document.cookie = response;
+        },
+        failure: function(error){
+          alert(error)
+        }
+          });
+    });
+
+/////////////////////////////////////// R7 - Date et météo ////////////////////////////////////////
+               $('#sendmeteo').click(function(event){
+      event.preventDefault();
+      }
+      $.ajax({
+        url: "/metrology",
+        type: "GET",
+        dataType :"json",
+        success: function(response){
+          var meteo = JSON.parse(response); // Récupération du résultat
+          alert(response);
+
+          //alert(meteo.);
+        },
+        failure: function(error){
+          alert(error);
+        }
+});
+
+/////////////////////////////////////// R8 - Réinitialiser une partie ////////////////////////////////////////
+      $.ajax({
+        url: "/reset",
+        type: "GET",
+        dataType :"json",
+        success: function(response){
+          var reset = JSON.parse(response); // Récupération du résultat
+          alert(response);
+        },
+        failure: function(error){
+          alert(error);
+        }
+});
+
+/////////////////////////////////////// R9 - Obtenir la liste des ingrédients ////////////////////////////////////////
+
+
+</script>
+
+                                                                                                                           <!-- Fin JavaScript --> 
+	</body>
 </html>
