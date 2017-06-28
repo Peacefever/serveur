@@ -22,7 +22,7 @@
                alert("Ready !");
                var cook = document.cookie;
                dataCookie = JSON.parse(cook);
-               $("#username").val(dataCookie.name);
+               $("#name").val(dataCookie.name);
                $.get("/map/"+dataCookie.name, function(data, status){
                     var dat = JSON.parse(data);
                     //document.ookiecookie = dat;
