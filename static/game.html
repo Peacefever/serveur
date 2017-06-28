@@ -62,7 +62,7 @@ function getCookie(cname) {
 		$('body').on('input','#nbreprod', function (){
 				//if(isFloat($('#drinkOffered').val()) &&  isFloat($(this).val())){
 				//$('#errorSum').remove();
-				var sum =  parseFloat($('#drinkOffered').val()) + parseFloat($(this).val());
+				var sum =  parseFloat($('#drinkOffered').val()) * parseFloat($(this).val());
 				$('#prix').val(sum);
 			/*}else{
 				$('#errorSum').remove();
