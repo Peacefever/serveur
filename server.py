@@ -285,7 +285,7 @@ def collect_sales():
 	de chaque boissons pour un joeuur donné
 	'''
 	#datas = request.get_json()
-	datas = {"sales":[{"player":"toto", "item":"Limonade", "quantity":2}]}
+	datas = {"sales":[{"player":"toto", "item":"vytyt", "quantity":2}]}
 
 	if (isValidData(datas) == False):
 		return bad_request()
