@@ -33,7 +33,8 @@
                                         contentType: "application/json; charset=utf-8",
                                         success: function(response){
 						alert("Compte existant");
-                                                document.cookie = response;
+						var dt = JSON.parse(response);
+                                                document.cookie = dt;
                                                 window.location.href = "/game.html";
                                         },
                                         error: function(error){
