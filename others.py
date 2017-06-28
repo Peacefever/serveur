@@ -370,25 +370,32 @@ def join_new_player(playername, gameid):
 '''
 app.route('/players', methods=['POST'])
 def join_game():
+
 		#Cas où le joueur est déjà connecté à la game
 	if (player_ingame == id_game_default):
 		#Récupération de l'ensemble des joueurs de la game
 		all_players = db.select("SELECT * FROM Player WHERE ingame_player = %(idgame)d"\
 			%(id_game_default))
+
 		if (len(all_players) == 0):
 			return to_make_response('Internal Server Error')
+
 		#Récupération des ventes effectuées par le joueur au jour en cours
 			#Récupération du jour courant
 		current_day = get_lastGameDay()
+
 			#Récupération de l'ensemble des ventes du joueur pour le jour courant
 		all_sales_player = db.select("SELECT quantity_sales FROM Sales WHERE (day_sales = %d AND \
 			id_player=%d)" %(current_day, player[0]['name_player']))
+
 		if (len(all_sales_player) == 0):
 			return to_make_response('Internal Server Error', 500)
+
 		#Calcul du total des ventes
 		all_sales = 0
 		for asold in sales:
 			all_sales = all_sales + asold['quantity_sales']
+
 		#Mise en place de la réponse du drinksOffered (supposition que tout ce que possède le joueur
 		#est porposé à la vente.
 			#Récupération de l'ensemble des recettes vendues au jour en cours par le joueur
@@ -396,9 +403,11 @@ def join_game():
 		#	isCold_recipe, hasAlcohol_recipe FROM Sales FULL JOIN Recipe ON sales.id_recipe = recipe.id_recipe\
 		#	WHERE (id_player = %d AND day_sales = %d)" %(player[0]['id_player'], current_day))
 		#print(all_recipe_sold)*/
+
 		all_recipe = db.select("SELECT * FROM Recipe WHERE id_player = %d" %(player[0]['id_player']))
 		if (len(all_recipe) == 0):
 			return to_make_response('Internal Server Error', 500)
+
 			#Mise en forme de la réponse pour la clé drinksOffered
 		drinksOffered = []
 		for adrink in all_recipe:
@@ -409,6 +418,7 @@ def join_game():
 				"hasAlcohol":adrink['hasalcohol_recipe'],
 				"isCold":adrink['iscold_recipe']
 				})
+
 		#Mise en forme de la réponse
 		resp = {
 			"name": player[0]['name'],
@@ -423,6 +433,7 @@ def join_game():
 				"drinksOffered": drinksOffered
 			}
 		}
+
 		#On renvoie donc les données correspondantes
 		return to_make_response(resp)
 	return to_make_response(resp)
