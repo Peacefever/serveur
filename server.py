@@ -488,7 +488,22 @@ def join_game():
 			"id_game": default_game,
 			"name":data['name']
 		})
-		resp = "{\"name\": \"toto"\",\"info\": {\"location\": [{\"latitude\": 25}, {\"longitude\": 50}],\"argent\": [{\"dispo\": 1.0}, {\"ventes\": 0.0},  {\"profit\":\": 0.0}]}}"
+		resp = {"name": "toto",
+		"info": {
+			"location": [{
+				"latitude": 25
+				}, {
+				"longitude": 50
+			}],
+		"argent": [{
+			"dispo": 1.0
+			}, {
+			"ventes": 0.0
+			}, {
+			"profit": 0.0
+			}]
+			}
+		}
 		'''resp = {
 		'name': data['name'],
 		"location": {
