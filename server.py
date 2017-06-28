@@ -427,12 +427,11 @@ def collect_sales():
 		print dictObject['quantity']
 		print "prt 1"
 		print currentDay
-		'''
 		print "prt 2"
 		print  playerID 
 		print "prt 3"
 		print  recipeID
-		print "prt 4"
+		'''print "prt 4"
 		print soldToModify[0]['day_sales']
 		print "prt 5"
 		print soldToModify[0]['id_player']
@@ -502,7 +501,7 @@ def join_game():
 		db.close()
 		return to_make_response(resp)
 
-	print("je suiio la ")
+	#print("je suiio la ")
 	join = join_new_player(data['name'], default_game)
 	db.close()
 	print(join)
