@@ -435,8 +435,8 @@ def collect_sales():
 		print soldToModify[0]['day_sales']
 		print "prt 5"
 		print soldToModify[0]['id_player']
-		'''print "prt 6"
-		print soldToModify[0]['id_recipe']
+		print "prt 6"
+		'''print soldToModify[0]['id_recipe']
 		print "prt 7"
 		
 		db.execute("UPDATE sales SET quantity_sales = %(quantity)s, day_sales =%(day)s, id_player = %(p_id)s \
