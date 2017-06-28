@@ -449,10 +449,9 @@ def collect_sales():
 			"old_p":soldToModify[0]['id_player'],
 			"old_r":soldToModify[0]['id_recipe']
 		})
-		'''
+		
 		#print(db.select("SELECT * FROM Sales"))
 	db.close()
-	'''
 	return to_make_response('', 201)
 
 
