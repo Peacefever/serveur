@@ -284,8 +284,8 @@ def collect_sales():
 	Cette route permet de sauvegarder le nombre de ventes
 	de chaque boissons pour un joeuur donné
 	'''
-	datas = request.get_json()
-	#datas = {"sales":[{"player":"toto", "item":"Limonade", "quantity":2}]}
+	#datas = request.get_json()
+	datas = {"sales":[{"player":"toto", "item":"Limonade", "quantity":2}]}
 
 	if (isValidData(datas) == False):
 		return bad_request()
@@ -416,8 +416,9 @@ def join_game():
 		}
 		return to_make_response(resp)
 
-	 join = join_new_player(data['name'], default_game)
-
+	print("je suiio la ")
+	join = join_new_player(data['name'], default_game)
+	print(join)
 '''
 	print(is_present_pseudo_indb(data['name']))
 	#La donnée peut être traitée
@@ -425,12 +426,10 @@ def join_game():
 	if (is_present_pseudo_indb(data['name']) == False):
 		#On le crée, et on le connecte à la partie
 		thenewplayer = join_new_player(data['name'],default_game)
-
 		if(thenewplayer == "Error -500"):
 			return internal_server_error()
 		
 		return thenewplayer
-
 	resp = {}
 	print("je passe la ")
 		#Le joueur est déjà présent dans la game
@@ -441,7 +440,6 @@ def join_game():
 		"name":data['name']
 		})
 	db.close()
-
 	print(player)
 	resp = {
 		'name': data['name'],
@@ -463,7 +461,6 @@ if __name__ == '__main__':
 S'il y a le pseudo en base de données on envoie les données du joeuur
 Sinon on crée le joueur et tout ce qui est necessaire à son commencement dans la partie.
 S'il n'est pas connecté on le connecte aussi.
-
 Le serveur fonctionne de la facon suivante:
 	Quand on se connecte on se connecte
 	Quand on quitte la partie on quitte définitivement. 
