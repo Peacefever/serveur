@@ -7,15 +7,11 @@ import json
 from Map import *
 from others import *
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__)
 app.debug = True
 CORS(app)
 
 timestamp = 0
-
-@app.route("/")
-def connexion():
-   return app.send_static_file('connexion.html')
 
 #Database
 @app.route('/debug/db/reset')
@@ -339,14 +335,23 @@ def collect_sales():
 
 		#Cas où il n'y a aucune ligne vente pour ce jour, cet id_recipe et cet id_joueur
 			#Alors on crée une nouvelle instance de Sales, qui sera représentée en base par une ligne
-			#, id_player, id_recipe)\
-		sold_creation = db.select("INSERT INTO sales (quantity_sales, day_sales)\
-				VALUES (%(quantity)s, %(day)s",{ #%(p_id)s, #%(r_id)s)", {
+		sold_creation = db.select("INSERT INTO Sales (quantity_sales, day_sales)\#id_player, id_recipe)\
+				VALUES (%(quantity)s, %(day)s)",{ #%(p_id)s, #%(r_id)s)", {
 				"quantity":dictObject['quantity'],
-				"day": currentDay
+				"day": currentDay,
 				#"p_id":playerID[0]['id_player'],
 				#"r_id":recipeID[0]['id_recipe']
 				})
+
+		#Cas où il y a déjà une ligne, on la récupère et on effectue dessus une mise à jour
+			#Récupération de la ligne
+		soldToModify = db.select("SELECT * FROM Sales WHERE (day_sales = %(day)s AND id_player = %(p_id)s\
+			AND id_recipe = %(r_id)s)", {
+		"day":currentDay,
+		"p_id":playerID[0]['id_player'],
+		"r_id":recipeID[0]['id_recipe']
+		})
+
 		if (len(soldToModify) != 1):
 			print('4')
 			return to_make_response('Internal Server Error', 500)
@@ -389,9 +394,14 @@ def join_game():
 		return bad_request()
 
 	db = Db()
+	print(db.select("SELECT * FROM Player"))
 
 	#Verif que le player est dans la base ou non
 	in_db = is_present_pseudo_indb(data['name'])
+	print(in_db)
+	print("\n")
+	print(db.select("SELECT * FROM Player"))
+
 	if (in_db == True):
 		player = db.select("SELECT * FROM Player WHERE (ingame_player = %(id_game)s AND  name_player = %(name)s)", {
 			"id_game": default_game,
@@ -406,10 +416,42 @@ def join_game():
 		},
 		"infos" :get_player_infos(player[0]['id_player'], default_game, "prod")
 		}
-		db.close()
 		return to_make_response(resp)
 
-	
+	print("je suiio la ")
+	join = join_new_player(data['name'], default_game)
+	print(join)
+'''
+	print(is_present_pseudo_indb(data['name']))
+	#La donnée peut être traitée
+		#Le joueur est absent de la base de données
+	if (is_present_pseudo_indb(data['name']) == False):
+		#On le crée, et on le connecte à la partie
+		thenewplayer = join_new_player(data['name'],default_game)
+		if(thenewplayer == "Error -500"):
+			return internal_server_error()
+		
+		return thenewplayer
+	resp = {}
+	print("je passe la ")
+		#Le joueur est déjà présent dans la game
+		#On récuère son id
+	db = Db()
+	player = db.select("SELECT * FROM Player WHERE (ingame_player = %(id_game)s AND  name_player = %(name)s)", {
+		"id_game": default_game,
+		"name":data['name']
+		})
+	db.close()
+	print(player)
+	resp = {
+		'name': data['name'],
+		"location": {
+				"latitude": player[0]['lat_player'],
+				"longitude": player[0]['lon_player']
+		},
+		"infos" :get_player_infos(player[0]['id_player'], default_game, "prod")
+		}
+	'''
 
 if __name__ == '__main__':
 	app.run()
