@@ -343,7 +343,7 @@ def collect_sales():
 		sold_creation = db.select("INSERT INTO sales (quantity_sales, day_sale)\
 				VALUES (%(quantity)s, %(day)s, %(p_id)s, %(r_id)s",{ #%(p_id)s, #%(r_id)s)", {
 				"quantity":dictObject['quantity'],
-				"day": currentDay,
+				"day": currentDay
 				#"p_id":playerID[0]['id_player'],
 				#"r_id":recipeID[0]['id_recipe']
 				})
