@@ -81,9 +81,9 @@ def save_actions(playerName):
         #Détermination du cout total des actions
     costs = 0.0
     for anAntion in datas['actions']:
-        if (datas['drinksOffered'] == 'drinks'): #Action de production
+        if (datas['kind'] == 'drinks'): #Action de production
             costs = costs + calculate_cost_prod(anAction, playerName)
-        if (datas['drinksOffered'] == 'ad'):
+        if (datas['kind'] == 'ad'):
             cost += cost + calculate_cost_ad(anAction, playerName)
 
         #On récupère les données du joueurs
