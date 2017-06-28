@@ -416,42 +416,10 @@ def join_game():
 		},
 		"infos" :get_player_infos(player[0]['id_player'], default_game, "prod")
 		}
+		db.close()
 		return to_make_response(resp)
 
-	print("je suiio la ")
-	join = join_new_player(data['name'], default_game)
-	print(join)
-'''
-	print(is_present_pseudo_indb(data['name']))
-	#La donnée peut être traitée
-		#Le joueur est absent de la base de données
-	if (is_present_pseudo_indb(data['name']) == False):
-		#On le crée, et on le connecte à la partie
-		thenewplayer = join_new_player(data['name'],default_game)
-		if(thenewplayer == "Error -500"):
-			return internal_server_error()
-		
-		return thenewplayer
-	resp = {}
-	print("je passe la ")
-		#Le joueur est déjà présent dans la game
-		#On récuère son id
-	db = Db()
-	player = db.select("SELECT * FROM Player WHERE (ingame_player = %(id_game)s AND  name_player = %(name)s)", {
-		"id_game": default_game,
-		"name":data['name']
-		})
-	db.close()
-	print(player)
-	resp = {
-		'name': data['name'],
-		"location": {
-				"latitude": player[0]['lat_player'],
-				"longitude": player[0]['lon_player']
-		},
-		"infos" :get_player_infos(player[0]['id_player'], default_game, "prod")
-		}
-	'''
+	
 
 if __name__ == '__main__':
 	app.run()
