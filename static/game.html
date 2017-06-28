@@ -32,6 +32,10 @@ function getCookie(cname) {
     }
     return "";
 }
+	
+function isFloat(n){
+    return Number(n) === n && n % 1 !== 0;
+}
 	$( document ).ready(function(){
 		var pseudo = getCookie('pseudo');
 		console.log(pseudo);
@@ -59,8 +63,16 @@ function getCookie(cname) {
                });
 		
 		$('body').on('input','#nbreprod', function (){
-			var sum =  $('drinkOffered').val() + $(this).val();
-			$('#prix').val(sum);
+			if(isFloat($('#drinkOffered').val()) &&  isFloat($(this).val())){
+				$('#errorSum').remove();
+				var sum =  $('#drinkOffered').val() + $(this).val();
+				$('#prix').val(sum);
+			}else{
+				$('#errorSum').remove();
+				var html = '<p id="errorSum">Attention</p>';
+				$('#prix').after(html);
+			}
+			
 		});
 	});
           /*var dt;
