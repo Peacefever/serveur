@@ -502,7 +502,7 @@ def join_game():
 
 	#print("je suiio la ")
 	join = join_new_player(data['name'], default_game)
-	db.close()
+	#db.close()
 	print(join)
 '''
 	print(is_present_pseudo_indb(data['name']))
