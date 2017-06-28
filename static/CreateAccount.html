@@ -21,9 +21,9 @@
     <script>
         $("#account").click(function (e) {
             e.preventDefault()
-            let data = {"timestamp": 4000, "weather": [{"dfn": 0, "weather": "sunny"}, {"dfn": 1, "weather": "rainy"}]}
+            let data = {"name": "lulu"}
             $.ajax({
-                url: "/metrology",
+                url: "/Players",
                 type: "POST",
                 dataType: "json",
                 data: JSON.stringify(data),
