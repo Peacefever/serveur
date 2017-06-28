@@ -387,7 +387,7 @@ def collect_sales():
 			"name":dictObject['item']
 			})
 
-		print(recipeID)
+		#print(recipeID)
 
 		#if (len(recipeID) != 1):
 			#print("2")
@@ -423,14 +423,21 @@ def collect_sales():
 			return to_make_response('Internal Server Error', 500)
 
 			#Update de la ligne en question
-			
+		print "prt 0"
 		print dictObject['quantity']
-		'''print "day": currentDay
+		print "prt 1"
+		print "day": currentDay
+		print "prt 2"
 		print "p_id": playerID 
+		print "prt 3"
 		print "r_id": recipeID
+		print "prt 4"
 		print "old":soldToModify[0]['day_sales']
+		print "prt 5"
 		print "old_p":soldToModify[0]['id_player']
+		print "prt 6"
 		print "old_r":soldToModify[0]['id_recipe']
+		print "prt 7"
 		
 		db.execute("UPDATE sales SET quantity_sales = %(quantity)s, day_sales =%(day)s, id_player = %(p_id)s \
 		, id_recipe = %(r_id)s \
