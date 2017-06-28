@@ -310,9 +310,9 @@ def collect_sales():
 			"name":dictObject['player']
 		})
 
-		if (len(playerID) != 1):
-			print("1")
-			return internal_server_error()
+		#if (len(playerID) != 1):
+		#	print("1")
+		#	return internal_server_error()
 
 		#Récupération de l'id de la recette vendue
 		recipeID = db.select("SELECT id_recipe FROM Recipe WHERE (name_recipe = %(name)s)", {
