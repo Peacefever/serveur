@@ -17,13 +17,34 @@
 
 <!-- /actions/<playerName> --> 
 <script type="text/javascript">
-          var dt;
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+	$( document ).ready(function(){
+		var pseudo = getCookie('pseudo');
+		console.log(pseudo);
+		$("#name").val(pseudo);
+		
+	});
+          /*var dt;
           $( document ).ready(function(){
                alert("Ready !");
                var cook = document.cookie;
                dataCookie = JSON.parse(cook);
 		  alert(dataCookie);
-               $("#name").val(dataCookie.name);
+               $("#name").val(dataCookie.name);*/
                /*$.get("/map/"+dataCookie.name, function(data, status){
                     var dat = JSON.parse(data);
                     //document.ookiecookie = dat;
@@ -37,7 +58,7 @@
                $.post("/actions/"+dataCookie.name,toSend,function(data, status){
                     alert("Data: " + data + "\nStatus: " + status);
                });*/
-          });
+          //});
 </script>	   
 	   
 <!-- Fieldset Données Joueur --> 
