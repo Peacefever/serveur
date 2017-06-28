@@ -14,108 +14,6 @@
 <!-- CSS div cadre n°1 --> 
    <div style="background:url('https://pub.be/wp-content/uploads/2016/02/LIMO-citron.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
 <!-- Structure : url img (no-repeat img) + espacement entre fieldset et cadre + taille bordure (type bordure) + fond du cadre (noir) + longueur max + opacité 1 (pour écrire par-dessus une image) --> 
-
-<!-- /actions/<playerName> --> 
-<script type="text/javascript">
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-	
-	$( document ).ready(function(){
-		var pseudo = getCookie('pseudo');
-		console.log(pseudo);
-		$("#name").val(pseudo);
-		
-		$.get("/map/"+pseudo, function(data, status){
-                    var dat = data;
-                    //document.ookiecookie = dat;
-                    //alert("MAP: " + data + "\nStatus: " + status);
-			console.log(data);
-			var infos = data.playerInfo[pseudo];
-			console.log(infos);
-			var drinks = infos.drinksOffered;
-			console.log(drinks);
-			
-			//remplir select boissons
-			$.each(drinks,function(index,value){
-				console.log(value);
-				$("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
-			});
-			
-			//remplir money joueur
-			$('#monnaie').val(infos.cash);
-			
-			//remplir nbre boissons vendues
-			$('#nbreboissonvendues').val(infos.sales);
-		    
-               });
-		
-		$('body').on('input','#nbreprod', function (){
-				//if(isFloat($('#drinkOffered').val()) &&  isFloat($(this).val())){
-				//$('#errorSum').remove();
-				var sum =  parseFloat($('#drinkOffered').val()) * parseFloat($(this).val());
-				$('#prix').val(sum);
-			/*}else{
-				$('#errorSum').remove();
-				var html = '<p id="errorSum">Attention</p>';
-				$('#prix').after(html);
-			}*/
-			
-		});
-		
-		// envoyer au serveur
-		/*$('body').on('click','#send', function (){
-			
-			var message = {
-			};
-		  $.ajax({
-			url: "/actions/"+pseudo, // Route actions
-			type: "POST", // Envoyer
-			dataType :"json", // Format json
-			data: JSON.stringify(message),
-			contentType: "application/json; charset=utf-8",
-			success: function(response){ // Succes
-			  var dat = response; // Reponse au format json
-			  alert("Valeurs envoyées !");
-				//a faire
-			 }
-		  });	
-		});*/
-	});
-          /*var dt;
-          $( document ).ready(function(){
-               alert("Ready !");
-               var cook = document.cookie;
-               dataCookie = JSON.parse(cook);
-		  alert(dataCookie);
-               $("#name").val(dataCookie.name);*/
-               /*$.get("/map/"+dataCookie.name, function(data, status){
-                    var dat = JSON.parse(data);
-                    //document.ookiecookie = dat;
-                    alert("MAP: " + data + "\nStatus: " + status);
-               });
-          $("#send").click(function(event){
-               event.preventDefault();
-               //var cook = document.cookie;
-               var dat = JSON.parse(cook);
-               var toSend = "{action:[{cash:1,sales:1,profit:0.0,drinksOffered:{name:name,price:0.0,hasAlcohol:1,isCold:1}}],simulated:1}"
-               $.post("/actions/"+dataCookie.name,toSend,function(data, status){
-                    alert("Data: " + data + "\nStatus: " + status);
-               });*/
-          //});
-</script>	   
 	   
 <!-- Fieldset Données Joueur --> 
 <FONT color="white">
@@ -123,10 +21,6 @@ function getCookie(cname) {
     <legend><FONT color="#EFD807"><strong>Données joueur</strong></FONT></legend>
       <br><label for="Name">Nom du joueur</label>
       <input type="text" name="name" id="name" readonly/>
-      <br><label for="Boissonprod">Boisson à produire</label>
-      <input type="text" name="boissonprod" id="boissonprod" readonly/>
-      <label>
-      <input type="text" name="cost" id="cost" readonly/> $
       <br><label for="Monnaie">Monnaie joueur</label>
       <input type="text" name="monnaie" id="monnaie" readonly/>
       <label>
@@ -182,7 +76,7 @@ function getCookie(cname) {
 <!-- CSS div cadre n°3 --> 
   <div style="background:url('http://en.grand-marnier.com/assets/en/cocktails/cocktails_withgrandmojito.jpg') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
 <fieldset>
-    	<legend><FONT color="#EFD807"><strong>Bilan</strong></FONT></legend> <!-- Titre du fieldset --> 
+      <legend><FONT color="#EFD807"><strong>Bilan</strong></FONT></legend> <!-- Titre du fieldset --> 
       <br><label for="Profit">Profit</label>
       <input type="text" name="profit" id="profit" readonly/>
       <br><label for="Couttotal">Coût total</label>
@@ -243,11 +137,23 @@ function getCookie(cname) {
    </div>
 <!-- CSS fin div cadre n°5 -->
 
+    
+
+
+
+
+
+
+
+
                                                                                                                             <!-- Début JavaScript --> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
+
 <script type="text/javascript">
-/////////////////////////////////////// R6 - Actions pour le lendemain ////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                      R6 - Actions pour le lendemain                                                                                          */
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           $('#send').click(function(event){
       event.preventDefault();
               var Message = {
@@ -268,8 +174,11 @@ function getCookie(cname) {
       });
 </script>
 
+
 <script type="text/javascript">
-/////////////////////////////////////// R7 - Date et meteo /metrology ////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                      R7 - Date et meteo /metrology                                                                                           */
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $("#sendmeteo").click(function(event){
       $.ajax({
 	url: "https://serveur10.herokuapp.com/metrology", // Route metrology
@@ -286,21 +195,125 @@ $("#sendmeteo").click(function(event){
       });
 </script>
 	
+
 	<script type="text/javascript">
-/////////////////////////////////////// R5 - Vue du jeu pour un joueur /map/<playerName> ////////////////////////////////////////
-$("#rafresh").click(function(event){
-      $.ajax({
-  url: "https://serveur10.herokuapp.com/map/"+dataCookie.name, // Route map
-  type: "GET", // Envoyer
-  dataType :"json", // Format json
-  success: function(response){ // Succès
-      //var dat = JSON.parse(response.responseText); // Reponse au format json
-            $("#monnaie").val(response['playerInfo']['toto']['cash'])
-          },
-        });
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                      R5 - Vue du jeu pour un joueur /map/<playerName>                                                                        */
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  $( document ).ready(function(){
+    var pseudo = getCookie('pseudo');
+    console.log(pseudo);
+    $("#name").val(pseudo);
+    
+    $.get("/map/"+pseudo, function(data, status){
+                    var dat = data;
+
+      console.log(data);
+      var infos = data.playerInfo[pseudo];
+      console.log(infos);
+      var drinks = infos.drinksOffered;
+      console.log(drinks);
       
+      //remplir select boissons
+      $.each(drinks,function(index,value){
+        console.log(value);
+        $("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
       });
-</script>
+      
+      //remplir money joueur
+      $('#monnaie').val(infos.cash);
+      
+      //remplir nbre boissons vendues
+      $('#nbreboissonvendues').val(infos.sales);
+
+});
+    
+    $('body').on('input','#nbreprod', function (){
+        //if(isFloat($('#drinkOffered').val()) &&  isFloat($(this).val())){
+        //$('#errorSum').remove();
+        var sum =  parseFloat($('#drinkOffered').val()) * parseFloat($(this).val());
+        $('#prix').val(sum);
+      /*}else{
+        $('#errorSum').remove();
+        var html = '<p id="errorSum">Attention</p>';
+        $('#prix').after(html);
+      }*/   
+    });
+    
+    // envoyer au serveur
+    /*$('body').on('click','#send', function (){
+      
+      var message = {
+      };
+      $.ajax({
+      url: "/actions/"+pseudo, // Route actions
+      type: "POST", // Envoyer
+      dataType :"json", // Format json
+      data: JSON.stringify(message),
+      contentType: "application/json; charset=utf-8",
+      success: function(response){ // Succes
+        var dat = response; // Reponse au format json
+        alert("Valeurs envoyées !");
+        //a faire
+       }
+      }); 
+    });*/
+  });
+          /*var dt;
+          $( document ).ready(function(){
+               alert("Ready !");
+               var cook = document.cookie;
+               dataCookie = JSON.parse(cook);
+      alert(dataCookie);
+               $("#name").val(dataCookie.name);*/
+               /*$.get("/map/"+dataCookie.name, function(data, status){
+                    var dat = JSON.parse(data);
+                    //document.ookiecookie = dat;
+                    alert("MAP: " + data + "\nStatus: " + status);
+               });
+          $("#send").click(function(event){
+               event.preventDefault();
+               //var cook = document.cookie;
+               var dat = JSON.parse(cook);
+               var toSend = "{action:[{cash:1,sales:1,profit:0.0,drinksOffered:{name:name,price:0.0,hasAlcohol:1,isCold:1}}],simulated:1}"
+               $.post("/actions/"+dataCookie.name,toSend,function(data, status){
+                    alert("Data: " + data + "\nStatus: " + status);
+               });*/
+          //});
+
+
+<script type="text/javascript">
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*                                      /actions/<playerName>                                                                                                   */
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+  
+
+</script>    
+
+
+
+
+
+
+
+
+
+
                                                                                                                            <!-- Fin JavaScript --> 
 	</body>
 </html>
