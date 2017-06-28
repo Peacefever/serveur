@@ -488,18 +488,18 @@ def join_game():
 			"id_game": default_game,
 			"name":data['name']
 		})
+
 		resp = {
-  		'name': data['name'],
-  		"location": {
-  				"latitude": player[0]['lat_player'],
-  				"longitude": player[0]['lon_player']
-  		},
-  		"infos" :get_player_infos(player[0]['id_player'], default_game, "prod")
- 		}
- 		}
-  		db.close()
-  		return to_make_response(resp)
-		
+		'name': data['name'],
+		"location": {
+				"latitude": player[0]['lat_player'],
+				"longitude": player[0]['lon_player']
+		},
+		"infos" :get_player_infos(player[0]['id_player'], default_game, "prod")
+		}
+		db.close()
+		return to_make_response(resp)
+
 	#print("je suiio la ")
 	join = join_new_player(data['name'], default_game)
 	#db.close()
