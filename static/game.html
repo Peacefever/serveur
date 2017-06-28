@@ -46,10 +46,14 @@ function getCookie(cname) {
 			console.log(infos);
 			var drinks = infos.drinksOffered;
 			console.log(drinks);
-			for(var drink in drinks){
-				console.log(drink);
-				$("#drinkOffered").append('<option value="'+drink.price+'">'+drink.name+" ("+drink.price+"€)"+'</option>');
-			}
+			
+			$.each(drinks,function(index,value){
+				console.log(value);
+				$("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
+			});
+
+				
+			
 		    
                });
 	});
