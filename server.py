@@ -423,6 +423,7 @@ def collect_sales():
 			return to_make_response('Internal Server Error', 500)
 
 			#Update de la ligne en question
+			'''
 		print dictObject['quantity']
 		print "day": currentDay
 		print "p_id": playerID 
@@ -430,7 +431,7 @@ def collect_sales():
 		print "old":soldToModify[0]['day_sales']
 		print "old_p":soldToModify[0]['id_player']
 		print "old_r":soldToModify[0]['id_recipe']
-			
+			'''
 		db.execute("UPDATE sales SET quantity_sales = %(quantity)s, day_sales =%(day)s, id_player = %(p_id)s \
 		, id_recipe = %(r_id)s \
 		WHERE day_sales = %(old)s AND id_player = %(old_p)s AND id_recipe = %(old_r)s)",{
