@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,7 +12,6 @@
                 <legend><strong>Page de connexion</strong></legend>
                 <!--<form id="connexion" action="/players" method="POST"-->
                 <label for="name">Pseudo :</label>
-                <input type="text" name="username" id="username">
                 <br><br><button type="button" id="account" value="Creer un compte">Creer un compte</button>
                 <!--/form-->
             </fieldset>
@@ -21,26 +20,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script>
         $("#account").click(function (e) {
-            e.preventDefault();
+            e.preventDefault()
             let data = {
-                "name": $("#username").val()
+                "action": [{
+                    "cash": 1.0,
+                    "sales": 5,
+                    "profit": 5.0,
+                    "drinksOffered": [{
+                        "name": "cola",
+                        "price": 2.0,
+                        "hasAlcohol": true,
+                        "isCold":true
+                    }]
+                }]
             }
             $.ajax({
-                url: "/account/create",
+                url: "/actions/toto",
                 type: "POST",
                 dataType: "json",
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
-               success: function (response) {
+                success: function (response) {
                     alert("Compte creer");
                     document.cookie = response;
-                    window.location.href = "/connexion.html";
                 },
-                failure: function (error) {
+                error: function (error) {
                     alert("error");
                 }
             });
-        });
+        })
     </script>
 </body>
 </html>
