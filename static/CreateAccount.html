@@ -21,37 +21,9 @@
     <script>
         $("#account").click(function (e) {
             e.preventDefault()
-            let data = {
-                "actions": [{
-                    "kind": "recipe",
-                    "recipe": {
-                        "name": "limonade",
-                        "ingredients": [{
-                            "name": "limonade",
-                            "cost": 12,
-                            "hasAlcohol": "False",
-                            "isCold": "True"
-                        }]
-                    }
-                }, {
-                    "kind": "ad",
-                    "location": {
-                        "longitude": 15,
-                        "latitude": 20
-                    },
-                    "radius": 12.5
-                }, {
-                    "kind": "drinks",
-                    "prepare": {
-                        "limonade" : 5
-		        },
-                    "price": {
-                        "limonade": 0.15
-		        }		
-                }]
-            }
+            let data = {"timestamp": 4000, "weather": [{"dfn": 0, "weather": "sunny"}, {"dfn": 1, "weather": "rainy"}]}
             $.ajax({
-                url: "/actions/toto",
+                url: "/metrology",
                 type: "POST",
                 dataType: "json",
                 data: JSON.stringify(data),
