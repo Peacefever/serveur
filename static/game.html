@@ -56,6 +56,9 @@ function getCookie(cname) {
 			
 			//remplir money joueur
 			$('#monnaie').val(infos.cash);
+			
+			//remplir nbre boissons vendues
+			$('#nbreboissonvendues').val(infos.sales);
 		    
                });
 		
@@ -183,7 +186,7 @@ function getCookie(cname) {
       <br><label for="Profit">Profit</label>
       <input type="text" name="profit" id="profit" readonly/>
       <br><label for="Couttotal">Coût total</label>
-      <input type="hidden" name="couttotal" id="couttotal" readonly/>
+      <input type="text" name="couttotal" id="couttotal" readonly/>
       <br><label for="Nbreboissonvendues">Nombre boissons vendues</label>
       <input type="text" name="nbreboissonvendues" id="nbreboissonvendues" readonly/>
       <br><br><button value="sendbilan" id="sendbilan">Voir bilan</button>
