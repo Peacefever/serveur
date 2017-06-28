@@ -23,15 +23,31 @@
             e.preventDefault()
             let data = {
                 "actions": [{
-                    "cash": 1.0,
-                    "sales": 5,
-                    "profit": 5.0,
-                    "drinksOffered": [{
-                        "name": "cola",
-                        "price": 2.0,
-                        "hasAlcohol": true,
-                        "isCold":true
-                    }]
+                    "kind": "recipe",
+                    "recipe": {
+                        "name": "limonade",
+                        "ingredients": [{
+                            "name": "limonade",
+                            "cost": 12,
+                            "hasAlcohol": "False",
+                            "isCold": "True"
+                        }]
+                    }
+                }, {
+                    "kind": "ad",
+                    "location": {
+                        "longitude": 15,
+                        "latitude": 20
+                    },
+                    "radius": 12.5
+                }, {
+                    "kind": "drinks",
+                    "prepare": {
+                        "limonade" : 5
+		        },
+                    "price": {
+                        "limonade": 0.15
+		        }		
                 }]
             }
             $.ajax({
