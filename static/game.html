@@ -173,15 +173,15 @@
 /////////////////////////////////////// R7 - Date et meteo ////////////////////////////////////////
 $("#sendmeteo").click(function(event){
       $.ajax({
-	url: "https://serveur10.herokuapp.com/metrology", function (reponse) // Route metrology
+	url: "https://serveur10.herokuapp.com/metrology", // Route metrology
 	type: "GET", // Envoyer
-	//dataType :"json", // Format json
+	dataType :"json", // Format json
 	//success: function(response){ // Succès
-	    //var dat = JSON.parse(response); // Reponse au format json
-            $("#meteoactu").val(reponse['weather']['0']['weather'])
-            $("#meteoprev").val(reponse['weather']['1']['weather'])
-            $("#jour").val(reponse['timestamp'])
-          },
+	    var dat = JSON.parse(response); // Reponse au format json
+            $("#meteoactu").val(dat['weather']['0']['weather'])
+            $("#meteoprev").val(dat['weather']['1']['weather'])
+            $("#jour").val(dat['timestamp'])
+          //},
         });
       
       });
