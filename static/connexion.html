@@ -3,45 +3,40 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>Connexion Page</title>
+        <link rel="stylesheet" href="main.css" />
 	</head>
-	<body bgcolor=black>		
-
-		<div style="background:url('https://cannibalpizza.files.wordpress.com/2015/08/lemonade.png') no-repeat; background-color:#000000; position:absolute; left: 25%; top: 29%; width: 1000px; height: 1000px; margin-left: -150px; margin-top: -100px;"></div>
-
-        <div style="padding:3px; border:5px outset #F7FF3C; background-color:#F7FF3C; position:absolute; left: 50%; top: 50%; width: 280px; height: 140px; margin-left: -150px; margin-top: -100px;"><center><fieldset>
-			<legend><strong><FONT color="black">Page de connexion</strong></legend>
-			<!--<form id="connexion" action="/players" method="POST"-->
-				<label for="name"><FONT color="black">Pseudo :</label>
-				<input type="text" name="username" id="username">
-				<br><br><button type="button" id = "connexion" value="connexion">Rejoindre une partie</button>
-			<!--/form-->
-		</fieldset></center></div>
+	<body>		
+		<fieldset>
+			<legend><strong>Page de connexion</strong></legend>
+			<label>Utilisateur : <input type='text' id="username"></label>
+			<label>Reponse : <input type="text" id="response" readonly></label>
+			<br><button type="button" id="connexion" value="Connexion">Connexion</button>
+		</fieldset>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-
-		    <script>
-                         $("#connexion").click(function(e){
-                                alert("USER : "+$("#username").val());
-                                e.preventDefault()
-                                let data = {
-                                        "name": $("#username").val(),
-                                }
+		<script>
+     			 $("#connexion").click(function(e){
+        			e.preventDefault()
+        			let data = {
+          				"name": $("#username").val()
+        			}
                                 $.ajax({
-                                        url: "/players",
+					url: "/players",
                                         type: "POST",
-                                        dataType :"json",
+					dataType :"json",
                                         data: JSON.stringify(data),
                                         contentType: "application/json; charset=utf-8",
-                                        success: function(response){
-						alert("Compte existant");
-						var pseudo = response.name;
-                                                document.cookie = "pseudo="+pseudo;
-                                                window.location.href = "/game.html";
-                                        },
-                                        error: function(error){
-                                                alert(error);
-                                        }
+					success: function(response){
+						alert("Done " + response);
+						var dat = JSON.parse(response);
+						alert(dat.name);
+						document.cookie = response;
+						window.location.href = "/game.html";
+					},
+	                                failure: function(error){
+						alert(error);
+					}
                                 });
-                        })
-                </script>
+      			})
+    		</script>
 	</body>
 </html>
