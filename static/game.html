@@ -271,7 +271,7 @@ function getCookie(cname) {
 					//let toSend = {"action":[{"cash": 1 ,"sales": 0,"profit": 0,"drinksOffered":[{"name": "Limonade","price": 0,"hasAlcohol": 0,"isCold": 1}]}],"simulated": 1};
         	       			alert(toSend);
 					$.ajax({
-                                	        url: "/actions/"+cookie.name,
+                                	        url: "/actions/"+$("#name").val(),
 	                                        type: "POST",
         	                                dataType :"json",
                 	                        data: JSON.stringify(toSend),
