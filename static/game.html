@@ -29,7 +29,8 @@
 			$("#ventes").val(dataCookie.info.sales);
 			$("#profit").val(dataCookie.info.profit);
         	        $.get("/map/"+dataCookie.name, function(data, status){
-                		var dat = JSON.parse(data);
+                		//var dat = JSON.parse(data);
+				var dat = data;
                         	//document.ookiecookie = dat;
 	                        //alert("MAP: " + data + "\nStatus: " + status);
 				mapCenter = {lat: dat.map.region.center.latitude, lng: dat.map.region.center.longitude};
