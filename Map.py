@@ -79,27 +79,27 @@ def get_mapitems(playerID):
 				},
 				"influence": player[0]['rayon_player']
 			})
-
-	for anAdd in items_ads:
-		itemsPlayer.append({
-			"kind": "ad",
-			"owner":player[0]['name_player'],
-			"location": {
-				"latitude": anAdd['lat_adspace'],
-				"longitude":anAdd['lon_adspace']
-			},
-			"influence":anAdd['influence_adspace']
-			})
-
-	itemsPlayer.append({
-				"kind":"stand",
+	if (len(items_ads) > 0):
+		for anAdd in items_ads:
+			itemsPlayer.append({
+				"kind": "ad",
 				"owner":player[0]['name_player'],
 				"location": {
-					"latitude": player[0]['lat_player'],
-					"longitude": player[0]['lon_player']
+					"latitude": anAdd['lat_adspace'],
+					"longitude":anAdd['lon_adspace']
 				},
-				"influence": player[0]['rayon_player']
-			})
+				"influence":anAdd['influence_adspace']
+				})
+
+		itemsPlayer.append({
+					"kind":"stand",
+					"owner":player[0]['name_player'],
+					"location": {
+						"latitude": player[0]['lat_player'],
+						"longitude": player[0]['lon_player']
+					},
+					"influence": player[0]['rayon_player']
+				})
 
 	db.close()
 	return itemsPlayer
