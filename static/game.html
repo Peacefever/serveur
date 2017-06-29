@@ -223,13 +223,13 @@ function getCookie(cname) {
     
 	$("#send").click(function(event){
         	  		event.preventDefault();
-				if( $.trim($("#boissonprod").val()) == '')
+				/* if( $.trim($("#boissonprod").val()) == '')
 					alert("Boisson à produire doit être remplie");
 				else if(($("#drinkOffered option:selected").text()) == "Toutes les boissons")
 					alert("La boisson doit être séléctionner");
 				else if( $.trim($("#prix").val()) == '')
 					alert("Prix doit être remplie");
-				else {
+				else { */
 					//var toSend = "{\"action\": [{\"cash\": 1,\"sales\": 1,\"profit\": 0.0,\"drinksOffered\": \"Limonade\",\"price\": 0.0,\"hasAlcohol\": 1,\"isCold\": 1}],\"simulated\": 1}"
 					let toSend = {"action":[{"cash": $("#cash").val() ,"sales": $("#ventes").val(),"profit": $("#profit").val(),"drinksOffered":[{"name": "Limonade","price": $("#prix").val(),"hasAlcohol": 0,"isCold": 1}]}],"simulated": 0}
 					//let toSend = {"action":[{"cash": 1 ,"sales": 0,"profit": 0,"drinksOffered":[{"name": "Limonade","price": 0,"hasAlcohol": 0,"isCold": 1}]}],"simulated": 1};
@@ -251,7 +251,7 @@ function getCookie(cname) {
                         	                        alert("Send :" + error);
                                 	        }
 	                                });
-				}
+				/* } */
 				/*
 				$.post("/actions/"+dataCookie.name,jsonSend,function(data, status){
                 	    		alert("Data: " + data + "\nStatus: " + status);
