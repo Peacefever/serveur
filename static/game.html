@@ -1,141 +1,64 @@
 <!DOCTYPE html>
+
 <html>
-	<head>
-    		<meta charset="utf-8"/>
-	    	<title>Interface Game Page</title>
-    		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-  	</head>
+  	 <head>
+    	   <meta charset="utf-8"/>
+    		 <title>Interface Game Page</title>
+    		 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  	 </head>
 
 <!-- CSS image fond de page IHM --> 
-	<body style="background-image: url(https://img1.goodfon.com/original/2560x1600/0/20/fruits-fresh-water-drops-2175.jpg); background-size: 100%;">
+   <body style="background-image: url(https://img1.goodfon.com/original/2560x1600/0/20/fruits-fresh-water-drops-2175.jpg); background-size: 100%;">
 <!-- Structure : url img + taille image de fond --> 
 
 <!-- CSS div cadre n°1 --> 
-	<div style="background:url('https://pub.be/wp-content/uploads/2016/02/LIMO-citron.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
+   <div style="background:url('https://pub.be/wp-content/uploads/2016/02/LIMO-citron.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
 <!-- Structure : url img (no-repeat img) + espacement entre fieldset et cadre + taille bordure (type bordure) + fond du cadre (noir) + longueur max + opacité 1 (pour écrire par-dessus une image) --> 
-<!-- /actions/<playerName> --> 
-	<script type="text/javascript">
-        	var dt;
-		var mapCenterLat, mapCenterLng, mapCenter, spanShopLat, spanShopLng, spanShop;
-		/////////////////////////////
-		//Lancement fin du chargement de la page
-		$( document ).ready(function(){
-                	alert("Ready !");
-	                var dataCookie = document.cookie;
-        	        //dataCookie = JSON.parse(cook);
-			//alert(dataCookie);
-	                $("#name").val(dataCookie.name);
-			$("#cash").val(dataCookie.info.cash);
-			$("#ventes").val(dataCookie.info.sales);
-			$("#profit").val(dataCookie.info.profit);
-        	        $.get("/map/"+dataCookie.name, function(data, status){
-                		//var dat = JSON.parse(data);
-				var dat = data;
-                        	//document.ookiecookie = dat;
-	                        //alert("MAP: " + data + "\nStatus: " + status);
-				mapCenter = {lat: dat.map.region.center.latitude, lng: dat.map.region.center.longitude};
-				$("#standx").val(dat.map.region.center.latitude);
-				$("#standy").val(dat.map.region.center.longitude);
-				//mapCenterLng = dat.map.region.center.longitude;
-				spanShop = dat.map.region.span.latitudeSpan;
-				alert("spa "+spanShop);
-				//$.each(drinks, function(index,value){
-				//	$("#DPD_boison").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
-				//});
-				//alert("LAT : "+  mapCenterLat + "LNG : "+ mapCenterLng);
-				initMap();
-        	        });
-		///////////////////////////////////////////////////////
-	               $("#send").click(function(event){
-        	  		event.preventDefault();
-				if( $.trim($("#boissonprod").val()) == '')
-					alert("Boisson à produire doit être remplie");
-				else if(($("#DPD_boisson option:selected").text()) == "Toutes les boissons")
-					alert("La boisson doit être séléctionner");
-				else if( $.trim($("#prix").val()) == '')
-					alert("Prix doit être remplie");
-				else {
-					//var toSend = "{\"action\": [{\"cash\": 1,\"sales\": 1,\"profit\": 0.0,\"drinksOffered\": \"Limonade\",\"price\": 0.0,\"hasAlcohol\": 1,\"isCold\": 1}],\"simulated\": 1}"
-					let toSend = {"action":[{"cash": $("#cash").val() ,"sales": $("#ventes").val(),"profit": $("#profit").val(),"drinksOffered":[{"name": "Limonade","price": $("#prix").val(),"hasAlcohol": 0,"isCold": 1}]}],"simulated": 0}
-					//let toSend = {"action":[{"cash": 1 ,"sales": 0,"profit": 0,"drinksOffered":[{"name": "Limonade","price": 0,"hasAlcohol": 0,"isCold": 1}]}],"simulated": 1};
-        	       			$.ajax({
-                                	        url: "/actions/"+dataCookie.name,
-	                                        type: "POST",
-        	                                dataType :"json",
-                	                        data: JSON.stringify(toSend),
-                        	                contentType: "application/json; charset=utf-8",
-                                	        success: function(response){
-                                        	        alert("Send : done");
-                                                	//var dat = JSON.parse(response);
-							$("#quantite").val($("#boissonprod").val());
-							$("#cout").val($("#prix").val());
-							$("#nomboisson").val($("#DPD_boisson option:selected").text());
-	
-        	                                },
-                	                        failure: function(error){
-                        	                        alert("Send :" + error);
-                                	        }
-	                                });
-				}
-				/*
-				$.post("/actions/"+dataCookie.name,jsonSend,function(data, status){
-                	    		alert("Data: " + data + "\nStatus: " + status);
-	               		}).done(function(){
-					alert("Send : success");
-				}).fail(function(){
-					alert("Send : fail");
-				});*/
-					
-			});
-		});
-</script>	   	   
+	   
 <!-- Fieldset Données Joueur --> 
-	<FONT color="white">
-		<fieldset>
-			<legend><FONT color="#EFD807"><strong>Données joueur</strong></FONT></legend>
-			<br><label for="Name">Nom du joueur</label>
-        		<input type="text" name="name" id="name" readonly/>
-        		<br><label for="Boissonprod">Boisson à produire</label>
-        		<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="boissonprod" id="boissonprod" />
-        		<!--<label>
-        		<input type="text" name="cost" id="cost" readonly/>-->
-        		<br><label for="Monnaie">Monnaie joueur</label>
-       			<input type="text" name="cash" id="cash" readonly/>
-       			<label>
+<FONT color="white">
+<fieldset>
+    <legend><FONT color="#EFD807"><strong>Données joueur</strong></FONT></legend>
+      <br><label for="Name">Nom du joueur</label>
+      <input type="text" name="name" id="name" readonly/>
+      <br><label for="Boissonprod">Boisson à produire</label>
+      <input type="text" name="boissonprod" id="boissonprod" readonly/>
+      <label>
+      <input type="text" name="cost" id="cost" readonly/> $
+      <br><label for="Monnaie">Monnaie joueur</label>
+      <input type="text" name="monnaie" id="monnaie" readonly/>
+      <label>
 
 <!-- Menu déroulant --> 
-	<div class="zone_boisson">Sélectionnez boisson
-      		<select name="boisson" id="DPD_boisson" size="1">
-      			<option>Toutes les boissons</option>
-      			<option value="boisson1.html">Limonade</option>
-      			<option value="boisson2.html">Thé glacé</option>
-      			<option value="boisson3.html">Café</option>
-     		</select>
-	</div>
+<div class="zone_boisson">Sélectionnez boisson
+     <select name="boisson" size="1" id='drinkOffered'>
+      <option>Toutes les boissons</option>
+     </select>
+</div>
 
-      	<label for="Nbreprod">Nombre production</label>
-      	<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="nbreprod" id="nbreprod" />
-      	<br><label for="Nbrepub">Nombre panneau pub</label>
-      	<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="nbrepub" id="nbrepub" />
-      	<br><label for="Prix">Prix de vente</label>
-      	<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="prix" id="prix" />
-      	<br><br><button value="Decision" id="send">Envoyer</button><button value="rafresh" id="rafresh">Rafraichir</button>
-	</fieldset>
+      <label for="Nbreprod">Nombre production</label>
+      <input type="text" name="nbreprod" id="nbreprod" />
+      <br><label for="Nbrepub">Nombre panneau pub</label>
+      <input type="text" name="nbrepub" id="nbrepub" />
+      <br><label for="Prix">Prix de vente</label>
+      <input type="text" name="prix" id="prix" />
+      <br><br><button value="Decision" id="send">Envoyer</button><button value="rafresh" id="rafresh">Rafraichir</button>
+</fieldset>
 <!-- Fin fieldset Données Joueur --> 
 
 <!-- Fieldset Production --> 
-	<fieldset>
-      		<legend><FONT color="#EFD807"><strong>Production</strong></FONT></legend> 
-      		<br><label for="Quantite">Quantité</label>
-      		<input type="text" name="quantite" id="quantite" readonly/>
-      		<br><label for="Nomboisson">Nom boisson</label>
-      		<input type="text" name="nomboisson" id="nomboisson" readonly/>
-      		<FONT color="black"><label for="Cout">Coût</label>
-      		<input type="text" name="cout" id="cout" readonly/> $</FONT>
-	</fieldset>
+<fieldset>
+      <legend><FONT color="#EFD807"><strong>Production</strong></FONT></legend> 
+      <br><label for="Quantite">Quantité</label>
+      <input type="text" name="quantite" id="quantite" readonly/>
+      <br><label for="Nomboisson">Nom boisson</label>
+      <input type="text" name="nomboisson" id="nomboisson" readonly/>
+      <FONT color="black"><label for="Cout">Coût</label>
+      <input type="text" name="cout" id="cout" readonly/> $</FONT>
+</fieldset>
 <!-- Fin fieldset Production --> 
 
-	</div>
+   </div>
 <!-- CSS fin div cadre n°1 --> 
 
 <!-- CSS div cadre n°2 --> 
@@ -161,9 +84,9 @@
       <br><label for="Profit">Profit</label>
       <input type="text" name="profit" id="profit" readonly/>
       <br><label for="Couttotal">Coût total</label>
-      <input type="hidden" name="couttotal" id="couttotal" readonly/>
-      <br><label for="ventes">Nombre boissons vendues</label>
-      <input type="text" name="ventes" id="ventes" readonly/>
+      <input type="text" name="couttotal" id="couttotal" readonly/>
+      <br><label for="Nbreboissonvendues">Nombre boissons vendues</label>
+      <input type="text" name="nbreboissonvendues" id="nbreboissonvendues" readonly/>
       <br><br><button value="sendbilan" id="sendbilan">Voir bilan</button>
 </fieldset>
    </div>
@@ -178,28 +101,26 @@
     </style>
 
     <div id="map" style="padding:3px; border:8px ridge #F7FF3C; background-color:#000000; position:absolute; left: 54%; bottom: 0.1%; width: 42%; height: 69.5%; Opacity: 1;">
-    	<script>
-      		function initMap() {
-        		var image = '../Downloads/Webp.net-resizeimage.png';
-        		var bedarrides = mapCenter;
-        		var map = new google.maps.Map(document.getElementById('map'), {
-          			zoom: 10,
-          			center: bedarrides
-        		})
-        		var marker = new google.maps.Marker({
-          			position: bedarrides,
-	          		map: map,
-				title: "Shop"
-          			//icon: image
-        		});
-			var circle = new google.maps.Circle({
-				map: map,
-				radius: 1000 * spanShop,
-				strokeWeight : 0,
-				fillColor: "#4286F4"
-			});
-			circle.bindTo("center",marker,"position");
-      		}
+
+    <script>
+      function initMap() {
+        var image = '../Downloads/Webp.net-resizeimage.png';
+        var bedarrides = {lat: 44.04, lng: 4.90};
+        var toulouse = {lat : 43.59, lng : 1.36};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: bedarrides
+        });
+        var marker = new google.maps.Marker({
+          position: bedarrides,
+          map: map,
+          icon: image
+        });
+        var marker = new google.maps.Marker({
+          position: toulouse,
+          map: map
+        });
+      }
     </script>
         <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLKuindhKESjd4vd-FdTXs3z7O17MNrE0&callback=initMap">
@@ -212,42 +133,172 @@
 <fieldset>
       <legend><FONT color="#EFD807"><strong>Cordonnées</strong></FONT></legend> <!-- Titre du fieldset --> 
       <br><label for="Stand">Stand</label>
-      <input type="text" name="standx" id="standx" readonly/> Latitude <input type="text" name="standy" id="standy" readonly/> Longitude
+      <input type="text" name="standx" id="standx" readonly/> X <input type="text" name="standy" id="standy" readonly/> Y
       <br><label for="Panneau">Panneau</label>
-      <input type="text" name="panneaux" id="panneaux" readonly/> Latitude <input type="text" name="panneauy" id="panneauy" readonly/> Longitude
+      <input type="text" name="panneaux" id="panneaux" readonly/> X <input type="text" name="panneauy" id="panneauy" readonly/> Y
       <br><br><button id="refresh">Rafraichir</button><button id="refresh">Quitter la partie</button>
 </fieldset>
    </div>
 <!-- CSS fin div cadre n°5 -->
 
+    
+
+
+
+
+
+
+
+
                                                                                                                             <!-- Début JavaScript --> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
+<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+<!-- |||||||||||||||||||||||||||||||||||||R5 - Vue du jeu pour un joueur /map/<playerName>||||||||||||||||||||||||||||||||||||||||| -->
+<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 <script type="text/javascript">
-/////////////////////////////////////// R6 - Actions pour le lendemain ////////////////////////////////////////
-     /*$('#send').click(function(event){
-     	event.preventDefault();
-        var Message = {
-        	prodLimo: $('#nbreprod').val(),
-      	}
-      	$.ajax({
-      		url: "/actions/"+dataCookie.name, // Route actions
-	        type: "POST", // Envoyer
-        	dataType :"json", // Format json
-        	data: JSON.stringify(Message),
-        	contentType: "application/json; charset=utf-8",
-        	success: function(response){ // Succes
-        		var dat = JSON.parse(response); // Reponse au format json
-          		alert("Valeurs envoyées !");
-          		$('#quantite').val(dat.prodLimo);
-          		},
-        	});
-      });*/
+//récupérer valeur du cookie
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+  
+  var mapCenterLat, mapCenterLng, mapCenter, spanShopLat, spanShopLng, spanShop;
+  $( document ).ready(function(){
+    var pseudo = getCookie('pseudo');
+    console.log(pseudo);
+    $("#name").val(pseudo);
+    
+    //get /map
+    $.get("/map/"+pseudo, function(data, status){
+                    var dat = data;
+                    //document.ookiecookie = dat;
+                    //alert("MAP: " + data + "\nStatus: " + status);
+      console.log(data);
+      var infos = data.playerInfo[pseudo];
+      console.log(infos);
+      var drinks = infos.drinksOffered;
+      console.log(drinks);
+      
+      //remplir select boissons
+      $.each(drinks,function(index,value){
+        console.log(value);
+        $("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
+      });
+      
+      //remplir money joueur
+      $('#monnaie').val(infos.cash);
+      
+      //remplir nbre boissons vendues
+      $('#nbreboissonvendues').val(infos.sales);
+
+      //remplir input profit
+      $('#profit').val(infos.profit);
+
+      mapCenter = {lat: dat.map.region.center.latitude, lng: dat.map.region.center.longitude};
+      //remplir cordonnées x stand joueur
+      $('#standx').val(dat.map.region.center.latitude);
+      //remplir cordonnées y stand joueur
+      $('#standx').val(dat.map.region.center.longitude);
+      spanShop = dat.map.region.span.latitudeSpan;
+        
+               });
+    
+      $('body').on('input','#nbreprod', function (){
+        //if(isFloat($('#drinkOffered').val()) &&  isFloat($(this).val())){
+        //$('#errorSum').remove();
+        var sum =  parseFloat($('#drinkOffered').val()) * parseFloat($(this).val());
+        $('#prix').val(sum);
+      /*}else{
+        $('#errorSum').remove();
+        var html = '<p id="errorSum">Attention</p>';
+        $('#prix').after(html);
+      }*/
+      
+    });
+    
+    // envoyer au serveur
+    /*$('body').on('click','#send', function (){
+      
+      var message = {
+      };
+      $.ajax({
+      url: "/actions/"+pseudo, // Route actions
+      type: "POST", // Envoyer
+      dataType :"json", // Format json
+      data: JSON.stringify(message),
+      contentType: "application/json; charset=utf-8",
+      success: function(response){ // Succes
+        var dat = response; // Reponse au format json
+        alert("Valeurs envoyées !");
+        //a faire
+       }
+      }); 
+    });*/
+  });
+          /*var dt;
+          $( document ).ready(function(){
+               alert("Ready !");
+               var cook = document.cookie;
+               dataCookie = JSON.parse(cook);
+      alert(dataCookie);
+               $("#name").val(dataCookie.name);*/
+               /*$.get("/map/"+dataCookie.name, function(data, status){
+                    var dat = JSON.parse(data);
+                    //document.ookiecookie = dat;
+                    alert("MAP: " + data + "\nStatus: " + status);
+               });
+          $("#send").click(function(event){
+               event.preventDefault();
+               //var cook = document.cookie;
+               var dat = JSON.parse(cook);
+               var toSend = "{action:[{cash:1,sales:1,profit:0.0,drinksOffered:{name:name,price:0.0,hasAlcohol:1,isCold:1}}],simulated:1}"
+               $.post("/actions/"+dataCookie.name,toSend,function(data, status){
+                    alert("Data: " + data + "\nStatus: " + status);
+               });*/
+          //});
+</script>    
+
+<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+<!-- |||||||||||||||||||||||||||||||||||||R6 - Actions pour le lendemain /actions/<playerName>||||||||||||||||||||||||||||||||||||| -->
+<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+<script type="text/javascript">
+          $('#send').click(function(event){
+      event.preventDefault();
+              var Message = {
+                    prodLimo: $('#nbreprod').val(),
+      }
+      $.ajax({
+        url: "/actions/"+dataCookie.name, // Route actions
+        type: "POST", // Envoyer
+        dataType :"json", // Format json
+        data: JSON.stringify(Message),
+        contentType: "application/json; charset=utf-8",
+        success: function(response){ // Succes
+          var dat = JSON.parse(response); // Reponse au format json
+          alert("Valeurs envoyées !");
+          $('#quantite').val(dat.prodLimo);
+          },
+        });
+      });
 </script>
 
+<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+<!-- |||||||||||||||||||||||||||||||||||||R7 - Date et meteo /metrology|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 <script type="text/javascript">
-/////////////////////////////////////// R7 - Date et meteo /metrology ////////////////////////////////////////
-/*$("#sendmeteo").click(function(event){
+$("#sendmeteo").click(function(event){
       $.ajax({
 	url: "https://serveur10.herokuapp.com/metrology", // Route metrology
 	type: "GET", // Envoyer
@@ -260,22 +311,18 @@
           },
         });
       
-      });*/
+      });
 </script>
-	
-	<script type="text/javascript">
-/////////////////////////////////////// R5 - Vue du jeu pour un joueur /map/<playerName> ////////////////////////////////////////
-/*	$("#rafresh").click(function(event){
-		$.ajax({
-  			url: "https://serveur10.herokuapp.com/map/"+dataCookie.name, // Route map
-	  		type: "GET", // Envoyer
-  			dataType :"json", // Format json
-  			success: function(response){ // Succès
-      				//var dat = JSON.parse(response.responseText); // Reponse au format json
-	            		$("#monnaie").val(response['playerInfo']['toto']['cash'])
-        	  	},
-        		});
-	});*/
-	</script> 
+  
+
+
+
+
+
+
+
+
+
+                                                                                                                           <!-- Fin JavaScript --> 
 	</body>
 </html>
