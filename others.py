@@ -265,215 +265,115 @@ def generate_location(minimum = -100, maximum = 100):
 
 
 ''' Toutes les routes qui suivent commencant par le mot save sont a tester '''
+#Fonctionnelle
 def save_kind_ad_action(datas, playerID, day):
 	db = Db()
+	print('passage dans le add')
+	print(datas)
+	print('fin affichage datas')
+
 	#On regarde si une instance de la table Adspace existe déjà pour le jour day
 	exist = db.select("SELECT COUNT(*) FROM Adspace WHERE (day_adspace = %d AND id_player = %d)"\
 		%(day, playerID))
 
+	print('exist')
+	print(exist)
+	print('fin exist')
+
 	#Pour le moment, le joueur ne peut pas placer ses panneaux, docn on génère leur localisation dans la map
 	ad_coor = generate_location()
+	
+	#L'instance n'existe pas en base, donc on la crée
+	if (exist[0]['count']==0 or len(exist) == 0 or exist == None):
+		print('Joueur existe pas')
+		db.execute("INSERT INTO Adspace (influence_adspace, lat_adspace, lon_adspace, day_adspace, \
+			price_adspace, number_adspace, id_player) VALUES (%(influence)s, %(lat)s, %(lon)s, %(day)s,\
+		%(price)s, %(nb)s, %(p_id)s)", {
+		"influence": default_influency_pub,
+		"lat": ad_coor['latitude'],
+		"lon":ad_coor['longitude'],
+		"day":day,
+		"price":default_price_pub,
+		"nb": datas['nb'],          #Si possible il faut que le nb soit envoyé par le joueur
+		"p_id": playerID
+		})
+		print('Fin création')
 
-	if (exist != None):
-		#L'instance n'existe pas en base, donc on la crée
-		if (len(exist) == 0):
-			db.execute("INSERT INTO Adspace (influence_adspace, lat_adspace, lon_adspace, day_adspace, \
-				price_adspace, number_adspace, id_player) VALUES (%(influence)s, %(lat)s, %(lon)s, %(day)s,\
-			%(price)s, %(nb)s, %(p_id)s)", {
-			"influence": default_influency_pub,
-			"lat": ad_coor['latitude'],
-			"lon":ad_coor['longitude'],
-			"day":day,
-			"price":default_price_pub,
-			"nb": datas['nb'],          #Si possible il faut que le nb soit envoyé par le joueur
-			"p_id": playerID
-			})
+	#L'isntance existe en base, on l'update
+	if (exist[0]['count'] == 1):
+		db.execute("UPDATE Adspace SET number_adspace = %d" %(datas['nb']))
 
-		#L'isntance existe en base, on l'update
-		if (len(exist) == 1):
-			db.execute("UPDATE Adspace SET number_adspace = %d" %(datas['nb']))
+	print("Verification")
+	print(db.select("SELECT * FROM Adspace"))
 	db.close()
 
+#Fonctionnelle
 def save_kind_prod_action(datas, playerID, day):
 	db = Db()
 	exist = db.select("SELECT COUNT(*) FROM Production WHERE (day_production = %d AND id_player = %d)"\
 		%(day, playerID))
 
-	print("enregistrement du choix de production")
-	if (exist != None):
-		#Le joueur ne peut mettre à disposition des clients que ce qu'il vends.
-		#Le joueur ne peut produire que les recettes qui ont été débloquées.
-			#Récupération du nom de la recette préparée
-		therecipe = datas['prepare'].keys()[0]
-		theprod_quantity = datas['prepare'][therecipe]
-		theprice_selling = datas['price'][therecipe]
+	#Le joueur ne peut mettre à disposition des clients que ce qu'il vends.
+	#Le joueur ne peut produire que les recettes qui ont été débloquées.
+	#Récupération du nom de la recette préparée
+	therecipe = datas['prepare'].keys()[0]
+	theprod_quantity = datas['prepare'][therecipe]
+	theprice_selling = datas['price'][therecipe]
 
+	print(exist[0]['count'])
+
+	#La decision de prod existe en base. Donc on update l'instance en question
+	if (exist[0]['count'] == 1):
 		recipe = db.select("SELECT * FROM Recipe WHERE (name_recipe = %(name)s AND id_player = %(id)s)", {
 			"name":therecipe,
-			"id_player":playerID
+			"id":playerID
 			})
 
-		#Si la decision n'existe pas en base de données
-		if (len(exist) == 0):
-			if (len(recipe) > 0 and recipe != None):
-				#Création de la table production
-				db.execute("INSERT INTO Production(quantity_production, \
-					price_sale_production, day_production, id_recipe, id_player VALUES (%(quantity)s, \
-						%(price)s, %(day)s, %(r_id)s, %(p_id)s)", {
-				"quantity": theprod_quantity,
-				"price": theprice_selling,
-				"day": day,
-				"r_id": recipe[0]['id_recipe'],
-				"p_id": playerID
-				})
+		print("le choix existe")
+		db.execute("UPDATE Production SET quantity_production = %d, price_sale_production = %f\
+			WHERE (id_recipe = %d AND id_player = %d)" %(theprod_quantity, theprice_selling,\
+				recipe[0]['id_recipe'], playerID))
 
-				#Vérification de création
-				print(db.select("SELECT * FROM Production WHERE (id_player = %d AND id_recipe = %d)"\
-					%(playerID, recipe[0]['id_recipe'])))
+		#Vérification de l'update
+		print(db.select("SELECT * FROM Production WHERE (id_player = %d AND id_recipe = %d)"\
+			%(playerID, recipe[0]['id_recipe'])))
 
-		#La decision de prod existe en base. Donc on update l'instance en question
-		if (len(exist) == 1):
-			db.execute("UPDATE Production SET quantity_production = %d, price_sale_production = %f\
-				WHERE (id_recipe = %d AND id_player = %d)" %(theprod_quantity, theprice_selling,\
-					recipe[0]['id_recipe'], playerID))
+	print("enregistrement du choix de production")
+	print(exist)
 
-			#Vérification de l'update
+	#Le choix de la décision n'existe pas dans la base de données
+	if (exist[0]['count'] == 0 or len(exist) == 0 or exist == None):
+		print("chiox n'existe pas")
+		recipe = db.select("SELECT * FROM Recipe WHERE (name_recipe = %(name)s AND id_player = %(id)s)", {
+			"name":therecipe,
+			"id":playerID
+			})
+
+		#Si la recette existe en base
+		if (len(recipe) > 0 and recipe != None):
+			#Création de la table production
+			db.execute("INSERT INTO Production(quantity_production, \
+				price_sale_production, day_production, id_recipe, id_player) VALUES (%(quantity)s, \
+					%(price)s, %(day)s, %(r_id)s, %(p_id)s)", {
+			"quantity": theprod_quantity,
+			"price": theprice_selling,
+			"day": day,
+			"r_id": recipe[0]['id_recipe'],
+			"p_id": playerID
+			})
+
+			#Vérification de création
+			print("VERIF CREATUION")
 			print(db.select("SELECT * FROM Production WHERE (id_player = %d AND id_recipe = %d)"\
-				%(playerID, recipe[0]['id'])))
+				%(playerID, recipe[0]['id_recipe'])))
+			print("NON VERIF")
 	db.close()
 
 def save_kind_buy_recipe_action(datas, playerID, day):
 	print("a implémenter si le temps nous le permet")
 
+
 ################## ESSAIE ######################
-'''
-def join_new_player(playername, gameid):
-
-	print('je passe dans le join player car je ne suis pas en cas')
-	db = Db()
-	
-	#Génération des coordonnées du joueur de la map
-	location = generate_location()
-
-	#On crée un joueur
-	player_creation = db.select("INSERT INTO Player (name_player, isConnected_player, ingame_player,\
-		action_buyadds, action_buynewrecipe, action_prodrecipe, lon_player, lat_player, cash_player, rayon_player )\
-							   VALUES (%(name)s, %(connected)s, %(game)s, %(ads)s, %(buy)s, %(prod)s, %(lon)s, %(lat)s, %(cash)s, %(rayon)s) RETURNING id_player", {
-							   "name": playername, 
-							   "connected": True,
-							   "game":gameid,
-							   "ads":False,
-							   "buy":False,
-							   "prod":False,
-							   "lon":location['longitude'],
-							   "lat":location['latitude'],
-							   "cash":default_cash,
-							   "rayon":default_rayon
-							   })
-
-	print("creation id")
-	print(player_creation)
-	print("fin creation id")
-	if (len(player_creation) == 0 or player_creation == None):
-		print("je passe dans erreur")
-		return -1
-
-	#Récupère les données du joueurs
-	player = db.select("SELECT * FROM Player WHERE id_player = %d" %(player_creation[0]['id_player']))
-
-	print("the player")
-	print(player)
-	print("Fin player")
-	if (len(player) != 1 or player == None):
-		return -1
-
-	#Le joueur débloque de la limonade tout de suite
-	#Cette recette est une limonade au citron et à l'eau
-		#Récupération de la recette par défault
-	print("debut recipe")
-	recipe_default = db.select("SELECT * FROM Recipe WHERE name_recipe = %(name)s AND id_recipe = %(id)s",{
-		"name":"Limonade",
-		"id":default_recipe_id
-		})
-	print(recipe_default)
-	print("fin")
-
-	if (len(recipe_default) == 0 or recipe_default == None):
-		return -1
-
-	#Récupération du jour actuel de jeu
-	day = get_current_day()
-
-	if (day == -1):
-		return -1
-
-	#Création d'une instance Unblock
-	db.execute("INSERT INTO Unblock (day_unblock, quantity_unblock, id_player, id_recipe)\
-		VALUES (%(day)s, %(quantity)s, %(id_p)s, %(id_r)s)", {
-		"day": day,
-		"quantity": 1,
-		"id_r":default_recipe_id,
-		"id_p": player[0]['id_player']
-		})
-
-	#Mise à jour de champs de la recette
-	db.execute("UPDATE Recipe SET isUnblocked_recipe = %(unblocked)s, id_player = %(id)s\
-		WHERE id_recipe = %(id_r)s", {
-				"unblocked": True,
-				"id":player[0]['id_player'],
-				"id_r":default_recipe_id
-				})
-
-	print("voila")
-	print(db.select("SELECT * FROM Player WHERE id_player = %d" %(player[0]['id_player'])))
-	print("hello")
-
-
-	#Récupération des ingrédients eaux de source et citron.
-		#Citron
-	citron_ingredient = db.select("SELECT * FROM Ingredient WHERE name_ingredient = %(name)s",{
-		"name":'Citron'
-		})
-
-	if (len(citron_ingredient) == 0 or citron_ingredient == None):
-		return -1
-
-	eau_de_source_ingredient = db.select("SELECT * FROM Ingredient WHERE name_ingredient = %(name)s", {
-		"name":'Eau de source'
-		})
-
-	if (len(eau_de_source_ingredient) == 0 or eau_de_source_ingredient == None):
-		return -1
-
-	#Création deux instances de Compose
-	for n in xrange(0, 2):
-		if (n == 0):
-			db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
-				(%(ingr_id)s, %(r_id)s)", {
-				"ingr_id": eau_de_source_ingredient[0]['id_ingredient'],
-				"r_id": default_recipe_id
-				})
-		if (n == 1):
-			db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
-				(%(ingr_id)s, %(r_id)s)", {
-				"ingr_id": citron_ingredient[0]['id_ingredient'],
-				"r_id": default_recipe_id
-				})
-
-		print(db.select("SELECT * FROM Compose"))
-
-	db.close()
-
-	resp = {
-		"name":recipe_default[0]['name_recipe'],
-		"location":{
-			"latitude": player[0]['lat_player'],
-			"longitude":player[0]['lon_player']
-		},
-		"infos": get_player_infos(player[0]['id_player'], default_game, "prod")
-	}
-	return resp
-'''
 
 ################################################
 '''

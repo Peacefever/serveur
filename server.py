@@ -7,15 +7,11 @@ import json
 from Map import *
 from others import *
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__)
 app.debug = True
 CORS(app)
 
 timestamp = 0
-
-@app.route("/")
-def connexion():
-   return app.send_static_file('connexion.html')
 
 #Database
 @app.route('/debug/db/reset')
@@ -322,7 +318,108 @@ def join_game():
 		return internal_server_error()
 	return to_make_response(resp)
 
+
+#curl -X POST -i -d '{"sales":[{"player":"toto", "item":"Limonade", "quantity":10}]}' -H 'Content-Type: application/json' http://localhost:5000/sales
+@app.route('/sales',methods =['POST'])
+def save_sales():
+	'''
+	Cette route permet la sauvegarde en base de données des ventes
+	effectuées par le joueur par boisson (recette) et par jour
+	'''
+	data = request.get_json()
+
+	if (isValidData(data) == False):
+		print("erreur 1")
+		return bad_request()
+
+	if not ('sales' in data):
+		print("Erreur 2")
+		return bad_request()
+
+	if not (isinstance(data['sales'], list)):
+		print("erreur 3")
+		return bad_request()
+
+	print("Fin de la Vérification de la donnée")
+
+	#Récupération du jour actuel
+	currentday = get_current_day()
+
+	if (currentday == -1):
+		return internal_server_error()
+
+	#La donnée est conforme, donc on la traite
+	#On enregistre les données transmises par le JAVA en fonction de la valeur des clés
+	#de chaque dictionnanire (dict) dans la liste [sales]
+	for asold in data['sales']:
+		#Récupération du nom du joueur, de l'item venu, de la quantité vendue
+		the_player = asold['player']
+		the_item = asold['item'] #C'est en fait une recette
+		the_quantity = asold['quantity']
+
+		print(the_player)
+		print(the_item)
+		print(the_quantity)
+
+		#Récupération de l'id du serveur à partir de son nom
+		db = Db()
+		player = db.select("SELECT id_player FROM Player WHERE (name_player = %(name)s)",{
+			"name":the_player
+			})
+
+		print(player)
+		print("passage de 1")
+
+		#Récupération de l'id de la recette
+		recipe_id = db.select("SELECT id_recipe FROM Recipe WHERE name_recipe = %(item)s",{
+			"item":the_item
+			})
+		print("recipe id")
+		print(recipe_id)
+		print("fin recup de l'id recip")
+
+		#On suppose que le java nous donne l'ensemble des ventes à la fin de la journée.
+		#Ou même heure par heure (c'est le même fonctionnement)
+		#On crée une instance vente pour chaque produit, pour chaque jour, si celle-ci n'existe pas
+		exist = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND id_recipe = %(r_id)s)" , {
+			"p_id":player[0]['id_player'],
+			"r_id":recipe_id[0]['id_recipe']
+			})
+
+		print(" fin exist")
+
+		#L'instance n'existe donc pas
+		if (exist == None or len(exist) == 0):
+			print("cela n'existe pas")
+			#Donc on la crée
+			db.execute("INSERT INTO Sales (quantity_sales, day_sales, id_player, id_recipe) VALUES \
+				(%(quantity)s, %(day)s, %(p_id)s, %(r_id)s)", {
+				"quantity":the_quantity,
+				"day":currentday,
+				"p_id": player[0]['id_player'],
+				"r_id": recipe_id[0]['id_recipe']
+				})
+
+			#Verfification de la création
+			exist2 = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND id_recipe = %(r_id)s)" , {
+				"p_id":player[0]['id_player'],
+				"r_id":recipe_id[0]['id_recipe']
+				})
+			print(exist2)
+			print("fin de la Vérification")
+
+			return to_make_response(' ', 201)
+
+		#Dans le cas où l'isntance existe, on l'update
+		db.execute("UPDATE Sales SET quantity_sales = %d, day_sales = %d WHERE (id_player = %d\
+		 AND id_recipe = %d)" %(the_quantity, currentday, player[0]['id_player'], recipe_id[0]["id_recipe"]))
+		db.close()
+	return to_make_response(' ', 201)
+
+
+
 ''' Cette route est à tester '''
+#curl -X POST -i -d '{"actions":[{"kind":"recipe", "recipe":{"name":"Limonade", "ingredients":[{"name":"Limonade", "cost":12}]}}, {"kind":"ad", "nb":12}, {"kind":"drinks", "prepare":{"Limonade":12}, "price":{"Limonade":0.25}}]}' -H 'Content-Type: application/json' http://127.0.0.1:5000/actions/toto
 @app.route('/actions/<playerName>', methods = ['POST'])
 def save_action_choices(playerName):
 	'''
@@ -339,7 +436,7 @@ def save_action_choices(playerName):
 	if not ('actions' in data):
 		return bad_request()
 
-	if not (isinstance(data['action'], list)):
+	if not (isinstance(data['actions'], list)):
 		return bad_request()
 
 	if len(data['actions']) == 0:
@@ -350,7 +447,7 @@ def save_action_choices(playerName):
 	player = db.select("SELECT * FROM Player WHERE name_player = %(name)s", {
 		"name": playerName
 		})
-	print(playerID)
+	print(player[0]['id_player'])
 	db.close()
 
 	#Récupération du jour courant
@@ -369,11 +466,12 @@ def save_action_choices(playerName):
 			save_kind_ad_action(anAction, player[0]['id_player'], (currentday + 1))
 		if (anAction['kind'] == 'drinks'):
 			save_kind_prod_action(anAction, player[0]['id_player'], (currentday + 1))
-		if (anAction['kind'] == 'recipe'):
-			save_kind_buy_recipe_action(anAction, player[0]['id_player'], (currentday + 1))
-
+		#if (anAction['kind'] == 'recipe'):
+		#	save_kind_buy_recipe_action(anAction, player[0]['id_player'], (currentday + 1))
+	
 	#Détermination du cout total des actions
 	tot_cost_actions = get_totalCosts(player[0]['id_player'], (currentday + 1))
+	print(tot_cost_actions)
 
 	#Récupération du cash total du joueur. Son cash est toujour au jour actuel
 	player_cash = player[0]['cash_player']
@@ -405,74 +503,9 @@ def save_action_choices(playerName):
 	}
 	return to_make_response(resp)
 
-
-''' Cette route est a tester ===> utilisée par le client JAVA '''
-@app.route('/sales',methods =['POST'])
-def save_sales():
-	'''
-	Cette route permet la sauvegarde en base de données des ventes
-	effectuées par le joueur par boisson (recette) et par jour
-	'''
-	data = request.get_json()
-
-	if (isValidData(data) == False):
-		return bad_request()
-
-	if not ('sales' in data):
-		return bad_request()
-
-	if not (isinstance(data['list'])):
-		return bad_request()
-
-	#La donnée est conforme, donc on la traite
-	#On enregistre les données transmises par le JAVA en fonction de la valeur des clés
-	#de chaque dictionnanire (dict) dans la liste [sales].
-	for asold in data['sales']:
-		#Récupération du nom du joueur, de l'item venu, de la quantité vendue
-		the_player = asold['player']
-		the_item = asold['player'] #C'est en fait une recette
-		the_quantity = asold['quantity']
-
-		#Récupération de l'id du serveur à partir de son nom
-		db = Db()
-		player = db.select("SELECT id_player FROM Player WHERE (name_player = %(name)s)",{
-			"name":theplayer
-			})
-
-		#Récupération de l'id de la recette
-		recipe_id = db.select("SELECT id_recipe FROM Recipe WHERE name_recipe = %(item)s",{
-			"item":the_item
-			})
-
-		#On suppose que le java nous donne l'ensemble des ventes à la fin de la journée.
-		#Ou même heure par heure (c'est le même fonctionnement)
-		#On crée une instance vente pour chaque produit, pour chaque jour, si celle-ci n'existe pas
-		exist = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND recipe_id = %(r_id)s" , {
-			"p_id":playerID,
-			"r_id":recipe_id[0]['id_recipe']
-			})
-
-		#L'instance n'existe donc pas
-		if (exist == None or len(exist) == 0):
-			#Donc on la crée
-			db.execute("INSERT INTO Sales(quantity_sales,day_sales, id_player, id_recipe)" %(the_quantity, \
-				theplayer[0]['id_player'], recipe_id[0]['id_recipe']))
-
-			#Verfification de la création
-			exist2 = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND recipe_id = %(r_id)s" , {
-				"p_id":playerID,
-				"r_id":recipe_id[0]['id_recipe']
-				})
-
-		#Dans le cas où l'isntance existe, on l'update
-		db.execute("UPDATE Sales SET quantity_sales = %d, day_sales = %d WHERE (id_player = %d\
-		 AND id_recipe = %d)" %(player[0]['id_player'], recipe_id[0]["id_recipe"]))
-		db.close()
-
 	
 
 '''
-@app.route('/sales', methods =['POST'])
 @app.route('/actions/<playerName>', methods = ['POST'])
 '''
 

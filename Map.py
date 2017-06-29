@@ -207,7 +207,6 @@ def get_player_infos(playerID, gameid, stringProdOrSellingPrice):
 
 #A voir si on le met ici
 def join_new_player(playername, gameid):
-
 	print('je passe dans le join player car je ne suis pas en cas')
 	db = Db()
 	
@@ -296,35 +295,64 @@ def join_new_player(playername, gameid):
 
 	if (len(citron_ingredient) == 0 or citron_ingredient == None):
 		return -1
+
 	print(citron_ingredient)
-	print("fin recup lemon")
+	print("Fin recup citron")
+
 	eau_de_source_ingredient = db.select("SELECT * FROM Ingredient WHERE name_ingredient = %(name)s", {
 		"name":'Eau de source'
 		})
 
 	if (len(eau_de_source_ingredient) == 0 or eau_de_source_ingredient == None):
 		return -1
+
 	print(eau_de_source_ingredient)
-	print("fin eau")
+	print("fin eaux de source")
+
 	#Création deux instances de Compose
-	#for n in xrange(0, 2):
-		#if (n == 0):
-	db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
-		(%(ingr_id)s, %(r_id)s)", {
-		"ingr_id": eau_de_source_ingredient[0]['id_ingredient'],
-		"r_id": default_recipe_id
-		})
-		#if (n == 1):
-        print("SELECT * FROM Compose")
-	print("end 1")
-	db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
-		(%(ingr_id)s, %(r_id)s)", {
-		"ingr_id": citron_ingredient[0]['id_ingredient'],
-		"r_id": default_recipe_id
-		})
+	print("Commencement")
+
+	for index in xrange(1, 3):
+		#Vérification de l'existence
+		exist = db.select("SELECT COUNT(*) FROM Compose WHERE (id_ingredient = %(ing_id)s AND id_recipe = %(rec_id)s)", {
+			"ing_id":index,
+			"rec_id":default_recipe_id
+			})
+
+		#Si cela existe pas
+		if (exist == None or len(exist) == 0 or exist[0]['count'] == 0):
+			db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
+					(%(ingr_id)s, %(r_id)s)", {
+					"ingr_id": index,
+					"r_id": default_recipe_id
+					})
+
+			print("Fin de la création affichage")
+			print(db.select("SELECT * FROM Compose"))
+			print("OK")
 
 	print(db.select("SELECT * FROM Compose"))
-	print("end 2")
+
+	print("Fin")
+
+	'''db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
+				(%(ingr_id)s, %(r_id)s)", {
+				"ingr_id": eau_de_source_ingredient[0]['id_ingredient'],
+				"r_id": default_recipe_id
+				})
+
+	print(db.select("SELECT * FROM Compose"))
+	print("fin premier création compose")
+
+	db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
+				(%(ingr_id)s, %(r_id)s)", {
+				"ingr_id": citron_ingredient[0]['id_ingredient'],
+				"r_id": default_recipe_id
+				})
+
+	print(db.select("SELECT * FROM Compose"))
+	print("fin second création compose")
+'''
 	db.close()
 
 	resp = {
@@ -333,6 +361,6 @@ def join_new_player(playername, gameid):
 			"latitude": player[0]['lat_player'],
 			"longitude":player[0]['lon_player']
 		},
-		"infos": get_player_infos(player[0]['id_player'], default_game, "prod")
+		"info": get_player_infos(player[0]['id_player'], default_game, "prod")
 	}
 	return resp

@@ -151,16 +151,16 @@ INSERT INTO Ingredient(name_ingredient, price_ingredient) VALUES
 	(1, 0, 2, 3);*/
 
 /*Sales production est le prix de vente choisi par l'utilisateur*/
-INSERT INTO Production(quantity_production, price_sale_production, day_production, id_recipe, id_player) VALUES
+/*INSERT INTO Production(quantity_production, price_sale_production, day_production, id_recipe, id_player) VALUES
 	(2, 10.0, 1, 1, 1),
 	(2, 10.0, 1, 2, 1),
-	(4, 5.0, 1, 3, 2);
+	(4, 5.0, 1, 3, 2);*/
 
 /*Les ventes simulent le programme JAVA. C'est une table pour la fin de journée(recap)*/
-INSERT INTO Sales(quantity_sales, day_sales, id_player, id_recipe) VALUES 
+/*INSERT INTO Sales(quantity_sales, day_sales, id_player, id_recipe) VALUES 
 	(2, 1, 1, 1),
 	(3, 1, 1, 2),
-	(3, 1, 2, 3);
+	(3, 1, 2, 3); */
 
 INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
 	('Sunny', 'Cloudy', 1);
@@ -169,8 +169,9 @@ INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
 INSERT INTO Map (lat_map, lon_map, lat_span_map, lon_span_map) VALUES 
 	(-100.0, 200.0, 20.0, 40.0);
 
+/*
 INSERT INTO Adspace (influence_adspace, lat_adspace, lon_adspace, day_adspace, price_adspace, number_adspace, id_player) VALUES 
 	(2.3, 13.5, 14.6, 1, 25.0, 2 ,1),
 	(2.37, 45, 56, 1, 5.0, 2 ,1),
 	(6.5, 1.2, 16.5, 1, 36.0, 3, 2);
-
+*/
