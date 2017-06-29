@@ -41,12 +41,12 @@ CREATE TABLE Unblock(
 );
 
 CREATE TABLE Sales(
+	id_recipe 				SERIAL PRIMARY KEY,
 	quantity_sales			Int,
 	day_sales				Int,
 	/*Foreign keys*/
 	id_player				Int,
-	id_recipe				Int,
-	PRIMARY KEY (id_player, id_recipe)
+	id_recipe				Int
 );
 
 CREATE TABLE Player(
