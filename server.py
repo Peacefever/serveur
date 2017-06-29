@@ -381,8 +381,6 @@ def join_game():
 	'''
 	#Recupération de la donnée
 	data = request.get_json()
-	
-	return data['name']
 
 	#On détermine si la donnée peut être traité.	
 	if (isValidData(data) == False):
