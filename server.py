@@ -174,7 +174,7 @@ def save_metro():
 
 	#On ajoute au timestamp le temps recu
 	global timestamp
-	timestamp =  timestamp + 1 #int(data['timestamp']) #Jusqu'a ce l'on est 24
+	timestamp =  int(data['timestamp']) #Jusqu'a ce l'on est 24timestamp  + 1 
 	print(timestamp)
 
 	#Récupération de la météo.
