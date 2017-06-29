@@ -130,7 +130,7 @@ def get_drinksOffered(playerID, stringProdOrSellingPrice):
 			return []
 
 		recipe_prod = db.select("SELECT * FROM Production WHERE (day_production = %d AND id_player = %d\
-		)" %(day, playerID))
+		)" %(int(day), int(playerID)))
 
 		#Cas dans lequel le joueur n'a rien produit => scénario impossible dans notre cas
 		if (len(recipe_prod) == 0):
