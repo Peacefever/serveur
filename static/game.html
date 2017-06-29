@@ -190,6 +190,7 @@ function getCookie(cname) {
       $.each(drinks,function(index,value){
         console.log(value);
         //$("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
+	$("#drinkOffered").append('<option>'+value.name+'</option>');
       });
       
       //remplir money joueur
