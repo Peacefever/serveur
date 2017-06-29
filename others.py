@@ -301,7 +301,7 @@ def save_kind_ad_action(datas, playerID, day):
 
 	#L'isntance existe en base, on l'update
 	if (exist[0]['count'] == 1):
-		db.execute("UPDATE Adspace SET number_adspace = %d" %(datas['nb']))
+		db.execute("UPDATE Adspace SET number_adspace = %d" %(int(datas['nb'])))
 
 	print("Verification")
 	print(db.select("SELECT * FROM Adspace"))
