@@ -126,15 +126,15 @@ def get_drinksOffered(playerID, stringProdOrSellingPrice):
 
 		print(day)
 
-		if (day == -1):
-			return []
+		#if (day == -1):
+		#	return []
 
 		recipe_prod = db.select("SELECT * FROM Production WHERE (day_production = %d AND id_player = %d\
 		)" %(int(day), int(playerID)))
 
 		#Cas dans lequel le joueur n'a rien produit => scénario impossible dans notre cas
-		if (len(recipe_prod) == 0):
-			return []
+		#if (len(recipe_prod) == 0):
+		#	return []
 		
 		#Pour chaque élément produition
 		for aprod in recipe_prod:
@@ -143,8 +143,8 @@ def get_drinksOffered(playerID, stringProdOrSellingPrice):
 				%(aprod['id_recipe'], aprod['id_player']))
 
 			#Mauvaise récupération
-			if (len(therecipe) != 1):
-				return []
+			#if (len(therecipe) != 1):
+			#	return []
 
 			#Remplissage de la liste drinksOffered
 			drinksOffered.append({
@@ -165,8 +165,8 @@ def get_drinksOffered(playerID, stringProdOrSellingPrice):
 
 		#Cas où le joueur n'a aucune recette de débloquée ==> impossible dans notre cas.
 		#En effet, une recette est automatiquement débloquée lorsque le joueur débute une partie.
-		if (len(recipe_unlock) == 0):
-			return []
+		#if (len(recipe_unlock) == 0):
+		#	return []
 
 		for arecipe in recipe_unlock:
 			#Remplissage de la liste drinksOffered
