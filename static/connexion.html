@@ -29,7 +29,7 @@
 						alert("Done " + response);
 						//var dat = JSON.parse(response);
 						alert(response.name);
-						document.cookie = response;
+						document.cookie = JSON.stringify(response);
 						window.location.href = "/game.html";
 					},
 	                                failure: function(error){
