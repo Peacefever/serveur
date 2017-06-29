@@ -296,14 +296,16 @@ def join_new_player(playername, gameid):
 
 	if (len(citron_ingredient) == 0 or citron_ingredient == None):
 		return -1
-
+	print(citron_ingredient)
+	print("fin recup lemon")
 	eau_de_source_ingredient = db.select("SELECT * FROM Ingredient WHERE name_ingredient = %(name)s", {
 		"name":'Eau de source'
 		})
 
 	if (len(eau_de_source_ingredient) == 0 or eau_de_source_ingredient == None):
 		return -1
-
+	print(eau_de_source_ingredient)
+	print("fin eau")
 	#Création deux instances de Compose
 	for n in xrange(0, 2):
 		if (n == 0):
