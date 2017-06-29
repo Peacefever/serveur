@@ -178,7 +178,10 @@ def save_metro():
 	print(timestamp)
 
 	#Récupération de la météo.
+	w_now = ""
+	w_forecast = ""
 	w_request = data['weather']
+	
 	for aweather in w_request:
 		if (aweather['dfn'] == 0):
 			w_now = aweather['weather']
