@@ -185,11 +185,11 @@ function getCookie(cname) {
       console.log(drinks);
       
       //remplir select boissons
-      $.each(drinks,function(index,value){
+      /*$.each(drinks,function(index,value){
         console.log(value);
         //$("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
 	$("#drinkOffered").append('<option>'+value.name+'</option>');
-      });
+      });*/
       
       //remplir money joueur
       $('#monnaie').val(infos.cash);
@@ -269,8 +269,10 @@ function getCookie(cname) {
         	  		event.preventDefault();
 				if( $.trim($("#nbreprod").val()) == '')
 					alert("Le nombre de produit doit être remplie");
-				else if(($("#drinkOffered option:selected").text()) == "Toutes les boissons")
+				else if(!($('#drinkOffered').attr('checked')))
 					alert("La boisson doit être séléctionner");
+				else if( $.trim($("#nbrepub").val()) == '')
+					alert("Nombre de pub doit être remplie");
 				else if( $.trim($("#prix").val()) == '')
 					alert("Prix doit être remplie");
 				else {
