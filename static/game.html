@@ -21,10 +21,6 @@
     <legend><FONT color="#EFD807"><strong>Données joueur</strong></FONT></legend>
       <br><label for="Name">Nom du joueur</label>
       <input type="text" name="name" id="name" readonly/>
-      <br><label for="Boissonprod">Boisson à produire</label>
-      <input type="text" name="boissonprod" id="boissonprod" readonly/>
-      <label>
-      <input type="text" name="cost" id="cost" readonly/> $
       <br><label for="Monnaie">Monnaie joueur</label>
       <input type="text" name="monnaie" id="monnaie" readonly/>
       <label>
@@ -133,9 +129,7 @@
 <fieldset>
       <legend><FONT color="#EFD807"><strong>Cordonnées</strong></FONT></legend> <!-- Titre du fieldset --> 
       <br><label for="Stand">Stand</label>
-      <input type="text" name="standx" id="standx" readonly/> X <input type="text" name="standy" id="standy" readonly/> Y
-      <br><label for="Panneau">Panneau</label>
-      <input type="text" name="panneaux" id="panneaux" readonly/> X <input type="text" name="panneauy" id="panneauy" readonly/> Y
+      <input type="text" name="standlon" id="standlon" readonly/> lat <input type="text" name="standlat" id="standlat" readonly/> lon
       <br><br><button id="refresh">Rafraichir</button><button id="refresh">Quitter la partie</button>
 </fieldset>
    </div>
@@ -208,9 +202,9 @@ function getCookie(cname) {
 
       mapCenter = {lat: dat.map.region.center.latitude, lng: dat.map.region.center.longitude};
       //remplir cordonnées x stand joueur
-      $('#standx').val(dat.map.region.center.latitude);
+      $('#standlat').val(dat.map.region.center.latitude);
       //remplir cordonnées y stand joueur
-      $('#standx').val(dat.map.region.center.longitude);
+      $('#standlon').val(dat.map.region.center.longitude);
       spanShop = dat.map.region.span.latitudeSpan;
         
                });
