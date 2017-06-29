@@ -164,8 +164,8 @@ INSERT INTO Ingredient(name_ingredient, price_ingredient) VALUES
 	(3, 1, 1, 2),
 	(3, 1, 2, 3); */
 
-INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
-	('Sunny', 'Cloudy', 1);
+/*INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
+	('Sunny', 'Cloudy', 1);*/
 	/*('Sunny', 'Rainny', 2);*/
 
 INSERT INTO Map (lat_map, lon_map, lat_span_map, lon_span_map) VALUES 
