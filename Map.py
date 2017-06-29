@@ -307,22 +307,24 @@ def join_new_player(playername, gameid):
 	print(eau_de_source_ingredient)
 	print("fin eau")
 	#Création deux instances de Compose
-	for n in xrange(0, 2):
-		if (n == 0):
-			db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
-				(%(ingr_id)s, %(r_id)s)", {
-				"ingr_id": eau_de_source_ingredient[0]['id_ingredient'],
-				"r_id": default_recipe_id
-				})
-		if (n == 1):
-			db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
-				(%(ingr_id)s, %(r_id)s)", {
-				"ingr_id": citron_ingredient[0]['id_ingredient'],
-				"r_id": default_recipe_id
-				})
+	#for n in xrange(0, 2):
+		#if (n == 0):
+	db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
+		(%(ingr_id)s, %(r_id)s)", {
+		"ingr_id": eau_de_source_ingredient[0]['id_ingredient'],
+		"r_id": default_recipe_id
+		})
+		#if (n == 1):
+        print("SELECT * FROM Compose")
+	print("end 1")
+	db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
+		(%(ingr_id)s, %(r_id)s)", {
+		"ingr_id": citron_ingredient[0]['id_ingredient'],
+		"r_id": default_recipe_id
+		})
 
-		print(db.select("SELECT * FROM Compose"))
-
+	print(db.select("SELECT * FROM Compose"))
+	print("end 2")
 	db.close()
 
 	resp = {
