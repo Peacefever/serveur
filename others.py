@@ -300,7 +300,7 @@ def save_kind_ad_action(datas, playerID, day):
 		print('Fin création')
 
 	#L'isntance existe en base, on l'update
-	if (exist[0]['count'] == 1):
+	if (exist[0]['count'] != 0):  #Je modifie le == en !=
 		db.execute("UPDATE Adspace SET number_adspace = %d" %(int(datas['nb'])))
 
 	print("Verification")
