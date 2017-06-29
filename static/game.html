@@ -21,9 +21,9 @@
 		//Lancement fin du chargement de la page
 		$( document ).ready(function(){
                 	alert("Ready !");
-	                var cook = document.cookie;
-        	        dataCookie = JSON.parse(cook);
-			alert(dataCookie);
+	                var dataCookie = document.cookie;
+        	        //dataCookie = JSON.parse(cook);
+			//alert(dataCookie);
 	                $("#name").val(dataCookie.name);
 			$("#cash").val(dataCookie.info.cash);
 			$("#ventes").val(dataCookie.info.sales);
