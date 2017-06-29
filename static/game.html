@@ -25,7 +25,7 @@
         	        dataCookie = JSON.parse(cook);
 			alert(dataCookie);
 	                $("#name").val(dataCookie.name);
-			$("#cash").val(dataCookie.info.cash);
+			//$("#cash").val(dataCookie.info.cash);
 			$("#ventes").val(dataCookie.info.sales);
 			$("#profit").val(dataCookie.info.profit);
         	        $.get("/map/"+dataCookie.name, function(data, status){
