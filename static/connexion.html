@@ -28,11 +28,11 @@
                                 $.ajax({
                                         url: "/players",
                                         type: "POST",
-                                        dataType :"json",
+                                        //dataType :"json",
                                         data: JSON.stringify(data),
                                         contentType: "application/json; charset=utf-8",
                                         success: function(response){
-						alert("Compte existant");
+						alert("Compte existant + reponse");
 						//var pseudo = response.name;
                                                 document.cookie = JSON.stringify(response);
                                                 window.location.href = "/game.html";
