@@ -179,10 +179,11 @@ function getCookie(cname) {
                     var dat = data;
                     //document.ookiecookie = dat;
                     //alert("MAP: " + data + "\nStatus: " + status);
-      console.log(data);
-      var infos = data.playerInfo[pseudo];
-      console.log(data.info);
-      var drinks = data.info.drinksOffered;
+      //console.log(data);
+	alert(data);
+      var infos = data.playerInfo[dataCookie.name];
+      console.log(infos);
+      var drinks = infos.drinksOffered;
       console.log(drinks);
       
       //remplir select boissons
