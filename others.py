@@ -346,6 +346,9 @@ def save_kind_prod_action(datas, playerID, day):
 			})
 
 		print("le choix existe")
+		print recipe[0]['id_recipe']
+		print playerID
+		print day
 		db.execute("UPDATE Production SET quantity_production = %d, price_sale_production = %f\
 			WHERE (id_recipe = %d AND id_player = %d AND day_production = %d)" %(theprod_quantity, theprice_selling,\
 				recipe[0]['id_recipe'], playerID, day))
