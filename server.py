@@ -255,7 +255,7 @@ def save_metro():
 	'''
 	data = request.get_json()
 	#data = {"timestamp":"1","weather":[{"dfn":0, "weather":"sunny"}, {"dfn":1, "weather":"rainny"}]}
-
+	print(data)
 	if (isValidData(data) == False):
 		return bad_request()
 
