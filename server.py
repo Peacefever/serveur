@@ -287,7 +287,7 @@ def save_metro():
 	global timestamp
 	timestamp = int(data['timestamp'])   #timestamp + 1 #int(data['timestamp']) #Jusqu'a ce l'on est 24
 	print(timestamp)
-	
+	set_current_day(timestamp)
 	#Récupération de la météo.
 	w_now = data['weather'][0]['weather']
 	w_forecast = data['weather'][1]['weather']
