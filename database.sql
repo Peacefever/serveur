@@ -167,7 +167,7 @@ INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
 	/*('Sunny', 'Rainny', 2);*/
 
 INSERT INTO Map (lat_map, lon_map, lat_span_map, lon_span_map) VALUES 
-	(-100.0, 200.0, 20.0, 40.0);
+	(-100.0, 200.0, 500.0, 500.0);
 
 /*
 INSERT INTO Adspace (influence_adspace, lat_adspace, lon_adspace, day_adspace, price_adspace, number_adspace, id_player) VALUES 
