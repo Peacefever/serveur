@@ -79,6 +79,7 @@ def get_mapitems(playerID):
 				},
 				"influence": player[0]['rayon_player']
 			})
+
 	if (len(items_ads) > 0):
 		for anAdd in items_ads:
 			itemsPlayer.append({
@@ -205,8 +206,11 @@ def get_player_infos(playerID, gameid, stringProdOrSellingPrice):
 	db.close()
 	return playerInfos
 
-#A voir si on le met ici
 def join_new_player(playername, gameid):
+	'''
+	Cette fonction permet à un joueur de rejoindre une partie
+	'''
+
 	print('je passe dans le join player car je ne suis pas en cas')
 	db = Db()
 	
@@ -332,27 +336,7 @@ def join_new_player(playername, gameid):
 			print("OK")
 
 	print(db.select("SELECT * FROM Compose"))
-
 	print("Fin")
-
-	'''db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
-				(%(ingr_id)s, %(r_id)s)", {
-				"ingr_id": eau_de_source_ingredient[0]['id_ingredient'],
-				"r_id": default_recipe_id
-				})
-
-	print(db.select("SELECT * FROM Compose"))
-	print("fin premier création compose")
-
-	db.execute("INSERT INTO Compose(id_ingredient, id_recipe) VALUES \
-				(%(ingr_id)s, %(r_id)s)", {
-				"ingr_id": citron_ingredient[0]['id_ingredient'],
-				"r_id": default_recipe_id
-				})
-
-	print(db.select("SELECT * FROM Compose"))
-	print("fin second création compose")
-'''
 	db.close()
 
 	resp = {

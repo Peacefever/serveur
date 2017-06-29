@@ -122,10 +122,8 @@ ALTER TABLE Adspace ADD CONSTRAINT Fk_addspace_id_player FOREIGN KEY (id_player)
 /*a*/
 
 INSERT INTO Player (name_player, lon_player, lat_player, cash_player, rayon_player, isConnected_player,ingame_player) VALUES
-	('toto', -250, -550, 500, 20, true, 1), 
-	('bibi', -250, 350, 500, 20, true, 1),
-	('lili', 650, -550, 500, 20, true, 1), 
-	('babar', 650, 350, 500, 20, true, 1);
+	('toto', 2.3, -4.3, 100, 15.0, true, 1), 
+	('babar', 2.6, 5.2, 200, 20.0, true, 1);
 
 INSERT INTO Recipe (name_recipe, price_buying_recipe, cost_prod_recipe, isCold_recipe, hasAlcohol_recipe, isUnblocked_recipe, id_player) VALUES
 	('Limonade', 10.0, 2.0, true, false, true,1),
@@ -147,10 +145,10 @@ INSERT INTO Ingredient(name_ingredient, price_ingredient) VALUES
 	(4, 3);*/
 
 
-/*INSERT INTO Unblock(day_unblock, quantity_unblock, id_player, id_recipe) VALUES
+INSERT INTO Unblock(day_unblock, quantity_unblock, id_player, id_recipe) VALUES
 	(1, 0, 1, 1),
 	(1, 0, 1, 2),
-	(1, 0, 2, 3);*/
+	(1, 0, 2, 3);
 
 /*Sales production est le prix de vente choisi par l'utilisateur*/
 /*INSERT INTO Production(quantity_production, price_sale_production, day_production, id_recipe, id_player) VALUES
@@ -164,12 +162,12 @@ INSERT INTO Ingredient(name_ingredient, price_ingredient) VALUES
 	(3, 1, 1, 2),
 	(3, 1, 2, 3); */
 
-/*INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
-	('Sunny', 'Cloudy', 1);*/
-	/*('Sunny', 'Rainny', 2);*/
+INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
+	('Sunny', 'Cloudy', 1),
+	('Sunny', 'Rainy', 2);
 
 INSERT INTO Map (lat_map, lon_map, lat_span_map, lon_span_map) VALUES 
-	(-100.0, 200.0, 500.0, 500.0);
+	(100, 100.0, 200.0, 200.0);
 
 /*
 INSERT INTO Adspace (influence_adspace, lat_adspace, lon_adspace, day_adspace, price_adspace, number_adspace, id_player) VALUES 

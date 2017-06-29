@@ -18,6 +18,7 @@ def connexion():
    return app.send_static_file('connexion.html')
 
 #Database
+#Fonctionnel
 @app.route('/debug/db/reset')
 def init_db():
 	'''
@@ -29,6 +30,7 @@ def init_db():
 	return 'Database OK'
 
 #JAVA
+#Fonctionnel
 @app.route('/map', methods=['GET'])
 def get_map():
 	'''
@@ -64,6 +66,7 @@ def get_map():
 	return to_make_response(resp, 200)
 
 #curl -X POST -i -d '{"sales":[{"player":"toto", "item":"Limonade", "quantity":10}]}' -H 'Content-Type: application/json' http://localhost:5000/sales
+#Fonctionnel
 @app.route('/sales',methods =['POST'])
 def save_sales():
 	'''
@@ -72,6 +75,9 @@ def save_sales():
 	'''
 	data = request.get_json()
 
+	print("DATA")
+	print(data)
+	print("DATA")
 	if (isValidData(data) == False):
 		return bad_request()
 
@@ -107,6 +113,13 @@ def save_sales():
 			"item":the_item
 			})
 
+		print("THE RECIPE")
+		print(db.select("SELECT * FROM Sales"))
+		print("THE RECIPE")
+
+		if (recipe_id == None or len(recipe_id) == 0):
+			return ' ', 400
+
 		#On suppose que le java nous donne l'ensemble des ventes à la fin de la journée.
 		#Ou même heure par heure (c'est le même fonctionnement)
 		#On crée une instance vente pour chaque produit, pour chaque jour, si celle-ci n'existe pas
@@ -131,12 +144,18 @@ def save_sales():
 				"p_id":player[0]['id_player'],
 				"r_id":recipe_id[0]['id_recipe']
 				})
+			print("INSERT")
+			print(db.select("SELECT * FROM Sales"))
 			return to_make_response(' ', 201)
 
 		#Dans le cas où l'isntance existe, on l'update
 		db.execute("UPDATE Sales SET quantity_sales = %d, day_sales = %d WHERE (id_player = %d\
 		 AND id_recipe = %d)" %(the_quantity, currentday, player[0]['id_player'], recipe_id[0]["id_recipe"]))
+		
+		print("CE QUI EST EN update")
+		print(db.select("SELECT * FROM Sales"))
 		db.close()
+
 	return to_make_response(' ', 201)
 
 #Client HTML
@@ -169,6 +188,7 @@ def get_map_player(playerName):
 
 	return to_make_response(resp)
 
+#Fonctionnel
 @app.route('/metrology', methods=['GET'])
 def metro_get_infos():
 	'''
@@ -349,7 +369,6 @@ def save_metro():
 
 		#Verif
 		print(db.select("SELECT * FROM Weather"))
-
 		db.close()
 		return to_make_response('', 201)
 	return ('', 201)
@@ -466,6 +485,15 @@ def save_action_choices(playerName):
 			"sufficientFunds":False,
 			"totalCost":tot_cost_actions
 		}
+
+		db = Db()
+		print("fin 1")
+		table1 = db.select("SELECT * FROM Production")
+		table2 = db.select("SELECT * FROM Adspace")
+		print(table1)
+		print(table2)
+		print("Fin 2")
+		db.close()
 		return to_make_response(resp)
 
 	#Le joueur a assez d'argent
@@ -481,6 +509,16 @@ def save_action_choices(playerName):
 		"sufficientFunds": True,
 		"totalCost":tot_cost_actions
 	}
+
+
+	db = Db()
+	print("fin 1")
+	table1 = db.select("SELECT * FROM Production")
+	table2 = db.select("SELECT * FROM Adspace")
+	print(table1)
+	print(table2)
+	print("Fin 2")
+	db.close()
 	return to_make_response(resp)
 
 if __name__ == '__main__':
