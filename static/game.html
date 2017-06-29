@@ -95,26 +95,28 @@ Sélectionnez boisson : <INPUT type="checkbox" checked="checked" name="boisson" 
     </style>
 
     <div id="map" style="padding:3px; border:8px ridge #F7FF3C; background-color:#000000; position:absolute; left: 54%; bottom: 0.1%; width: 42%; height: 69.5%; Opacity: 1;">
-
-    <script>
-      function initMap() {
-       	var image = '../Downloads/Webp.net-resizeimage.png';
-        var bedarrides = {lat: 44.04, lng: 4.90};
-        var toulouse = {lat : 43.59, lng : 1.36};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 15,
-          center: bedarrides
-        });
-        var marker = new google.maps.Marker({
-          position: bedarrides,
-          map: map,
-          icon: image
-        });
-        var marker = new google.maps.Marker({
-          position: toulouse,
-          map: map
-        });
-      }
+    	<script>
+      		function initMap() {
+        		var image = '../Downloads/Webp.net-resizeimage.png';
+        		var bedarrides = mapCenter;
+        		var map = new google.maps.Map(document.getElementById('map'), {
+          			zoom: 10,
+          			center: bedarrides
+        		})
+        		var marker = new google.maps.Marker({
+          			position: bedarrides,
+	          		map: map,
+				title: "Shop"
+          			//icon: image
+        		});
+			var circle = new google.maps.Circle({
+				map: map,
+				radius: 1000 * spanShop,
+				strokeWeight : 0,
+				fillColor: "#4286F4"
+			});
+			circle.bindTo("center",marker,"position");
+      		}
     </script>
         <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLKuindhKESjd4vd-FdTXs3z7O17MNrE0&callback=initMap">
@@ -164,8 +166,6 @@ function getCookie(cname) {
     var pseudo = document.cookie;
     dataCookie = JSON.parse(pseudo);
     $("#name").val(dataCookie.name);
-    
-    //get /map
     $.get("/map/"+dataCookie.name, function(data, status){
                     var dat = data;
                     //document.ookiecookie = dat;
