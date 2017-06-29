@@ -310,7 +310,7 @@ def join_game():
 				"latitude": player[0]['lat_player'],
 				"longitude":player[0]['lon_player']
 			},
-			"infos": get_player_infos(player[0]['id_player'], default_game, "prod")
+			"info": get_player_infos(player[0]['id_player'], default_game, "prod")
 		}
 		return to_make_response(resp)
 	db.close()
