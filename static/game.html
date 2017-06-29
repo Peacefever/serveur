@@ -166,7 +166,7 @@ function getCookie(cname) {
     $("#name").val(dataCookie.name);
     
     //get /map
-    $.get("172.30.73:5000/map/"+dataCookie.name, function(data, status){
+    $.get("/map/"+dataCookie.name, function(data, status){
                     var dat = data;
                     //document.ookiecookie = dat;
                     //alert("MAP: " + data + "\nStatus: " + status);
@@ -269,7 +269,7 @@ function getCookie(cname) {
 					let toSend = {"actions": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val()},"price": {"Limonade": $("#prix").val()}}]}
 					//let toSend = {"action":[{"cash": 1 ,"sales": 0,"profit": 0,"drinksOffered":[{"name": "Limonade","price": 0,"hasAlcohol": 0,"isCold": 1}]}],"simulated": 1};
         	       			$.ajax({
-                                	        url: "172.30.73:5000/actions/"+dataCookie.name,
+                                	        url: "/actions/"+dataCookie.name,
 	                                        type: "POST",
         	                                dataType :"json",
                 	                        data: JSON.stringify(toSend),
@@ -304,7 +304,7 @@ function getCookie(cname) {
 <script type="text/javascript">
 $("#sendmeteo").click(function(event){
       $.ajax({
-	url: "172.30.73:5000/metrology", // Route metrology
+	url: "/metrology", // Route metrology
 	type: "GET", // Envoyer
 	dataType :"json", // Format json
 	success: function(response){ // Succès
