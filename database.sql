@@ -122,8 +122,10 @@ ALTER TABLE Adspace ADD CONSTRAINT Fk_addspace_id_player FOREIGN KEY (id_player)
 /*a*/
 
 INSERT INTO Player (name_player, lon_player, lat_player, cash_player, rayon_player, isConnected_player,ingame_player) VALUES
-	('toto', 2.3, -4.3, 100, 20, true, 1), 
-	('babar', 2.6, 5.2, 200, 20, true, 1);
+	('toto', 2.3, -250, -550, 20, true, 1), 
+	('bibi', 2.6, -250, 350, 20, true, 1),
+	('lili', 2.3, 650, 550, 20, true, 1), 
+	('babar', 2.6, 650, 350, 20, true, 1);
 
 INSERT INTO Recipe (name_recipe, price_buying_recipe, cost_prod_recipe, isCold_recipe, hasAlcohol_recipe, isUnblocked_recipe, id_player) VALUES
 	('Limonade', 10.0, 2.0, true, false, true,1),
