@@ -1,30 +1,28 @@
 <!DOCTYPE html>
-
 <html>
-  	 <head>
-    	   <meta charset="utf-8"/>
-    		 <title>Interface Game Page</title>
-    		 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-  	 </head>
+	<head>
+    		<meta charset="utf-8"/>
+    			<title>Interface Game Page</title>
+    		 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  	</head>
 
 <!-- CSS image fond de page IHM --> 
-   <body style="background-image: url(https://img1.goodfon.com/original/2560x1600/0/20/fruits-fresh-water-drops-2175.jpg); background-size: 100%;">
+	<body style="background-image: url(https://img1.goodfon.com/original/2560x1600/0/20/fruits-fresh-water-drops-2175.jpg); background-size: 100%;">
 <!-- Structure : url img + taille image de fond --> 
 
 <!-- CSS div cadre n°1 --> 
-   <div style="background:url('https://pub.be/wp-content/uploads/2016/02/LIMO-citron.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
+	<div style="background:url('https://pub.be/wp-content/uploads/2016/02/LIMO-citron.png') no-repeat; padding:3px; border:8px ridge #F7FF3C; background-color:#000000; width: 50%; Opacity: 1;">
 <!-- Structure : url img (no-repeat img) + espacement entre fieldset et cadre + taille bordure (type bordure) + fond du cadre (noir) + longueur max + opacité 1 (pour écrire par-dessus une image) --> 
 	   
 <!-- Fieldset Données Joueur --> 
-<FONT color="white">
-<fieldset>
-    <legend><FONT color="#EFD807"><strong>Données joueur</strong></FONT></legend>
-      <br><label for="Name">Nom du joueur</label>
-      <input type="text" name="name" id="name" readonly/>
-      <br><label for="Monnaie">Monnaie joueur</label>
-      <input type="text" name="monnaie" id="monnaie" readonly/>
-      <label>
-
+	<FONT color="white">
+	<fieldset>
+    		<legend><FONT color="#EFD807"><strong>Données joueur</strong></FONT></legend>
+      		<br><label for="Name">Nom du joueur</label>
+      		<input type="text" name="name" id="name" readonly/>
+      		<br><label for="Monnaie">Monnaie joueur</label>
+      		<input type="text" name="monnaie" id="monnaie" readonly/>
+      	<label>
 <!-- Menu déroulant --> 
 <br><br><form>
 Sélectionnez boisson : <INPUT type="checkbox" checked="checked" name="boisson" id='drinkOffered' value="1"> <FONT color="#000000">Limonade</FONT>
