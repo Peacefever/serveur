@@ -7,12 +7,16 @@ import json
 from Map import *
 from others import *
 
-app = Flask(__name__)
+
+app = Flask(__name__, static_url_path='')
 app.debug = True
 CORS(app)
 
 timestamp = 0
 
+@app.route("/")
+def connexion():
+   return app.send_static_file('connexion.html')
 #Database
 @app.route('/debug/db/reset')
 def init_db():
