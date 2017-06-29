@@ -33,8 +33,8 @@
                                         contentType: "application/json; charset=utf-8",
                                         success: function(response){
 						alert("Compte existant");
-						var pseudo = response.name;
-                                                document.cookie = "pseudo="+pseudo;
+						//var pseudo = response.name;
+                                                document.cookie = JSON.stringify(response);
                                                 window.location.href = "/game.html";
                                         },
                                         error: function(error){
