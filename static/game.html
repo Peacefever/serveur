@@ -141,6 +141,7 @@ Sélectionnez une boisson : <INPUT type="checkbox" name="boisson" id='drinkOffer
 <!-- |||||||||||||||||||||||||||||||||||||R5 - Vue du jeu pour un joueur /map/<playerName>||||||||||||||||||||||||||||||||||||||||| -->
 <!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 <script type="text/javascript">
+	var dataCookie;
 //récupérer valeur du cookie
 function getCookie(cname) {
     var name = cname + "=";
@@ -161,7 +162,7 @@ function getCookie(cname) {
   var mapCenterLat, mapCenterLng, mapCenter, spanShopLat, spanShopLng, spanShop;
   $( document ).ready(function(){
     var pseudo = document.cookie;
-    var dataCookie = JSON.parse(pseudo);
+    dataCookie = JSON.parse(pseudo);
     $("#name").val(dataCookie.name);
     
     //get /map
