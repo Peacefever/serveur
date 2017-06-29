@@ -7,15 +7,11 @@ import json
 from Map import *
 from others import *
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__)
 app.debug = True
 CORS(app)
 
 timestamp = 0
-
-@app.route("/")
-def connexion():
-   return app.send_static_file('connexion.html')
 
 #Database
 @app.route('/debug/db/reset')
@@ -254,8 +250,9 @@ def save_metro():
 	concernant la météo et le temps
 	'''
 	data = request.get_json()
-	#data = {"timestamp":"1","weather":[{"dfn":0, "weather":"sunny"}, {"dfn":1, "weather":"rainny"}]}
 	print(data)
+	#data = {"timestamp":"1","weather":[{"dfn":0, "weather":"sunny"}, {"dfn":1, "weather":"rainny"}]}
+
 	if (isValidData(data) == False):
 		return bad_request()
 
@@ -264,18 +261,13 @@ def save_metro():
 
 	#On ajoute au timestamp le temps recu
 	global timestamp
-	timestamp = timestamp + 1 # int(data['timestamp'])   #timestamp + 1 #int(data['timestamp']) #Jusqu'a ce l'on est 24
-
+	timestamp = int(data['timestamp'])   #timestamp + 1 #int(data['timestamp']) #Jusqu'a ce l'on est 24
+	print(timestamp)
+	
 	#Récupération de la météo.
-	w_now = ""
-	w_forecast = ""
-	w_request = data['weather']
-	for aweather in w_request:
-		if (aweather['dfn'] == 0):
-			w_now = aweather['weather']
-		if (aweather['dfn'] == 1):
-			w_forecast = aweather['weather']
-
+	w_now = data['weather'][0]['weather']
+	w_forecast = data['weather'][1]['weather']
+	print("on passe la")
 	print(w_now)
 	print(w_forecast)
 
@@ -488,4 +480,4 @@ def save_action_choices(playerName):
 	return to_make_response(resp)
 
 if __name__ == '__main__':
-	app.run()
+	app.run(host = "0.0.0.0", port = 5000) 
