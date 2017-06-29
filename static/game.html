@@ -173,8 +173,46 @@ function getCookie(cname) {
     }
     return "";
 }
-  
+	
+   var mapCenterLat, mapCenterLng, mapCenter, spanShopLat, spanShopLng, spanShop;
   $( document ).ready(function(){
+    var pseudo = getCookie('pseudo');
+    console.log(pseudo);
+    $("#name").val(pseudo);
+    
+    //get /map
+    $.get("/map/"+pseudo, function(data, status){
+                    var dat = data;
+                    //document.ookiecookie = dat;
+                    //alert("MAP: " + data + "\nStatus: " + status);
+      console.log(data);
+      var infos = data.playerInfo[pseudo];
+      console.log(infos);
+      var drinks = infos.drinksOffered;
+      console.log(drinks);
+      
+      //remplir select boissons
+      $.each(drinks,function(index,value){
+        console.log(value);
+        $("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
+      });
+      
+      //remplir money joueur
+      $('#monnaie').val(infos.cash);
+      
+      //remplir nbre boissons vendues
+      $('#nbreboissonvendues').val(infos.sales);
+
+      //remplir input profit
+      $('#profit').val(infos.profit);
+
+      mapCenter = {lat: dat.map.region.center.latitude, lng: dat.map.region.center.longitude};
+      //remplir cordonnées x stand joueur
+      $('#standx').val(dat.map.region.center.latitude);
+      //remplir cordonnées y stand joueur
+      $('#standx').val(dat.map.region.center.longitude);
+      spanShop = dat.map.region.span.latitudeSpan;
+  /*$( document ).ready(function(){
     var pseudo = getCookie('pseudo');
     console.log(pseudo);
     $("#name").val(pseudo);
@@ -206,7 +244,7 @@ function getCookie(cname) {
       $('#profit').val(infos.profit);
 	    
       //remplir cordonnées x stand joueur
-      $('#standx').val(infos.center);
+      $('#standx').val(infos.center); */
         
                });
     
