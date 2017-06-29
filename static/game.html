@@ -170,12 +170,12 @@ function getCookie(cname) {
   
   var mapCenterLat, mapCenterLng, mapCenter, spanShopLat, spanShopLng, spanShop;
   $( document ).ready(function(){
-    var pseudo = getCookie('pseudo');
-    console.log(pseudo);
-    $("#name").val(pseudo);
+    var pseudo = document.cookie;
+    var dataCookie = JSON.parse(pseudo);
+    $("#name").val(dataCookie.name);
     
     //get /map
-    $.get("/map/"+pseudo, function(data, status){
+    $.get("/map/"+dataCookie.name, function(data, status){
                     var dat = data;
                     //document.ookiecookie = dat;
                     //alert("MAP: " + data + "\nStatus: " + status);
