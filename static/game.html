@@ -207,7 +207,7 @@ function getCookie(cname) {
     ///});
     
     // envoyer au serveur
-    $('body').on('click','#send', function (){
+   /* $('body').on('click','#send', function (){
       
       var message = {
       };
@@ -222,7 +222,7 @@ function getCookie(cname) {
         alert("Valeurs envoyées !");
        }
       }); 
-    });
+    }); */
   });
           /*var dt;
           $( document ).ready(function(){
@@ -252,23 +252,26 @@ function getCookie(cname) {
 <!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 	<script type="text/javascript">              
 	$("#send").click(function(event){
+			var cookie = document.cookie;
         	  		event.preventDefault();
 				if( $.trim($("#nbreprod").val()) == '')
 					alert("Le nombre de produit doit être remplie");
-				else if($('#drinkOffered').attr('checked'))
-					alert("La boisson doit être séléctionner");
+				/*else if($('#drinkOffered').attr('checked'))
+					alert("La boisson doit être séléctionner");*/
 				else if( $.trim($("#nbrepub").val()) == '')
 					alert("Nombre de pub doit être remplie");
 				else if( $.trim($("#prix").val()) == '')
 					alert("Prix doit être remplie");
 				else {
+					
 					//var toSend = "{\"action\": [{\"cash\": 1,\"sales\": 1,\"profit\": 0.0,\"drinksOffered\": \"Limonade\",\"price\": 0.0,\"hasAlcohol\": 1,\"isCold\": 1}],\"simulated\": 1}"
 					//let toSend = {"action":[{"cash": $("#cash").val() ,"sales": $("#ventes").val(),"profit": $("#profit").val(),"drinksOffered":[{"name": "Limonade","price": $("#prix").val(),"hasAlcohol": 0,"isCold": 1}]}],"simulated": 0}
 					//let toSend = {"action": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val(),"price": {"Limonade": $("#prix").val() }}]}
 					let toSend = {"action": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val(),"price": {"Limonade": $("#prix").val()}}}]}
 					//let toSend = {"action":[{"cash": 1 ,"sales": 0,"profit": 0,"drinksOffered":[{"name": "Limonade","price": 0,"hasAlcohol": 0,"isCold": 1}]}],"simulated": 1};
-        	       			$.ajax({
-                                	        url: "/actions/"+dataCookie.name,
+        	       			alert(toSend);
+					$.ajax({
+                                	        url: "/actions/"+cookie.name,
 	                                        type: "POST",
         	                                dataType :"json",
                 	                        data: JSON.stringify(toSend),
@@ -278,7 +281,7 @@ function getCookie(cname) {
                                                 	//var dat = JSON.parse(response);
 							$("#quantite").val($("#boissonprod").val());
 							$("#cout").val($("#prix").val());
-							$("#nomboisson").val($("#DPD_boisson option:selected").text());
+							//$("#nomboisson").val($("#DPD_boisson option:selected").text());
 	
         	                                },
                 	                        failure: function(error){
