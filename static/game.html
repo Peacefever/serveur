@@ -100,7 +100,7 @@
 
     <script>
       function initMap() {
-        var image = '../Downloads/Webp.net-resizeimage.png';
+       	var image = '../Downloads/Webp.net-resizeimage.png';
         var bedarrides = {lat: 44.04, lng: 4.90};
         var toulouse = {lat : 43.59, lng : 1.36};
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -254,7 +254,7 @@ function getCookie(cname) {
                     alert("MAP: " + data + "\nStatus: " + status);
                });
           $("#send").click(function(event){
-               event.preventDefault();
+               event.preventDefault()Rafraichir;
                //var cook = document.cookie;
                var dat = JSON.parse(cook);
                var toSend = "{action:[{cash:1,sales:1,profit:0.0,drinksOffered:{name:name,price:0.0,hasAlcohol:1,isCold:1}}],simulated:1}"
@@ -272,7 +272,7 @@ function getCookie(cname) {
         	  		event.preventDefault();
 				if( $.trim($("#boissonprod").val()) == '')
 					alert("Boisson à produire doit être remplie");
-				else if(($("#DPD_boisson option:selected").text()) == "Toutes les boissons")
+				else if(($("#drinkOffered option:selected").text()) == "Toutes les boissons")
 					alert("La boisson doit être séléctionner");
 				else if( $.trim($("#prix").val()) == '')
 					alert("Prix doit être remplie");
