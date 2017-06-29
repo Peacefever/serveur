@@ -28,7 +28,7 @@ CREATE TABLE Production(
 	day_production			Int,
 	/*Foreign keys*/
 	id_recipe				Int,
-	id_player 				Int,
+	id_player 				Int
 );
 
 CREATE TABLE Unblock(
