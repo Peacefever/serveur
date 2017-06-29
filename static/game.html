@@ -26,9 +26,9 @@
       <label>
 
 <!-- Menu déroulant --> 
-<br><br><FORM>
-Sélectionnez boisson : <INPUT type="checkbox" checked="checked" name="boisson" id='drinkOffered' value="1"> <FONT color="#000000">Limonade</FONT>
-	      </FORM>
+<br><br><form>
+Sélectionnez une boisson : <INPUT type="checkbox" name="boisson" id='drinkOffered' value="1"> Limonade
+</form>
 	      
       <label for="Nbreprod">Nombre production</label>
       <input type="text" name="nbreprod" id="nbreprod" />
@@ -133,14 +133,6 @@ Sélectionnez boisson : <INPUT type="checkbox" checked="checked" name="boisson" 
    </div>
 <!-- CSS fin div cadre n°5 -->
 
-    
-
-
-
-
-
-
-
 
                                                                                                                             <!-- Début JavaScript --> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
@@ -183,13 +175,6 @@ function getCookie(cname) {
       console.log(infos);
       var drinks = infos.drinksOffered;
       console.log(drinks);
-      
-      //remplir select boissons
-      /*$.each(drinks,function(index,value){
-        console.log(value);
-        //$("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
-	$("#drinkOffered").append('<option>'+value.name+'</option>');
-      });*/
       
       //remplir money joueur
       $('#monnaie').val(infos.cash);
@@ -269,7 +254,7 @@ function getCookie(cname) {
         	  		event.preventDefault();
 				if( $.trim($("#nbreprod").val()) == '')
 					alert("Le nombre de produit doit être remplie");
-				else if(!($('#drinkOffered').attr('checked')))
+				else if($('#drinkOffered').attr('checked'))
 					alert("La boisson doit être séléctionner");
 				else if( $.trim($("#nbrepub").val()) == '')
 					alert("Nombre de pub doit être remplie");
