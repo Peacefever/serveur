@@ -432,11 +432,9 @@ def save_action_choices(playerName):
 	'''
 	#Récupération du choix du joueur
 	data = request.get_json()
-
-	print("je recois quelque cjhose")
+	print("Voici la data :")
 	print(data)
-	print("hello")
-
+	
 	#Validation de la donnée pour traitement
 	if (isValidData(data) == False):
 		return bad_request()
@@ -456,7 +454,9 @@ def save_action_choices(playerName):
 		"name": playerName
 		})
 	db.close()
-
+	print("Voici le retour de la requette sur la table Player :")
+	print(player)
+	
 	#Récupération du jour courant
 	currentday = get_current_day()
 
@@ -469,18 +469,23 @@ def save_action_choices(playerName):
 
 		#On parcours l'ensemble du tableau d'action
 	for anAction in data['actions']:
+	print("L'action est de type :")
+	print(anAction['kind'])
+	
 		if (anAction['kind'] == 'ad'):
-			save_kind_ad_action(anAction, player[0]['id_player'], (currentday + 1))
+			save_kind_ad_action(anAction, int(player['id_player']), int(currentday + 1))
 		if (anAction['kind'] == 'drinks'):
-			save_kind_prod_action(anAction, player[0]['id_player'], (currentday + 1))
-		#if (anAction['kind'] == 'recipe'):
-		#	save_kind_buy_recipe_action(anAction, player[0]['id_player'], (currentday + 1))
+			save_kind_prod_action(anAction, int(player['id_player']), int(currentday + 1))
 	
 	#Détermination du cout total des actions
-	tot_cost_actions = get_totalCosts(player[0]['id_player'], (currentday + 1))
-
+	tot_cost_actions = get_totalCosts(int(player['id_player']), int(currentday + 1))
+	print("Le coût total de l'action :")
+	print(tot_cost_actions)
+	
 	#Récupération du cash total du joueur. Son cash est toujour au jour actuel
-	player_cash = player[0]['cash_player']
+	player_cash = player['cash_player']
+	print("Le cash du joueur :")
+	print(tot_cost_actions)
 
 	#Formattage de la réponse suivant le cash du joueur
 	#Le joueur n'a pas assez d'argent
@@ -489,15 +494,8 @@ def save_action_choices(playerName):
 			"sufficientFunds":False,
 			"totalCost":tot_cost_actions
 		}
-
-		db = Db()
-		print("fin 1")
-		table1 = db.select("SELECT * FROM Production")
-		table2 = db.select("SELECT * FROM Adspace")
-		print(table1)
-		print(table2)
-		print("Fin 2")
-		db.close()
+		print("Voici la réponse que je renvoie :")
+		print(resp)
 		return to_make_response(resp)
 
 	#Le joueur a assez d'argent
@@ -505,24 +503,17 @@ def save_action_choices(playerName):
 
 	db = Db()
 		#On met à jour le cash du joueur en question dans la base de données
-	db.execute("UPDATE Player SET cash_player = %f WHERE id_player = %d" %(diff, player[0]['id_player']))
+	db.execute("UPDATE Player SET cash_player = %f WHERE id_player = %d" %(diff, int(player['id_player'])))
 	db.close()
+	print("Je vien d'update la base de données")
 
 	#Fromattage de la réponse au client de la réponse au client
 	resp = {
 		"sufficientFunds": True,
 		"totalCost":tot_cost_actions
 	}
-
-
-	db = Db()
-	print("fin 1")
-	table1 = db.select("SELECT * FROM Production")
-	table2 = db.select("SELECT * FROM Adspace")
-	print(table1)
-	print(table2)
-	print("Fin 2")
-	db.close()
+	print("Voici la réponse que je renvoie :")
+	print(resp)
 	return to_make_response(resp)
 
 if __name__ == '__main__':
