@@ -313,6 +313,20 @@ $("#sendmeteo").click(function(event){
           },
         });
       });
+$("#sendbilan").click(function(event){
+	$.ajax({
+        	url: "map/"+$("#name").val(), // Route map
+                type: "GET", // Envoyer
+                dataType :"json", // Format json
+                success: function(response){ // Succès
+                	//var dat = JSON.parse(response.responseText); // Reponse au format json
+			alert(response);
+                        $("#profit").val(response['playerInfo']['toto']['cash'])
+			$("#profit").val(response['playerInfo']['toto'][''])
+			$("#profit").val(response['playerInfo']['toto']['cash'])
+                },
+        });
+});
 </script>                                                                                                                  <!-- Fin JavaScript --> 
 	</body>
 </html>
