@@ -269,7 +269,7 @@ function getCookie(cname) {
 					//let toSend = {"action": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val(),"price": {"Limonade": $("#prix").val() }}]}
 					let toSend = {"actions": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val()},"price": {"Limonade": $("#prix").val()}}]}
 					//let toSend = {"action":[{"cash": 1 ,"sales": 0,"profit": 0,"drinksOffered":[{"name": "Limonade","price": 0,"hasAlcohol": 0,"isCold": 1}]}],"simulated": 1};
-        	       			alert(toSend);
+        	       			console.log(toSend);
 					$.ajax({
                                 	        url: "/actions/"+$("#name").val(),
 	                                        type: "POST",
