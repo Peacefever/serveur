@@ -9,7 +9,10 @@ default_rayon = 10.0
 default_recipe_id = 1
 default_influency_pub = 10.0
 default_price_pub = 20.0
+timestamp = 0
 
+def set_current_day(timeReceived):
+	timestamp = timeReceived
 def to_make_response(data, status=200):
 	'''
 	Formattage de la réponse du serveur
@@ -22,8 +25,14 @@ def internal_server_error():
 	return to_make_response('Internal Server Error', 500)
 
 def get_current_day():
+	var day = 0
+	while(timestamp >= 24):
+		day = day + 1
+		timestamp = timestamp - 24
+	return day
 	'''
 	Obtention du jour de jeu courant
+	'''
 	'''
 	db = Db()
 	#On regarde s'il y a quelque chose dans la table
@@ -45,7 +54,7 @@ def get_current_day():
 
 	db.close()
 	return current_day[0]['day_weather']
-
+	'''
 def get_players_ingame(gameid):
 	'''
 	Obtention d'une liste de l'ensemble des joueurs d'une partie
