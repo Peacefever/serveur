@@ -189,7 +189,7 @@ function getCookie(cname) {
       //remplir select boissons
       $.each(drinks,function(index,value){
         console.log(value);
-        $("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
+        //$("#drinkOffered").append('<option value="'+value.price+'">'+value.name+" ("+value.price+"€)"+'</option>');
       });
       
       //remplir money joueur
@@ -210,15 +210,15 @@ function getCookie(cname) {
         
                });
     
-      $('body').on('input','#nbreprod', function (){
+      //$('body').on('input','#nbreprod', function (){
         //if(isFloat($('#drinkOffered').val()) &&  isFloat($(this).val())){
         //$('#errorSum').remove();
-        var sum =  parseFloat($('#drinkOffered').val()) * parseFloat($(this).val());
-        $('#cout').val(sum);
+        //var sum =  parseFloat($('#drinkOffered').val()) * parseFloat($(this).val());
+        //$('#cout').val(sum);
       /*}else{
         $('#errorSum').remove();
         var html = '<p id="errorSum">Attention</p>';
-        $('#prix').after(html);
+        $('#prixN').after(html);
       }*/
       
     });
@@ -270,8 +270,8 @@ function getCookie(cname) {
 	<script type="text/javascript">              
 	$("#send").click(function(event){
         	  		event.preventDefault();
-				if( $.trim($("#boissonprod").val()) == '')
-					alert("Boisson à produire doit être remplie");
+				if( $.trim($("#nbreprod").val()) == '')
+					alert("Le nombre de produit doit être remplie");
 				else if(($("#drinkOffered option:selected").text()) == "Toutes les boissons")
 					alert("La boisson doit être séléctionner");
 				else if( $.trim($("#prix").val()) == '')
