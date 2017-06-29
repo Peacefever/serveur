@@ -133,9 +133,7 @@
 <fieldset>
       <legend><FONT color="#EFD807"><strong>Cordonnées</strong></FONT></legend> <!-- Titre du fieldset --> 
       <br><label for="Stand">Stand</label>
-      <input type="text" name="standx" id="standx" readonly/> X <input type="text" name="standy" id="standy" readonly/> Y
-      <br><label for="Panneau">Panneau</label>
-      <input type="text" name="panneaux" id="panneaux" readonly/> X <input type="text" name="panneauy" id="panneauy" readonly/> Y
+      <input type="text" name="standlat" id="standlat" readonly/> lat <input type="text" name="standlon" id="standlon" readonly/> lon
       <br><br><button id="refresh">Rafraichir</button><button id="refresh">Quitter la partie</button>
 </fieldset>
    </div>
@@ -207,10 +205,10 @@ function getCookie(cname) {
       $('#profit').val(infos.profit);
 
       mapCenter = {lat: dat.map.region.center.latitude, lng: dat.map.region.center.longitude};
-      //remplir cordonnées x stand joueur
-      $('#standx').val(dat.map.region.center.latitude);
-      //remplir cordonnées y stand joueur
-      $('#standy').val(dat.map.region.center.longitude);
+      //remplir cordonnées lat stand joueur
+      $('#standlat').val(dat.map.region.center.latitude);
+      //remplir cordonnées lon stand joueur
+      $('#standlon').val(dat.map.region.center.longitude);
       spanShop = dat.map.region.span.latitudeSpan;
   /*$( document ).ready(function(){
     var pseudo = getCookie('pseudo');
