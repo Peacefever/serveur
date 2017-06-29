@@ -276,7 +276,7 @@ function getCookie(cname) {
 				else {
 					//var toSend = "{\"action\": [{\"cash\": 1,\"sales\": 1,\"profit\": 0.0,\"drinksOffered\": \"Limonade\",\"price\": 0.0,\"hasAlcohol\": 1,\"isCold\": 1}],\"simulated\": 1}"
 					//let toSend = {"action":[{"cash": $("#cash").val() ,"sales": $("#ventes").val(),"profit": $("#profit").val(),"drinksOffered":[{"name": "Limonade","price": $("#prix").val(),"hasAlcohol": 0,"isCold": 1}]}],"simulated": 0}
-					#let toSend = {"action": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val(),"price": {"Limonade": $("#prix").val() }}]}
+					//let toSend = {"action": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val(),"price": {"Limonade": $("#prix").val() }}]}
 					let toSend = {"action": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val(),"price": {"Limonade": $("#prix").val()}}}]}
 					//let toSend = {"action":[{"cash": 1 ,"sales": 0,"profit": 0,"drinksOffered":[{"name": "Limonade","price": 0,"hasAlcohol": 0,"isCold": 1}]}],"simulated": 1};
         	       			$.ajax({
