@@ -28,7 +28,7 @@
 					success: function(response){
 						alert("Done " + response);
 						//var dat = JSON.parse(response);
-						alert(dat.name);
+						alert(response.name);
 						document.cookie = response;
 						window.location.href = "/game.html";
 					},
