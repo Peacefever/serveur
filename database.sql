@@ -41,7 +41,7 @@ CREATE TABLE Unblock(
 );
 
 CREATE TABLE Sales(
-	id_recipe 				SERIAL PRIMARY KEY,
+	id_sales 				SERIAL PRIMARY KEY,
 	quantity_sales			Int,
 	day_sales				Int,
 	/*Foreign keys*/
