@@ -251,28 +251,53 @@ function getCookie(cname) {
 <!-- |||||||||||||||||||||||||||||||||||||R6 - Actions pour le lendemain /actions/<playerName>||||||||||||||||||||||||||||||||||||| -->
 <!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 
- <script type="text/javascript">
-         $('#send').click(function(event){
-      event.preventDefault();
-              var Message = {
-                    prodLimo: $('#nbreprod').val(),
-      }
-      let Message = {"actions": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val()},"price": {"Limonade": $("#prix").val()}}]}
-      console.log(Message);
-      $.ajax({
-        url: "/actions/"+$("#name").val(), //"/actions/"+dataCookie.name, // Route actions
-        type: "POST", // Envoyer
-        dataType :"json", // Format json
-        data: JSON.stringify(Message),
-        contentType: "application/json; charset=utf-8",
-        success: function(response){ // Succes
-          var drog = JSON.parse(response); // Reponse au format json
-          alert("Valeurs envoyées !");
-          $('#quantite').val(drog.prodLimo);
-          },
-        });
-      });
-</script> 
+	<script type="text/javascript">              
+	$("#send").click(function(event){
+        	  		event.preventDefault();
+				if( $.trim($("#nbreprod").val()) == '')
+					alert("Le nombre de produit doit être remplie");
+				else if(!($('#drinkOffered').attr('checked')))
+					alert("La boisson doit être séléctionner");
+				else if( $.trim($("#nbrepub").val()) == '')
+					alert("Nombre de pub doit être remplie");
+				else if( $.trim($("#prix").val()) == '')
+					alert("Prix doit être remplie");
+				else {
+					//var toSend = "{\"action\": [{\"cash\": 1,\"sales\": 1,\"profit\": 0.0,\"drinksOffered\": \"Limonade\",\"price\": 0.0,\"hasAlcohol\": 1,\"isCold\": 1}],\"simulated\": 1}"
+					//let toSend = {"action":[{"cash": $("#cash").val() ,"sales": $("#ventes").val(),"profit": $("#profit").val(),"drinksOffered":[{"name": "Limonade","price": $("#prix").val(),"hasAlcohol": 0,"isCold": 1}]}],"simulated": 0}
+					//let toSend = {"action": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val(),"price": {"Limonade": $("#prix").val() }}]}
+					let toSend = {"action": [{"kind": "ad","nb": $("#nbrepub").val()}, {"kind": "drinks","prepare": {"Limonade": $("#nbreprod").val(),"price": {"Limonade": $("#prix").val()}}}]}
+					//let toSend = {"action":[{"cash": 1 ,"sales": 0,"profit": 0,"drinksOffered":[{"name": "Limonade","price": 0,"hasAlcohol": 0,"isCold": 1}]}],"simulated": 1};
+        	       			$.ajax({
+                                	        url: "/actions/"+dataCookie.name,
+	                                        type: "POST",
+        	                                dataType :"json",
+                	                        data: JSON.stringify(toSend),
+                        	                contentType: "application/json; charset=utf-8",
+                                	        success: function(response){
+                                        	        alert("Send : done");
+                                                	//var dat = JSON.parse(response);
+							$("#quantite").val($("#boissonprod").val());
+							$("#cout").val($("#prix").val());
+							$("#nomboisson").val($("#DPD_boisson option:selected").text());
+	
+        	                                },
+                	                        failure: function(error){
+                        	                        alert("Send :" + error);
+                                	        }
+	                                });
+				}
+				/*
+				$.post("/actions/"+dataCookie.name,jsonSend,function(data, status){
+                	    		alert("Data: " + data + "\nStatus: " + status);
+	               		}).done(function(){
+					alert("Send : success");
+				}).fail(function(){
+					alert("Send : fail");
+				});*/
+					
+			});
+	</script>
 <!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 <!-- |||||||||||||||||||||||||||||||||||||R7 - Date et meteo /metrology|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 <!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
