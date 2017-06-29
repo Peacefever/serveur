@@ -226,7 +226,7 @@ function getCookie(cname) {
         	  		event.preventDefault();
 				if( $.trim($("#boissonprod").val()) == '')
 					alert("Boisson à produire doit être remplie");
-				else if(($("#DPD_boisson option:selected").text()) == "Toutes les boissons")
+				else if(($("#drinkOffered option:selected").text()) == "Toutes les boissons")
 					alert("La boisson doit être séléctionner");
 				else if( $.trim($("#prix").val()) == '')
 					alert("Prix doit être remplie");
