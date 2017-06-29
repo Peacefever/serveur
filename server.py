@@ -433,6 +433,10 @@ def save_action_choices(playerName):
 	#Récupération du choix du joueur
 	data = request.get_json()
 
+	print("je recois quelque cjhose")
+	print(data)
+	print("hello")
+
 	#Validation de la donnée pour traitement
 	if (isValidData(data) == False):
 		return bad_request()
