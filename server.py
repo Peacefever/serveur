@@ -7,15 +7,15 @@ import json
 from Map import *
 from others import *
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__, static_url_path ='')
 app.debug = True
 CORS(app)
 
 timestamp = 0
 
-@app.route("/")
+@app.route('/')
 def connexion():
-   return app.send_static_file('connexion.html')
+	return app.send_static_file("connexion.html")
 
 #Database
 #Fonctionnel
@@ -526,4 +526,4 @@ def save_action_choices(playerName):
 	return to_make_response(resp)
 
 if __name__ == '__main__':
-	app.run(host = "0.0.0.0", port = 5000) 
+	app.run() 

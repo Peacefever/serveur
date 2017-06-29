@@ -34,7 +34,6 @@ def get_current_day():
 
 	weather_max_id = db.select("SELECT MAX(id_weather) FROM Weather")
 
-	print(weather_max_id)
 	if (weather_max_id == None or len(weather_max_id) == 0):
 		return -1
 
@@ -250,23 +249,39 @@ def is_present_pseudo_indb(playername):
 
 	return True
 
-def generate_location(minimum = -100, maximum = 100):
+def generate_location():
 	location = {}
 	#Génération aléatoire puis arrondis
-	i = 0
-	while (i < 2):
-		number = random.uniform(minimum, maximum)
-		if (i == 0):
-			location['latitude'] = round(number, 5)
-		if (i == 1):
-			location['longitude'] = round(number, 5)
-		i = i + 1
+	lat = -100.0
+	lon = 200.0
+	lat_span = 20.0
+	lon_span = 40.0
+	db = Db()
+	themap = db.select("SELECT * FROM Map")
+	db.close()
+
+	x_location_min = themap[0]['lon_map'] - themap[0]['lat_span_map']
+	x_location_max = themap[0]['lon_map'] + themap[0]['lat_span_map']
+
+	y_location_min = themap[0]['lat_map'] - themap[0]['lat_span_map']
+	y_location_max = themap[0]['lat_map'] + themap[0]['lat_span_map']
+
+	#Génération de la location aleatoire
+	x_location = random.uniform(x_location_min, x_location_max)
+	y_location = random.uniform(y_location_min, y_location_max)
+
+	print(x_location)
+	print(y_location)
+
+	location['latitude'] = round(x_location, 5)
+	location['longitude'] = round(y_location, 5)
+	
 	return location
 
 
-''' Toutes les routes qui suivent commencant par le mot save sont a tester '''
 #Fonctionnelle
 def save_kind_ad_action(datas, playerID, day):
+
 	db = Db()
 	print('passage dans le add')
 	print(datas)
@@ -300,7 +315,7 @@ def save_kind_ad_action(datas, playerID, day):
 		print('Fin création')
 
 	#L'isntance existe en base, on l'update
-	if (exist[0]['count'] != 0):  #Je modifie le == en !=
+	if (exist[0]['count'] == 1):
 		db.execute("UPDATE Adspace SET number_adspace = %d" %(int(datas['nb'])))
 
 	print("Verification")
@@ -309,6 +324,7 @@ def save_kind_ad_action(datas, playerID, day):
 
 #Fonctionnelle
 def save_kind_prod_action(datas, playerID, day):
+	print("passage dans le prod")
 	db = Db()
 	exist = db.select("SELECT COUNT(*) FROM Production WHERE (day_production = %d AND id_player = %d)"\
 		%(day, playerID))
@@ -371,36 +387,3 @@ def save_kind_prod_action(datas, playerID, day):
 
 def save_kind_buy_recipe_action(datas, playerID, day):
 	print("a implémenter si le temps nous le permet")
-
-
-################## ESSAIE ######################
-
-################################################
-'''
-def define_day(timestamp):
-
-	#Cette fonction permet de calculer le jour actuel
-	#de jeu à partir d'un timestamp en seconde.
-	#
-	oneDayTS = 3600.0 * 24.0
-	timestamp = float(timestamp)
-	
-	#On réalise le calcul en ajoutant +1 car le jeu debute au jour 1
-	the_days = ((timestamp / oneDayTS))# + 1)
-	
-	#Récupération de la partie entière, correspondant au jour de jeu
-	the_days = int(the_days)
-
-	return the_days
-
-def define_hours(timestamp):
-	
-	#Cette fonction permet de définir à partir d'un timestamp
-	#en seconde le nombre d'heures.
-	
-	onehour = 3600.0
-	number_hours = float(timestamp) / onehour
-	number_hours = int(number_hours)
-	return number_hours
-
-'''

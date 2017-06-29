@@ -340,7 +340,7 @@ def join_new_player(playername, gameid):
 	db.close()
 
 	resp = {
-		"name":recipe_default[0]['name_recipe'],
+		"name":playername,
 		"location":{
 			"latitude": player[0]['lat_player'],
 			"longitude":player[0]['lon_player']
