@@ -29,7 +29,6 @@ CREATE TABLE Production(
 	/*Foreign keys*/
 	id_recipe				Int,
 	id_player 				Int,
-	PRIMARY KEY (id_recipe, id_player)
 );
 
 CREATE TABLE Unblock(
