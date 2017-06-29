@@ -26,7 +26,7 @@
                                         "name": $("#username").val(),
                                 }
                                 $.ajax({
-                                        url: "172.30.73:5000/players",
+                                        url: "/players",
                                         type: "POST",
                                         dataType :"json",
                                         data: JSON.stringify(data),
