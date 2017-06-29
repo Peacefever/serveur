@@ -178,8 +178,8 @@ def save_metro():
 	print(timestamp)
 
 	#Récupération de la météo.
-	w_now = ""
-	w_forecast = ""
+	#w_now = ""
+	#w_forecast = ""
 	w_request = data['weather']
 	
 	for aweather in w_request:
@@ -187,7 +187,8 @@ def save_metro():
 			w_now = aweather['weather']
 		if (aweather['dfn'] == 1):
 			w_forecast = aweather['weather']
-
+	print(w_now)
+	print(w_forecast)
 	#Vérification du nombre d'instances Weather dans la base de données
 	db = Db()
 	number_elements = db.select("SELECT COUNT(*) FROM Weather")
@@ -199,6 +200,8 @@ def save_metro():
 	if (number_elements == None or number_elements[0]['count'] == 0):
 		#On crée une instance de Weather qu'on ajoute en base
 		db = Db()
+		print(w_now)
+		print(w_forecast)
 		w_creation = db.select("INSERT INTO Weather (now_weather, tomorrow_weather, day_weather) \
 							VALUES (%(now)s, %(tomorrow)s, %(day)s) RETURNING id_weather", {
 							"now": w_now,
@@ -223,9 +226,11 @@ def save_metro():
 	if (timestamp % 24 == 0):
 		#On incrément le jour courant
 		lastGameDay = lastGameDay + 1
-
+		print("change day")
 		#On crée une nouvelle instance de weather avec les données recues
 		db = Db()
+		print(w_now)
+		print(w_forecast)
 		w_creation = db.select("INSERT INTO Weather(now_weather, tomorrow_weather, day_weather)\
 			VALUES (%(now)s, %(tomorrow)s, %(day)s) RETURNING id_weather", {
 				"now":w_now,
