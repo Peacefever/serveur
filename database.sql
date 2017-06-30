@@ -162,9 +162,9 @@ INSERT INTO Unblock(day_unblock, quantity_unblock, id_player, id_recipe) VALUES
 	(3, 1, 1, 2),
 	(3, 1, 2, 3); */
 
-INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
+/*INSERT INTO Weather(now_weather, tomorrow_weather, day_weather) VALUES
 	('Sunny', 'Cloudy', 1),
-	('Sunny', 'Rainy', 2);
+	('Sunny', 'Rainy', 2);*/
 
 INSERT INTO Map (lat_map, lon_map, lat_span_map, lon_span_map) VALUES 
 	(100, 100.0, 200.0, 200.0);
