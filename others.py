@@ -37,12 +37,8 @@ def get_current_day():
 	current_day = db.select("SELECT day_weather FROM Weather \
 	                         WHERE id_weather = %d" %weather_max_id[0]['max'])
 
-
-
 	db.close()
-	toReturn = current_day[0]['day_weather']
-	
-	return toReturn
+	return current_day[0]['day_weather']
 
 def get_players_ingame(gameid):
 	'''
