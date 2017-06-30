@@ -163,11 +163,11 @@ def get_incomes_sold(playerID, day):
 	for arecipe in recipe_prod:
 		theId = arecipe['id_recipe']
 		thecost = arecipe['price_sale_production']
-
+		
 		solds = db.select("SELECT quantity_sales FROM Sales WHERE (id_player = %d AND day_sales = %d  AND \
 			id_recipe = %d)" %(int(playerID), int(day), int(theId)))
-
-		incomes = incomes + (float(solds[0]['quantity_sales']) * float(thecost))
+		if(solds != None  && solds[0] != None && float(solds[0]['quantity_sales']) != None )
+			incomes = incomes + (float(solds[0]['quantity_sales']) * float(thecost))
 
 	db.close()
 	return incomes
