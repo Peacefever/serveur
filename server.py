@@ -149,11 +149,11 @@ def get_map_player(playerName):
 			"region": get_region(),
 			"ranking": get_ranking(),
 			"itemsByPlayer": {
-				playerName: get_mapitems(theplayer[0]['id_player'])
+				"playerName": get_mapitems(theplayer[0]['id_player'])
 			}
 		},
 		"playerInfo": {
-			playerName : get_player_infos(theplayer[0]['id_player'], default_game, "prod")
+			"playerName" : get_player_infos(theplayer[0]['id_player'], default_game, "prod")
 		}
 	}
 
