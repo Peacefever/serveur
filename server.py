@@ -127,7 +127,7 @@ def save_sales():
 			"p_id": player[0]['id_player'],
 			"r_id": recipe_id[0]['id_recipe']
 			})
-	return ' ', 200
+	return to_make_response(' ', 201)
 		#On suppose que le java nous donne l'ensemble des ventes à la fin de la journée.
 		#Ou même heure par heure (c'est le même fonctionnement)
 		#On crée une instance vente pour chaque produit, pour chaque jour, si celle-ci n'existe pas
