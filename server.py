@@ -54,15 +54,7 @@ def get_map():
 		playerInfo[aplayer['name_player']] = get_player_infos(aplayer['id_player'], default_game, "sold")
 		drinksByPlayer[aplayer['name_player']] = get_drinksOffered(aplayer['id_player'], "sold")
 
-	resp = {
-		map: {
-			"region": get_region(),
-			"ranking":get_ranking(),
-			"itemsByPlayer": itemsByPlayer,
-			"playerInfo":playerInfo,
-			"drinksByPlayer":drinksByPlayer
-		}
-	}
+	resp = "{\"map\": {\"region\": \""+get_region()+"\",\"ranking\":\""+get_ranking()+"\",\"itemsByPlayer\":\""+ itemsByPlayer+"\",	\"playerInfo\":\""+playerInfo+"\",\"drinksByPlayer:\""+drinksByPlayer+\""}}"
 	return json.dumps(resp),200,{'Content-Type':'application/json'}
 
 #curl -X POST -i -d '{"sales":[{"player":"toto", "item":"Limonade", "quantity":10}]}' -H 'Content-Type: application/json' http://localhost:5000/sales
