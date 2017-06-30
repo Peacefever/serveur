@@ -320,7 +320,7 @@ $("#sendbilan").click(function(event){
                 dataType :"json", // Format json
                 success: function(response){ // Succès
 			//var dat = JSON.parse(response.responseText); // Reponse au format json
-			alert(response.playerInfos[$("#name").val()].profit);
+			alert(response['playerInfos'][$("#name").val()]['profit']);
                         $("#profit").val(response['playerInfo']['toto']['cash'])
 			//$("#profit").val(response['playerInfo']['toto'][''])
 			//$("#profit").val(response['playerInfo']['toto']['cash'])
