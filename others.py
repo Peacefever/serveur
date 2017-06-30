@@ -347,8 +347,8 @@ def save_kind_prod_action(datas, playerID, day):
 
 		print("le choix existe")
 		db.execute("UPDATE Production SET quantity_production = %d, price_sale_production = %f\
-			WHERE (id_recipe = %d AND id_player = %d)" %(theprod_quantity, theprice_selling,\
-				recipe[0]['id_recipe'], playerID))
+			WHERE (id_recipe = %d AND id_player = %d)" %(int(theprod_quantity), int(theprice_selling),\
+				in(recipe[0]['id_recipe']), int(playerID)))
 
 		#Vérification de l'update
 		print(db.select("SELECT * FROM Production WHERE (id_player = %d AND id_recipe = %d)"\
