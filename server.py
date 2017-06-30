@@ -55,12 +55,12 @@ def get_map():
 		drinksByPlayer[aplayer['name_player']] = get_drinksOffered(aplayer['id_player'], "sold")
 
 	resp = {
-		"map": {
-			"region": get_region(),
-			"ranking":get_ranking(),
-			"itemsByPlayer": itemsByPlayer,
-			"playerInfo":playerInfo,
-			"drinksByPlayer":drinksByPlayer
+		map: {
+			region: get_region(),
+			ranking:get_ranking(),
+			itemsByPlayer: itemsByPlayer,
+			playerInfo:playerInfo,
+			drinksByPlayer:drinksByPlayer
 		}
 	}
 	return to_make_response(resp, 200)
