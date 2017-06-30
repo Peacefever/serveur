@@ -131,7 +131,7 @@ def save_sales():
 		#On suppose que le java nous donne l'ensemble des ventes à la fin de la journée.
 		#Ou même heure par heure (c'est le même fonctionnement)
 		#On crée une instance vente pour chaque produit, pour chaque jour, si celle-ci n'existe pas
-		exist = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND id_recipe = %(r_id)s)" , {
+		'''exist = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND id_recipe = %(r_id)s)" , {
 			"p_id":player[0]['id_player'],
 			"r_id":recipe_id[0]['id_recipe']
 			})
@@ -164,7 +164,7 @@ def save_sales():
 		print(db.select("SELECT * FROM Sales"))
 		db.close()
 
-	return to_make_response(' ', 201)
+	return to_make_response(' ', 201)'''
 
 #Client HTML
 @app.route('/map/<playerName>', methods = ['GET'])
