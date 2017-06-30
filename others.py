@@ -43,10 +43,10 @@ def get_current_day():
 	if (current_day == None or len(current_day) == 0):
 		return -1
 
-	
-	toReturn = current_day
-	toReturn = toReturn - 1
 	db.close()
+	toReturn = int(current_day[0]['day_weather'])
+	toReturn = int(toReturn) - int(1)
+	
 	return toReturn
 
 def get_players_ingame(gameid):
