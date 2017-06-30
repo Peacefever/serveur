@@ -101,6 +101,15 @@ def save_sales():
 		the_player = asold['player']
 		the_item = asold['item'] #C'est en fait une recette
 		the_quantity = asold['quantity']
+		
+		db.execute("INSERT INTO Sales (quantity_sales, day_sales, id_player, id_recipe) VALUES \
+			(%(quantity)s, %(day)s, %(p_id)s, %(r_id)s)", {
+			"quantity":the_quantity,
+			"day":currentday,
+			"p_id": player[0]['id_player'],
+			"r_id": recipe_id[0]['id_recipe']
+			})
+	return ' ', 200
 
 		#Récupération de l'id du serveur à partir de son nom
 		db = Db()
