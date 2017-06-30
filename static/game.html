@@ -321,8 +321,8 @@ $("#sendbilan").click(function(event){
                 success: function(response){ // Succès
 			//var dat = JSON.parse(response); // Reponse au format json
 			//alert(response['playerInfo'][$("#name").val()].cash_player);
-                        $("#profit").val(response.playerInfo.playerName.cash)
-			//$("#profit").val(response['playerInfo']['toto'][''])
+                        $("#nbreboissonvendues").val(response.playerInfo.playerName.sales);
+			$("#profit").val(response.playerInfo.playerName.profit);
 			//$("#profit").val(response['playerInfo']['toto']['cash'])
                 },
         });
