@@ -22,13 +22,13 @@ CREATE TABLE Recipe(
 );
 
 CREATE TABLE Production(
+	id_production 				SERIAL PRIMARY KEY,
 	quantity_production 	Int,
 	price_sale_production	Float, 			/*Prix de vente d'une recette fixé par le joueur*/
 	day_production			Int,
 	/*Foreign keys*/
 	id_recipe				Int,
-	id_player 				Int,
-	PRIMARY KEY (id_recipe, id_player)
+	id_player 				Int
 );
 
 CREATE TABLE Unblock(
