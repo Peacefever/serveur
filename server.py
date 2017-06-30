@@ -278,7 +278,7 @@ def save_metro():
 							VALUES (%(now)s, %(tomorrow)s, %(day)s) RETURNING id_weather", {
 							"now": data.weather[0].weather,
 							"tomorrow": data.weather[1].weather,
-							"day": get_current_day(data.timestamp)
+							"day": get_current_day()+1
 							})
 	print(data)
 	#data = {"timestamp":"1","weather":[{"dfn":0, "weather":"sunny"}, {"dfn":1, "weather":"rainny"}]}
