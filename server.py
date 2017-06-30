@@ -128,43 +128,6 @@ def save_sales():
 			"r_id": recipe_id[0]['id_recipe']
 			})
 	return to_make_response(' ', 201)
-		#On suppose que le java nous donne l'ensemble des ventes à la fin de la journée.
-		#Ou même heure par heure (c'est le même fonctionnement)
-		#On crée une instance vente pour chaque produit, pour chaque jour, si celle-ci n'existe pas
-		'''exist = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND id_recipe = %(r_id)s)" , {
-			"p_id":player[0]['id_player'],
-			"r_id":recipe_id[0]['id_recipe']
-			})
-
-		#L'instance n'existe donc pas
-		if (exist == None or len(exist) == 0):
-			#Donc on la crée
-			db.execute("INSERT INTO Sales (quantity_sales, day_sales, id_player, id_recipe) VALUES \
-				(%(quantity)s, %(day)s, %(p_id)s, %(r_id)s)", {
-				"quantity":the_quantity,
-				"day":currentday,
-				"p_id": player[0]['id_player'],
-				"r_id": recipe_id[0]['id_recipe']
-				})
-
-			#Verfification de la création
-			exist2 = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND id_recipe = %(r_id)s)" , {
-				"p_id":player[0]['id_player'],
-				"r_id":recipe_id[0]['id_recipe']
-				})
-			print("INSERT")
-			print(db.select("SELECT * FROM Sales"))
-			return to_make_response(' ', 201)
-
-		#Dans le cas où l'isntance existe, on l'update
-		db.execute("UPDATE Sales SET quantity_sales = %d, day_sales = %d WHERE (id_player = %d\
-		 AND id_recipe = %d)" %(the_quantity, currentday, player[0]['id_player'], recipe_id[0]["id_recipe"]))
-		
-		print("CE QUI EST EN update")
-		print(db.select("SELECT * FROM Sales"))
-		db.close()
-
-	return to_make_response(' ', 201)'''
 
 #Client HTML
 @app.route('/map/<playerName>', methods = ['GET'])
