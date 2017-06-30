@@ -63,6 +63,7 @@ def get_map():
  			"drinksByPlayer":drinksByPlayer
   		}
   	}
+	print resp
 	return json.dumps(resp),200,{'Content-Type':'application/json'}
 
 #curl -X POST -i -d '{"sales":[{"player":"toto", "item":"Limonade", "quantity":10}]}' -H 'Content-Type: application/json' http://localhost:5000/sales
