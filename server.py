@@ -274,6 +274,12 @@ def save_metro():
 	concernant la météo et le temps
 	'''
 	data = request.get_json()
+	db.execute("INSERT INTO Weather (now_weather, tomorrow_weather, day_weather) \
+							VALUES (%(now)s, %(tomorrow)s, %(day)s) RETURNING id_weather", {
+							"now": data.weather[0].weather,
+							"tomorrow": data.weather[1].weather,
+							"day": get_current_day(data.timestamp)
+							})
 	print(data)
 	#data = {"timestamp":"1","weather":[{"dfn":0, "weather":"sunny"}, {"dfn":1, "weather":"rainny"}]}
 
