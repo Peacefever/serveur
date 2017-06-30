@@ -44,8 +44,7 @@ def get_current_day():
 		return -1
 
 	db.close()
-	toReturn = int(current_day[0]['day_weather'])
-	toReturn = int(toReturn) - int(1)
+	toReturn = current_day[0]['day_weather']
 	
 	return toReturn
 
