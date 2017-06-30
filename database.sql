@@ -22,13 +22,13 @@ CREATE TABLE Recipe(
 );
 
 CREATE TABLE Production(
-	id_production 				SERIAL PRIMARY KEY,
 	quantity_production 	Int,
 	price_sale_production	Float, 			/*Prix de vente d'une recette fixé par le joueur*/
 	day_production			Int,
 	/*Foreign keys*/
 	id_recipe				Int,
-	id_player 				Int
+	id_player 				Int,
+	PRIMARY KEY (id_recipe, id_player)
 );
 
 CREATE TABLE Unblock(
@@ -41,12 +41,12 @@ CREATE TABLE Unblock(
 );
 
 CREATE TABLE Sales(
-	id_sales 				SERIAL PRIMARY KEY,
 	quantity_sales			Int,
 	day_sales				Int,
 	/*Foreign keys*/
 	id_player				Int,
-	id_recipe				Int
+	id_recipe				Int,
+	PRIMARY KEY (id_player, id_recipe)
 );
 
 CREATE TABLE Player(
@@ -122,8 +122,8 @@ ALTER TABLE Adspace ADD CONSTRAINT Fk_addspace_id_player FOREIGN KEY (id_player)
 /*a*/
 
 INSERT INTO Player (name_player, lon_player, lat_player, cash_player, rayon_player, isConnected_player,ingame_player) VALUES
-	('toto', 50, 10, 100, 200.0, true, 1), 
-	('babar', 250, 280, 200, 100.0, true, 1);
+	('toto', 75, 10, 100, 100.0, true, 1), 
+	('babar', 50, 25, 200, 100.0, true, 1);
 
 INSERT INTO Recipe (name_recipe, price_buying_recipe, cost_prod_recipe, isCold_recipe, hasAlcohol_recipe, isUnblocked_recipe, id_player) VALUES
 	('Limonade', 10.0, 2.0, true, false, true,1),

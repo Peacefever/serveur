@@ -9,12 +9,7 @@ default_rayon = 10.0
 default_recipe_id = 1
 default_influency_pub = 10.0
 default_price_pub = 20.0
-#timestamp = 0
 
-'''
-def set_current_day(timeReceived):
-	timestamp = timeReceived
-'''
 def to_make_response(data, status=200):
 	'''
 	Formattage de la réponse du serveur
@@ -30,13 +25,6 @@ def get_current_day():
 	'''
 	Obtention du jour de jeu courant
 	'''
-	'''
-	var day = 0
-	while(timestamp >= 24):
-		day = day + 1
-		timestamp = timestamp - 24
-	return day/2'''
-	
 	db = Db()
 	#On regarde s'il y a quelque chose dans la table
 	count = db.select("SELECT COUNT(*) FROM Weather")
@@ -57,7 +45,7 @@ def get_current_day():
 
 	db.close()
 	return current_day[0]['day_weather']
-	
+
 def get_players_ingame(gameid):
 	'''
 	Obtention d'une liste de l'ensemble des joueurs d'une partie
@@ -358,12 +346,9 @@ def save_kind_prod_action(datas, playerID, day):
 			})
 
 		print("le choix existe")
-		print recipe[0]['id_recipe']
-		print playerID
-		print day
 		db.execute("UPDATE Production SET quantity_production = %d, price_sale_production = %f\
-			WHERE (id_recipe = %d AND id_player = %d AND day_production = %d)" %(int(theprod_quantity), int(theprice_selling),\
-				int(recipe[0]['id_recipe']), int(playerID), int(day)))
+			WHERE (id_recipe = %d AND id_player = %d)" %(theprod_quantity, theprice_selling,\
+				recipe[0]['id_recipe'], playerID))
 
 		#Vérification de l'update
 		print(db.select("SELECT * FROM Production WHERE (id_player = %d AND id_recipe = %d)"\

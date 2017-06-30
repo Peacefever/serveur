@@ -7,15 +7,15 @@ import json
 from Map import *
 from others import *
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__, static_url_path ='')
 app.debug = True
 CORS(app)
 
 timestamp = 0
 
-@app.route("/")
+@app.route('/')
 def connexion():
-   return app.send_static_file('connexion.html')
+	return app.send_static_file("connexion.html")
 
 #Database
 #Fonctionnel
@@ -129,28 +129,28 @@ def save_sales():
 			})
 
 		#L'instance n'existe donc pas
-		#if (exist == None or len(exist) == 0):
+		if (exist == None or len(exist) == 0):
 			#Donc on la crée
-		db.execute("INSERT INTO Sales (quantity_sales, day_sales, id_player, id_recipe) VALUES \
-			(%(quantity)s, %(day)s, %(p_id)s, %(r_id)s)", {
-			"quantity":the_quantity,
-			"day":currentday,
-			"p_id": player[0]['id_player'],
-			"r_id": recipe_id[0]['id_recipe']
-			})
+			db.execute("INSERT INTO Sales (quantity_sales, day_sales, id_player, id_recipe) VALUES \
+				(%(quantity)s, %(day)s, %(p_id)s, %(r_id)s)", {
+				"quantity":the_quantity,
+				"day":currentday,
+				"p_id": player[0]['id_player'],
+				"r_id": recipe_id[0]['id_recipe']
+				})
 
-		#Verfification de la création
-		exist2 = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND id_recipe = %(r_id)s)" , {
-			"p_id":player[0]['id_player'],
-			"r_id":recipe_id[0]['id_recipe']
-			})
-		print("INSERT")
-		print(db.select("SELECT * FROM Sales"))
-		return to_make_response(' ', 201)
+			#Verfification de la création
+			exist2 = db.select("SELECT * FROM Sales WHERE (id_player = %(p_id)s AND id_recipe = %(r_id)s)" , {
+				"p_id":player[0]['id_player'],
+				"r_id":recipe_id[0]['id_recipe']
+				})
+			print("INSERT")
+			print(db.select("SELECT * FROM Sales"))
+			return to_make_response(' ', 201)
 
 		#Dans le cas où l'isntance existe, on l'update
-		#db.execute("UPDATE Sales SET quantity_sales = %d, day_sales = %d WHERE (id_player = %d\
-		# AND id_recipe = %d)" %(the_quantity, currentday, player[0]['id_player'], recipe_id[0]["id_recipe"]))
+		db.execute("UPDATE Sales SET quantity_sales = %d, day_sales = %d WHERE (id_player = %d\
+		 AND id_recipe = %d)" %(the_quantity, currentday, player[0]['id_player'], recipe_id[0]["id_recipe"]))
 		
 		print("CE QUI EST EN update")
 		print(db.select("SELECT * FROM Sales"))
@@ -287,7 +287,7 @@ def save_metro():
 	global timestamp
 	timestamp = int(data['timestamp'])   #timestamp + 1 #int(data['timestamp']) #Jusqu'a ce l'on est 24
 	print(timestamp)
-	set_current_day(timestamp)
+	
 	#Récupération de la météo.
 	w_now = data['weather'][0]['weather']
 	w_forecast = data['weather'][1]['weather']
@@ -526,4 +526,4 @@ def save_action_choices(playerName):
 	return to_make_response(resp)
 
 if __name__ == '__main__':
-	app.run(host = "0.0.0.0", port = 5000) 
+	app.run() 
