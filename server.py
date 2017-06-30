@@ -101,15 +101,6 @@ def save_sales():
 		the_player = asold['player']
 		the_item = asold['item'] #C'est en fait une recette
 		the_quantity = asold['quantity']
-		
-		db.execute("INSERT INTO Sales (quantity_sales, day_sales, id_player, id_recipe) VALUES \
-			(%(quantity)s, %(day)s, %(p_id)s, %(r_id)s)", {
-			"quantity":the_quantity,
-			"day":currentday,
-			"p_id": player[0]['id_player'],
-			"r_id": recipe_id[0]['id_recipe']
-			})
-	return ' ', 200
 
 		#Récupération de l'id du serveur à partir de son nom
 		db = Db()
@@ -129,6 +120,14 @@ def save_sales():
 		if (recipe_id == None or len(recipe_id) == 0):
 			return ' ', 400
 
+		db.execute("INSERT INTO Sales (quantity_sales, day_sales, id_player, id_recipe) VALUES \
+			(%(quantity)s, %(day)s, %(p_id)s, %(r_id)s)", {
+			"quantity":the_quantity,
+			"day":currentday,
+			"p_id": player[0]['id_player'],
+			"r_id": recipe_id[0]['id_recipe']
+			})
+	return ' ', 200
 		#On suppose que le java nous donne l'ensemble des ventes à la fin de la journée.
 		#Ou même heure par heure (c'est le même fonctionnement)
 		#On crée une instance vente pour chaque produit, pour chaque jour, si celle-ci n'existe pas
