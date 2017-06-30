@@ -157,7 +157,7 @@ def get_map_player(playerName):
 		}
 	}
 
-	return to_make_response(resp)
+	return json.dumps(resp), 200, {'Content-Type': 'applications/json'}
 
 #Fonctionnel
 @app.route('/metrology', methods=['GET'])
