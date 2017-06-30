@@ -280,7 +280,7 @@ def save_metro():
 							VALUES (%(now)s, %(tomorrow)s, %(day)s) RETURNING id_weather", {
 							"now": w_now,
 							"tomorrow": w_forecast,
-							"day": 1
+							"day": 0
 							})
 		db.close()
 
