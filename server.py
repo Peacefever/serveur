@@ -56,11 +56,11 @@ def get_map():
 
 	resp = {
 		map: {
-			region: get_region(),
-			ranking:get_ranking(),
-			itemsByPlayer: itemsByPlayer,
-			playerInfo:playerInfo,
-			drinksByPlayer:drinksByPlayer
+			"region": get_region(),
+			"ranking":get_ranking(),
+			"itemsByPlayer": itemsByPlayer,
+			"playerInfo":playerInfo,
+			"drinksByPlayer":drinksByPlayer
 		}
 	}
 	return json.dumps(resp),200,{'Content-Type':'application/json'}
