@@ -29,19 +29,15 @@ def get_current_day():
 	#On regarde s'il y a quelque chose dans la table
 	count = db.select("SELECT COUNT(*) FROM Weather")
 
-	if (count[0]['count'] == 0):
-		return -1
 
 	weather_max_id = db.select("SELECT MAX(id_weather) FROM Weather")
 
-	if (weather_max_id == None or len(weather_max_id) == 0):
-		return -1
+
 
 	current_day = db.select("SELECT day_weather FROM Weather \
 	                         WHERE id_weather = %d" %weather_max_id[0]['max'])
 
-	if (current_day == None or len(current_day) == 0):
-		return -1
+
 
 	db.close()
 	toReturn = current_day[0]['day_weather']
